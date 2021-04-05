@@ -27,3 +27,15 @@ fragment Industry on Industry {
   id
   name
 }
+
+
+mutation ChangeValue ($id:Int!, $percentage: Int!) {
+  changeValue(input: {
+    id: $id
+    percentage: $percentage
+  }){
+      share {
+        ... Share
+      }
+  }
+}

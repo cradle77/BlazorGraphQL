@@ -1,10 +1,15 @@
 ﻿schema {
   query: SharesQuery
+  mutation: ShareMutation
 }
 
 type SharesQuery {
   industries: [Industry]
   shares(first: Int after: String last: Int before: String industryId: Int where: ShareFilterInput order: [ShareSortInput!]): ShareConnection
+}
+
+type ShareMutation {
+  changeValue(input: ChangeValueInput): ChangeValuePayload
 }
 
 input ShareFilterInput {
@@ -123,9 +128,18 @@ type ShareEdge {
   node: Share
 }
 
+type ChangeValuePayload {
+  share: Share
+}
+
 type Industry {
   id: Int!
   name: String
+}
+
+input ChangeValueInput {
+  id: Int!
+  percentage: Int!
 }
 
 "The built-in `Decimal` scalar type."
