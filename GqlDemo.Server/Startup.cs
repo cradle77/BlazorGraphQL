@@ -1,4 +1,7 @@
 using GqlDemo.Server.Data;
+using GqlDemo.Server.Queries;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Playground;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,10 +28,16 @@ namespace GqlDemo.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MyContext>(options =>
+            services.AddCors();
+
+            services.AddGraphQLServer()
+                .AddQueryType<SharesQuery>()
+                .AddFiltering()
+                .AddSorting();
+
+            services.AddPooledDbContextFactory<MyContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MyContext")));
 
-            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,14 +55,18 @@ namespace GqlDemo.Server
                 config.AllowAnyHeader();
             });
 
+            app.UsePlayground(new PlaygroundOptions()
+            {
+                Path = "/playground",
+                QueryPath = "/graphql",
+                SubscriptionPath = "/graphql"
+            });
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapGraphQL();
             });
         }
     }
