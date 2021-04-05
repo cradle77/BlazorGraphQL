@@ -14,7 +14,7 @@
         }
         else
         {
-            <option>(all)</option>
+            <option value="0">(all)</option>
             @foreach (var industry in _industries)
             {
                 <option value="@industry.Id">@industry.Name</option>
@@ -62,7 +62,9 @@
 
     private async Task LoadDataAsync(ChangeEventArgs e)
     {
-        _industryId = e.Value == null ? (int?)null : int.Parse(e.Value.ToString());
+        var selectedValue = int.Parse(e.Value.ToString());
+
+        _industryId = selectedValue == 0 ? (int?)null : selectedValue;
 
         await _virtualize.RefreshDataAsync();
 
