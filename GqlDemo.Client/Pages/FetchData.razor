@@ -1,11 +1,11 @@
 ﻿@page "/fetchdata"
-@inject HttpClient Http
+@inject ISharesClient SharesClient
 
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
 
-@if (forecasts == null)
+@if (shares == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -14,20 +14,18 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>CompanyName</th>
+                <th>Industry</th>
+                <th>Value</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var share in shares)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@share.CompanyName</td>
+                    <td>@share.Industry?.Name</td>
+                    <td>@share.Value.ToString("c")</td>
                 </tr>
             }
         </tbody>
@@ -35,21 +33,12 @@ else
 }
 
 @code {
-    private WeatherForecast[] forecasts;
+    private IShare[] shares;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
-    }
+        var query = await this.SharesClient.GetShares.ExecuteAsync(first: null, last: null);
 
-    public class WeatherForecast
-    {
-        public DateTime Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public string Summary { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        shares = query.Data.Shares.Nodes.ToArray();
     }
 }

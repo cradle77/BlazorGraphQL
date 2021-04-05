@@ -1,0 +1,29 @@
+﻿query GetShares ($first:Int, $last:Int) {
+  shares(first:$first, last:$last) {
+    totalCount
+
+    nodes {
+      ... Share
+    }
+  }
+}
+
+query GetIndustries {
+  industries {
+    ... Industry
+  }
+}
+
+fragment Share on Share {
+  id,
+  companyName,
+  value,
+  industry {
+    ... Industry
+  }
+}
+
+fragment Industry on Industry {
+  id
+  name
+}

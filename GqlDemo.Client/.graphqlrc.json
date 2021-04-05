@@ -4,6 +4,7 @@
   "extensions": {
     "strawberryShake": {
       "name": "SharesClient",
+      "namespace": "GqlDemo.Client",
       "url": "https://localhost:5001/graphql",
       "dependencyInjection": true
     }
