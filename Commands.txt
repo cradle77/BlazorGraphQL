@@ -1,0 +1,3 @@
+dotnet new tool-manifest
+
+dotnet tool install StrawberryShake.Tools --local

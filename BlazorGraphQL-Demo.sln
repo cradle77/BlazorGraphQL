@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30803.129
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GqlDemo.Server", "GqlDemo.Server\GqlDemo.Server.csproj", "{D955C941-1F8B-4673-8238-26A35B9F4E31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GqlDemo.Server", "GqlDemo.Server\GqlDemo.Server.csproj", "{D955C941-1F8B-4673-8238-26A35B9F4E31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GqlDemo.Client", "GqlDemo.Client\GqlDemo.Client.csproj", "{22E266EF-7FD3-42E3-86F3-67F437A0C703}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GqlDemo.Client", "GqlDemo.Client\GqlDemo.Client.csproj", "{22E266EF-7FD3-42E3-86F3-67F437A0C703}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleQueries", "SampleQueries", "{C43F013C-BB97-42CA-B0AE-36BE88B6B7CC}"
 	ProjectSection(SolutionItems) = preProject
+		Commands.txt = Commands.txt
+		global.json = global.json
 		SampleQueries.txt = SampleQueries.txt
 	EndProjectSection
 EndProject

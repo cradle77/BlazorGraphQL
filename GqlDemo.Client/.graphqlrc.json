@@ -1,0 +1,11 @@
+{
+  "schema": "schema.graphql",
+  "documents": "**/*.graphql",
+  "extensions": {
+    "strawberryShake": {
+      "name": "SharesClient",
+      "url": "https://localhost:5001/graphql",
+      "dependencyInjection": true
+    }
+  }
+}
