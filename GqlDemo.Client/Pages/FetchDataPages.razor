@@ -1,0 +1,41 @@
+﻿@page "/fetchdatapages"
+@inject ISharesClient SharesClient
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>CompanyName</th>
+            <th>Industry</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <Virtualize Context="share" ItemsProvider="GetSharesAsync">
+            <ItemContent>
+                <tr>
+                    <td>@share.Id @share.CompanyName</td>
+                    <td>@share.Industry?.Name</td>
+                    <td>@share.Value.ToString("c")</td>
+                </tr>
+            </ItemContent>
+            <Placeholder>
+                <p><em>Loading....</em></p>
+            </Placeholder>
+        </Virtualize>
+    </tbody>
+</table>
+
+@code {
+    private async ValueTask<ItemsProviderResult<IShare>> GetSharesAsync(ItemsProviderRequest request)
+    {
+        var query = await this.SharesClient.GetShares.ExecuteAsync(first: request.Count + request.StartIndex, last: request.Count );
+
+        var shares = query.Data.Shares.Nodes.ToArray();
+
+        return new ItemsProviderResult<IShare>(shares, query.Data.Shares.TotalCount);
+    }
+}
