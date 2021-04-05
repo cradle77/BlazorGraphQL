@@ -4,7 +4,7 @@
 
 type SharesQuery {
   industries: [Industry]
-  shares(first: Int after: String last: Int before: String where: ShareFilterInput order: [ShareSortInput!]): ShareConnection
+  shares(first: Int after: String last: Int before: String industryId: Int where: ShareFilterInput order: [ShareSortInput!]): ShareConnection
 }
 
 input ShareFilterInput {

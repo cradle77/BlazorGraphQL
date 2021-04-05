@@ -1,0 +1,80 @@
+﻿@page "/fetchdatafilter"
+@inject ISharesClient SharesClient
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p>
+    Select industry:
+    <select @onchange="@LoadDataAsync">
+        @if (_industries == null)
+        {
+            <option>... loading ...</option>
+        }
+        else
+        {
+            <option>(all)</option>
+            @foreach (var industry in _industries)
+            {
+                <option value="@industry.Id">@industry.Name</option>
+            }
+        }
+    </select>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>CompanyName</th>
+            <th>Industry</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <Virtualize @ref="_virtualize" Context="share" ItemsProvider="GetSharesAsync">
+            <ItemContent>
+                <tr>
+                    <td>@share.CompanyName</td>
+                    <td>@share.Industry?.Name</td>
+                    <td>@share.Value.ToString("c")</td>
+                </tr>
+            </ItemContent>
+            <Placeholder>
+                <p><em>Loading....</em></p>
+            </Placeholder>
+        </Virtualize>
+    </tbody>
+</table>
+
+@code {
+    private int? _industryId;
+    private IIndustry[] _industries;
+
+    public Virtualize<IShare> _virtualize;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var query = await this.SharesClient.GetIndustries.ExecuteAsync();
+
+        _industries = query.Data.Industries.ToArray();
+    }
+
+    private async Task LoadDataAsync(ChangeEventArgs e)
+    {
+        _industryId = e.Value == null ? (int?)null : int.Parse(e.Value.ToString());
+
+        await _virtualize.RefreshDataAsync();
+
+        this.StateHasChanged();
+    }
+
+    private async ValueTask<ItemsProviderResult<IShare>> GetSharesAsync(ItemsProviderRequest request)
+    {
+        var query = await this.SharesClient.GetShares.ExecuteAsync(first: request.Count + request.StartIndex, last: request.Count, industryId:_industryId);
+
+        var shares = query.Data.Shares.Nodes.ToArray();
+
+        return new ItemsProviderResult<IShare>(shares, query.Data.Shares.TotalCount);
+    }
+}
