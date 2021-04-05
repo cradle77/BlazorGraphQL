@@ -18,7 +18,7 @@ namespace GqlDemo.Server.Queries
 
         [GraphQLName("shares")]
         [UseDbContext(typeof(MyContext))]
-        [UsePaging(IncludeTotalCount = true), UseFiltering, UseSorting]
+        [UsePaging(IncludeTotalCount = true, MaxPageSize = 100), UseFiltering, UseSorting]
         public IQueryable<Share> GetAllShares([ScopedService] MyContext dbcontext)
         {
             return dbcontext.Shares.Include(x => x.Industry);
