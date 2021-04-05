@@ -1,5 +1,6 @@
 ﻿@page "/fetchdata"
 @inject ISharesClient SharesClient
+@implements IDisposable
 
 <h1>Weather forecast</h1>
 
@@ -35,10 +36,17 @@ else
 
 @code {
     private List<IShare> shares;
+    private IDisposable session;
 
     protected override async Task OnInitializedAsync()
     {
-        var query = await this.SharesClient.GetShares.ExecuteAsync(first: null, last: null, industryId:null);
+        session = this.SharesClient
+            .OnShareValueChanged
+            .Watch()
+            .Subscribe(x => this.ReplaceShareById(x.Data.OnShareValueChanged));
+
+        var query = await this.SharesClient
+            .GetShares.ExecuteAsync(first: null, last: null, industryId: null);
 
         shares = query.Data.Shares.Nodes.Cast<IShare>().ToList();
     }
@@ -49,8 +57,25 @@ else
     {
         var command = await this.SharesClient.ChangeValue.ExecuteAsync(share.Id, random.Next(-20, +20));
 
-        var index = shares.IndexOf(share);
+        this.ReplaceShareById(command.Data.ChangeValue.Share);
+    }
 
-        shares[index] = (IShare)command.Data.ChangeValue.Share;
+    private void ReplaceShareById(IShare share)
+    {
+        var original = shares.Single(x => x.Id == share.Id);
+
+        var index = shares.IndexOf(original);
+
+        shares[index] = (IShare)share;
+
+        this.StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        if (session != null)
+        {
+            session.Dispose();
+        }
     }
 }

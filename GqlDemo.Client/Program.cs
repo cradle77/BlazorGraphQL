@@ -17,7 +17,8 @@ namespace GqlDemo.Client
 
             builder.Services
                 .AddSharesClient()
-                .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://localhost:5001/graphql"));
+                .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://localhost:5001/graphql"))
+                .ConfigureWebSocketClient(client => client.Uri = new Uri("wss://localhost:5001/graphql")); ;
 
             await builder.Build().RunAsync();
         }
