@@ -39,3 +39,9 @@ mutation ChangeValue ($id:Int!, $percentage: Int!) {
       }
   }
 }
+
+subscription OnShareValueChanged {
+  onShareValueChanged {
+    ... Share
+  }
+}

@@ -1,6 +1,7 @@
 using GqlDemo.Server.Data;
 using GqlDemo.Server.Mutations;
 using GqlDemo.Server.Queries;
+using GqlDemo.Server.Subscriptions;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Playground;
 using Microsoft.AspNetCore.Builder;
@@ -35,7 +36,9 @@ namespace GqlDemo.Server
                 .AddQueryType<SharesQuery>()
                 .AddFiltering()
                 .AddSorting()
-                .AddMutationType<ShareMutation>();
+                .AddMutationType<ShareMutation>()
+                .AddInMemorySubscriptions()
+                .AddSubscriptionType<SharesSubscription>();
 
             services.AddPooledDbContextFactory<MyContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MyContext")));
@@ -49,6 +52,11 @@ namespace GqlDemo.Server
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            var options = new WebSocketOptions();
+            options.AllowedOrigins.Add("https://localhost:5001");
+            options.AllowedOrigins.Add("https://localhost:5002");
+            app.UseWebSockets(options);
 
             app.UseCors(config => 
             {

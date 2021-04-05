@@ -1,6 +1,7 @@
 ﻿schema {
   query: SharesQuery
   mutation: ShareMutation
+  subscription: SharesSubscription
 }
 
 type SharesQuery {
@@ -10,6 +11,10 @@ type SharesQuery {
 
 type ShareMutation {
   changeValue(input: ChangeValueInput): ChangeValuePayload
+}
+
+type SharesSubscription {
+  onShareValueChanged: Share
 }
 
 input ShareFilterInput {
@@ -128,6 +133,11 @@ type ShareEdge {
   node: Share
 }
 
+input ChangeValueInput {
+  id: Int!
+  percentage: Int!
+}
+
 type ChangeValuePayload {
   share: Share
 }
@@ -135,11 +145,6 @@ type ChangeValuePayload {
 type Industry {
   id: Int!
   name: String
-}
-
-input ChangeValueInput {
-  id: Int!
-  percentage: Int!
 }
 
 "The built-in `Decimal` scalar type."
