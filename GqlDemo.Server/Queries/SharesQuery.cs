@@ -2,6 +2,7 @@
 using HotChocolate;
 using HotChocolate.Data;
 using HotChocolate.Types;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace GqlDemo.Server.Queries
@@ -20,7 +21,7 @@ namespace GqlDemo.Server.Queries
         [UsePaging, UseFiltering, UseSorting]
         public IQueryable<Share> GetAllShares([ScopedService] MyContext dbcontext)
         {
-            return dbcontext.Shares;
+            return dbcontext.Shares.Include(x => x.Industry);
         }
     }
 }
