@@ -1,5 +1,5 @@
-query GetShares ($first:Int, $last:Int) {
-  shares(first:$first, last:$last) {
+query GetShares ($first:Int, $last:Int, $industryId:Int) {
+  shares(first:$first, last:$last, industryId: $industryId) {
     totalCount
 
     nodes {
