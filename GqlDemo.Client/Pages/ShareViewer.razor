@@ -17,20 +17,25 @@
     [Parameter]
     public EventCallback<IShare> OnClick { get; set; }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnParametersSetAsync()
     {
-        if (!firstRender && this.Share.Value != _previousValue)
+        if (_previousValue != null && _previousValue != this.Share.Value)
         {
             if (this.Share.Value > _previousValue)
             {
+                Console.WriteLine("green");
                 _class = "blink-green";
             }
             else
             {
+                Console.WriteLine("red");
                 _class = "blink-red";
             }
         }
-
+        else
+        {
+            _class = string.Empty;
+        }
         _previousValue = this.Share.Value;
     }
 }
