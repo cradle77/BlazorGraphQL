@@ -51,8 +51,6 @@ else
     private async Task ChangeValueAsync(IShare share)
     {
         var command = await this.SharesClient.ChangeValue.ExecuteAsync(share.Id, random.Next(-20, +20));
-
-        this.ReplaceShareById(command.Data.ChangeValue.Share);
     }
 
     private void ReplaceShareById(IShare share)
