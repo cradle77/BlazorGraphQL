@@ -30,6 +30,20 @@ a, .btn-link {
     color: red;
 }
 
+.background-red {
+    background: #F00;
+}
+
+.background-green {
+    background: #26b050;
+}
+
+.divtoBlink {
+    -webkit-transition: background 0.5s ease-in-out;
+    -ms-transition: background 0.5s ease-in-out;
+    transition: background 0.5s ease-in-out;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

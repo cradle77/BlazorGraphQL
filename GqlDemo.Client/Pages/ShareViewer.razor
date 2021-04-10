@@ -1,0 +1,51 @@
+﻿@inject IJSRuntime js
+
+<tr>
+    <td>@this.Share.CompanyName</td>
+    <td>@this.Share.Industry?.Name</td>
+    <td class="@_class" @ref="_valueCell">@this.Share.Value.ToString("c")</td>
+    <td><button class="btn btn-primary" @onclick="() => OnClick.InvokeAsync(this.Share)">Change!</button></td>
+</tr>
+
+@code {
+    private ElementReference _valueCell;
+    private IShare _share;
+    private decimal? _previousValue;
+    private string _class = "divtoBlink";
+
+    [Parameter]
+    public IShare Share
+    {
+        get { return _share; }
+        set
+        {
+            _share = value;
+        }
+    }
+
+    [Parameter]
+    public EventCallback<IShare> OnClick { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender && Share.Value != _previousValue)
+        {
+            if (Share.Value > _previousValue)
+            {
+                _class = "divtoBlink background-green";
+            }
+            else
+            {
+                _class = "divtoBlink background-red";
+            }
+
+            await Task.Delay(500);
+
+            _class = "divtoBlink";
+
+            this.StateHasChanged();
+        }
+
+        _previousValue = _share.Value;
+    }
+}
