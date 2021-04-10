@@ -1,3 +1,5 @@
 dotnet new tool-manifest
 
 dotnet tool install StrawberryShake.Tools --local
+
+dotnet graphql init https://localhost:5001/graphql -n SharesClient
