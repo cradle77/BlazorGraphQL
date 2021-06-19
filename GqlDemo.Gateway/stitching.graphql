@@ -1,0 +1,3 @@
+﻿extend type Investor {
+  industry: Industry @delegate(schema:"shares", path: "industryById(id: $fields:industryId)")
+}
