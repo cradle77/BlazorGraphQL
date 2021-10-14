@@ -40,8 +40,7 @@ else
             .Watch()
             .Subscribe(x => this.ReplaceShareById(x.Data.OnShareValueChanged));
 
-        var query = await this.SharesClient
-            .GetShares.ExecuteAsync(first: null, last: null, industryId: null);
+        var query = await this.SharesClient.GetShares.ExecuteAsync(first: null, last: null, where: null);
 
         shares = query.Data.Shares.Nodes.Cast<IShare>().ToList();
     }

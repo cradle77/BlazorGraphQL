@@ -32,7 +32,7 @@
 @code {
     private async ValueTask<ItemsProviderResult<IShare>> GetSharesAsync(ItemsProviderRequest request)
     {
-        var query = await this.SharesClient.GetShares.ExecuteAsync(first: request.Count + request.StartIndex, last: request.Count, industryId:null);
+        var query = await this.SharesClient.GetShares.ExecuteAsync(first: request.Count + request.StartIndex, last: request.Count, where:null);
 
         var shares = query.Data.Shares.Nodes.ToArray();
 
