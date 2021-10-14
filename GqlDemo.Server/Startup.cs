@@ -1,8 +1,6 @@
 using GqlDemo.Server.Data;
 using GqlDemo.Server.Mutations;
 using GqlDemo.Server.Queries;
-using HotChocolate.AspNetCore;
-using HotChocolate.AspNetCore.Playground;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,10 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GqlDemo.Server
 {
@@ -39,7 +33,6 @@ namespace GqlDemo.Server
 
             services.AddPooledDbContextFactory<MyContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MyContext")));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,13 +48,6 @@ namespace GqlDemo.Server
                 config.AllowAnyOrigin();
                 config.AllowAnyMethod();
                 config.AllowAnyHeader();
-            });
-
-            app.UsePlayground(new PlaygroundOptions()
-            {
-                Path = "/playground",
-                QueryPath = "/graphql",
-                SubscriptionPath = "/graphql"
             });
 
             app.UseRouting();
