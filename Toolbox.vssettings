@@ -1,0 +1,89 @@
+<UserSettings><ApplicationIdentity version="16.0"/><ToolsOptions/><Category name="Environment_Group" RegisteredName="Environment_Group"><Category name="Environment_Toolbox" Category="{481999F2-7479-4e03-83D5-BE808BA142DF}" Package="{DA9FB551-C724-11d0-AE1F-00A0C90FFFC3}" RegisteredName="Environment_Toolbox" PackageName="Visual Studio Environment Package"><PropertyValue name="ShowAllTabs">false</PropertyValue><PropertyValue name="Version">1</PropertyValue><PropertyValue name="DeletedTabCount">0</PropertyValue><PropertyValue name="TabCount">0</PropertyValue><PropertyValue name="DeletedItemCount">0</PropertyValue><PropertyValue name="Item0.DataProvider">{0A057BAD-6706-45D2-A800-683A29EC6BA3}</PropertyValue><PropertyValue name="Item0.ID">4FBF694C78CE738FCE3F5BB65D08D9B9</PropertyValue><PropertyValue name="Item0.Name">Text: builder.Services
+                .AddSharesClient()
+                .ConfigureHttpClient(httpClient =&gt; httpClient.BaseAddress = new Uri("https://localhost:5001/graphql"));</PropertyValue><PropertyValue name="Item0.UseDefaultName">true</PropertyValue><PropertyValue name="Item0.Tab">General</PropertyValue><PropertyValue name="Item0.TabID">General</PropertyValue><PropertyValue name="Item0.OriginalTabID">General</PropertyValue><PropertyValue name="Item0.OriginalTab">General</PropertyValue><PropertyValue name="Item0.RecordType">1</PropertyValue><PropertyValue name="Item0.Data">builder.Services
+                .AddSharesClient()
+                .ConfigureHttpClient(httpClient =&gt; httpClient.BaseAddress = new Uri("https://localhost:5001/graphql"));</PropertyValue><PropertyValue name="Item0.Position">1</PropertyValue><PropertyValue name="Item1.DataProvider">{0A057BAD-6706-45D2-A800-683A29EC6BA3}</PropertyValue><PropertyValue name="Item1.ID">38995836462723975A3DD0075EC87568</PropertyValue><PropertyValue name="Item1.Name">Text: &lt;h1&gt;Shares&lt;/h1&gt;
+
+&lt;p&gt;This component demonstrates fetching data from the server with GraphQL.&lt;/p&gt;
+
+@if (shares == null)
+{
+    &lt;p&gt;&lt;em&gt;Loading...&lt;/em&gt;&lt;/p&gt;
+}
+else
+{
+    &lt;table class="table"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;CompanyName&lt;/th&gt;
+                &lt;th&gt;Industry&lt;/th&gt;
+                &lt;th&gt;Value&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            @foreach (var share in shares)
+            {
+                &lt;tr&gt;
+                    &lt;td&gt;@share.CompanyName&lt;/td&gt;
+                    &lt;td&gt;@share.Industry?.Name&lt;/td&gt;
+                    &lt;td&gt;@share.Value.ToString("c")&lt;/td&gt;
+                &lt;/tr&gt;
+            }
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+}
+
+@code {
+
+
+
+}</PropertyValue><PropertyValue name="Item1.UseDefaultName">true</PropertyValue><PropertyValue name="Item1.Tab">General</PropertyValue><PropertyValue name="Item1.TabID">General</PropertyValue><PropertyValue name="Item1.OriginalTabID">General</PropertyValue><PropertyValue name="Item1.OriginalTab">General</PropertyValue><PropertyValue name="Item1.RecordType">1</PropertyValue><PropertyValue name="Item1.Data">&lt;h1&gt;Shares&lt;/h1&gt;
+
+&lt;p&gt;This component demonstrates fetching data from the server with GraphQL.&lt;/p&gt;
+
+@if (shares == null)
+{
+    &lt;p&gt;&lt;em&gt;Loading...&lt;/em&gt;&lt;/p&gt;
+}
+else
+{
+    &lt;table class="table"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;CompanyName&lt;/th&gt;
+                &lt;th&gt;Industry&lt;/th&gt;
+                &lt;th&gt;Value&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            @foreach (var share in shares)
+            {
+                &lt;tr&gt;
+                    &lt;td&gt;@share.CompanyName&lt;/td&gt;
+                    &lt;td&gt;@share.Industry?.Name&lt;/td&gt;
+                    &lt;td&gt;@share.Value.ToString("c")&lt;/td&gt;
+                &lt;/tr&gt;
+            }
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+}
+
+@code {
+
+
+
+}</PropertyValue><PropertyValue name="Item1.Position">2</PropertyValue><PropertyValue name="Item2.DataProvider">{0A057BAD-6706-45D2-A800-683A29EC6BA3}</PropertyValue><PropertyValue name="Item2.ID">8C918E6C416272B3E0BFBD28B726844B</PropertyValue><PropertyValue name="Item2.Name">Text: private IShare[] shares;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var query = await this.SharesClient.GetShares.ExecuteAsync(first: null, last: null, industryId:null);
+
+        shares = query.Data.Shares.Nodes.ToArray();
+    }</PropertyValue><PropertyValue name="Item2.UseDefaultName">true</PropertyValue><PropertyValue name="Item2.Tab">General</PropertyValue><PropertyValue name="Item2.TabID">General</PropertyValue><PropertyValue name="Item2.OriginalTabID">General</PropertyValue><PropertyValue name="Item2.OriginalTab">General</PropertyValue><PropertyValue name="Item2.RecordType">1</PropertyValue><PropertyValue name="Item2.Data">private IShare[] shares;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var query = await this.SharesClient.GetShares.ExecuteAsync(first: null, last: null, industryId:null);
+
+        shares = query.Data.Shares.Nodes.ToArray();
+    }</PropertyValue><PropertyValue name="Item2.Position">3</PropertyValue><PropertyValue name="Item3.DataProvider">{0A057BAD-6706-45D2-A800-683A29EC6BA3}</PropertyValue><PropertyValue name="Item3.ID">19923C14769E8CC9601398F7D5B36D7F</PropertyValue><PropertyValue name="Item3.Name">Text: .AddTypeExtensionsFromFile("./stitching.graphql")</PropertyValue><PropertyValue name="Item3.UseDefaultName">true</PropertyValue><PropertyValue name="Item3.Tab">General</PropertyValue><PropertyValue name="Item3.TabID">General</PropertyValue><PropertyValue name="Item3.OriginalTabID">General</PropertyValue><PropertyValue name="Item3.OriginalTab">General</PropertyValue><PropertyValue name="Item3.RecordType">1</PropertyValue><PropertyValue name="Item3.Data">.AddTypeExtensionsFromFile("./stitching.graphql")</PropertyValue><PropertyValue name="Item3.Position">4</PropertyValue><PropertyValue name="ItemCount">4</PropertyValue></Category></Category></UserSettings>

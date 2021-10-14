@@ -1,5 +1,6 @@
 ﻿@page "/fetchdatafilter"
 @inject ISharesClient SharesClient
+@implements IDisposable
 
 <h1>Weather forecast</h1>
 
@@ -23,60 +24,117 @@
     </select>
 </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>CompanyName</th>
-            <th>Industry</th>
-            <th>Value</th>
-        </tr>
-    </thead>
-    <tbody>
-        <Virtualize @ref="_virtualize" Context="share" ItemsProvider="GetSharesAsync">
-            <ItemContent>
-                <tr>
-                    <td>@share.CompanyName</td>
-                    <td>@share.Industry?.Name</td>
-                    <td>@share.Value.ToString("c")</td>
-                </tr>
-            </ItemContent>
-            <Placeholder>
-                <p><em>Loading....</em></p>
-            </Placeholder>
-        </Virtualize>
-    </tbody>
-</table>
+@if (_shares == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CompanyName</th>
+                <th>Industry</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var share in _shares)
+            {
+                <ShareViewer Share="share" OnClick="ChangeValueAsync" />
+            }
+        </tbody>
+    </table>
+}
 
 @code {
-    private int? _industryId;
+    private List<IShare> _shares;
+    private ShareFilterInput _filter;
     private IIndustry[] _industries;
-
-    public Virtualize<IShare> _virtualize;
+    private IDisposable _session;
 
     protected override async Task OnInitializedAsync()
     {
         var query = await this.SharesClient.GetIndustries.ExecuteAsync();
 
         _industries = query.Data.Industries.ToArray();
+
+        await this.LoadDataAsync(new ChangeEventArgs() { Value = 0 });
+        var squery = await this.SharesClient.GetShares.ExecuteAsync(first: null, last: null, where: null);
+
+        _shares = squery.Data.Shares.Nodes.Cast<IShare>().ToList();
+    }
+
+    private void ReplaceShareById(IShare share)
+    {
+        var original = _shares.SingleOrDefault(x => x.Id == share.Id);
+
+        if (original != null)
+        {
+            var index = _shares.IndexOf(original);
+
+            _shares[index] = (IShare)share;
+
+            this.StateHasChanged();
+        }
     }
 
     private async Task LoadDataAsync(ChangeEventArgs e)
     {
         var selectedValue = int.Parse(e.Value.ToString());
 
-        _industryId = selectedValue == 0 ? (int?)null : selectedValue;
+        _filter = selectedValue != 0 ? new ShareFilterInput()
+        {
+            Industry = new IndustryFilterInput()
+            {
+                Id = new ComparableInt32OperationFilterInput()
+                {
+                    Eq = selectedValue
+                }
+            }
+        } : null;
 
-        await _virtualize.RefreshDataAsync();
+        var query = await this.SharesClient.GetShares.ExecuteAsync(first: null, last: null, where: _filter);
+
+        _shares = query.Data.Shares.Nodes.Cast<IShare>().ToList();
+
+        if (_session != null)
+        {
+            _session.Dispose();
+        }
+
+        var industryName = _industries.SingleOrDefault(i => i.Id == selectedValue)?.Name;
+
+        if (string.IsNullOrEmpty(industryName))
+        {
+            _session = this.SharesClient
+                .OnShareValueChanged
+                .Watch()
+                .Subscribe(x => this.ReplaceShareById(x.Data.OnShareValueChanged));
+        }
+        else
+        {
+            _session = this.SharesClient
+                .OnShareValueChangedByIndustry
+                .Watch(industryName)
+                .Subscribe(x => this.ReplaceShareById(x.Data.OnShareValueChangedByIndustry));
+        }
 
         this.StateHasChanged();
     }
 
-    private async ValueTask<ItemsProviderResult<IShare>> GetSharesAsync(ItemsProviderRequest request)
+    private Random random = new Random();
+
+    private async Task ChangeValueAsync(IShare share)
     {
-        var query = await this.SharesClient.GetShares.ExecuteAsync(first: request.Count + request.StartIndex, last: request.Count, industryId:_industryId);
+        var command = await this.SharesClient.ChangeValue.ExecuteAsync(share.Id, random.Next(-20, +20));
+    }
 
-        var shares = query.Data.Shares.Nodes.ToArray();
-
-        return new ItemsProviderResult<IShare>(shares, query.Data.Shares.TotalCount);
+    public void Dispose()
+    {
+        if (_session != null)
+        {
+            _session.Dispose();
+        }
     }
 }
