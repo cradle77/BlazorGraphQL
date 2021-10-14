@@ -23,12 +23,7 @@ else
         <tbody>
             @foreach (var share in shares)
             {
-                <tr>
-                    <td>@share.CompanyName</td>
-                    <td>@share.Industry?.Name</td>
-                    <td>@share.Value.ToString("c")</td>
-                    <td><button class="btn btn-primary" @onclick="() => ChangeValueAsync(share)">Change!</button></td>
-                </tr>
+                <ShareViewer Share="share" OnClick="this.ChangeValueAsync" />
             }
         </tbody>
     </table>
@@ -45,8 +40,7 @@ else
             .Watch()
             .Subscribe(x => this.ReplaceShareById(x.Data.OnShareValueChanged));
 
-        var query = await this.SharesClient
-            .GetShares.ExecuteAsync(first: null, last: null, industryId: null);
+        var query = await this.SharesClient.GetShares.ExecuteAsync(first: null, last: null, where: null);
 
         shares = query.Data.Shares.Nodes.Cast<IShare>().ToList();
     }
@@ -56,8 +50,6 @@ else
     private async Task ChangeValueAsync(IShare share)
     {
         var command = await this.SharesClient.ChangeValue.ExecuteAsync(share.Id, random.Next(-20, +20));
-
-        this.ReplaceShareById(command.Data.ChangeValue.Share);
     }
 
     private void ReplaceShareById(IShare share)

@@ -1,0 +1,41 @@
+﻿@inject IJSRuntime js
+
+<tr>
+    <td>@this.Share.CompanyName</td>
+    <td>@this.Share.Industry?.Name</td>
+    <td class="@_class">@this.Share.Value.ToString("c")</td>
+    <td><button class="btn btn-primary" @onclick="() => OnClick.InvokeAsync(this.Share)">Change!</button></td>
+</tr>
+
+@code {
+    private decimal? _previousValue;
+    private string _class = string.Empty;
+
+    [Parameter]
+    public IShare Share { get; set; }
+
+    [Parameter]
+    public EventCallback<IShare> OnClick { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (_previousValue != null && _previousValue != this.Share.Value)
+        {
+            if (this.Share.Value > _previousValue)
+            {
+                Console.WriteLine("green");
+                _class = "blink-green";
+            }
+            else
+            {
+                Console.WriteLine("red");
+                _class = "blink-red";
+            }
+        }
+        else
+        {
+            _class = string.Empty;
+        }
+        _previousValue = this.Share.Value;
+    }
+}

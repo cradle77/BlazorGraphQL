@@ -1,5 +1,5 @@
-﻿query GetShares ($first:Int, $last:Int, $industryId:Int) {
-  shares(first:$first, last:$last, industryId: $industryId) {
+﻿query GetShares ($first:Int, $last:Int, $where: ShareFilterInput) {
+  shares(first:$first, last:$last, where: $where) {
     totalCount
 
     nodes {
@@ -42,6 +42,12 @@ mutation ChangeValue ($id:Int!, $percentage: Int!) {
 
 subscription OnShareValueChanged {
   onShareValueChanged {
+    ... Share
+  }
+}
+
+subscription OnShareValueChangedByIndustry($industry:String) {
+  onShareValueChangedByIndustry(industry: $industry) {
     ... Share
   }
 }

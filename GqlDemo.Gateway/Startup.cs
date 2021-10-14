@@ -1,41 +1,27 @@
-using GqlDemo.Server.Data;
-using GqlDemo.Server.Mutations;
-using GqlDemo.Server.Queries;
-using GqlDemo.Server.Subscriptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
-namespace GqlDemo.Server
+namespace GqlDemo.Gateway
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
 
-            services.AddGraphQLServer()
-                .AddQueryType<SharesQuery>()
-                .AddFiltering()
-                .AddSorting()
-                .AddMutationType<ShareMutation>()
-                .AddInMemorySubscriptions()
-                .AddSubscriptionType<SharesSubscription>();
+            services.AddHttpClient("shares", c => c.BaseAddress = new Uri("https://localhost:5001/graphql/"));
+            services.AddHttpClient("investors", c => c.BaseAddress = new Uri("https://localhost:5003/graphql/"));
 
-            services.AddPooledDbContextFactory<MyContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("MyContext")));
+            services.AddGraphQLServer()
+                .AddRemoteSchema("shares")
+                .AddRemoteSchema("investors")
+                .AddTypeExtensionsFromFile("./stitching.graphql");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,12 +32,7 @@ namespace GqlDemo.Server
                 app.UseDeveloperExceptionPage();
             }
 
-            var options = new WebSocketOptions();
-            options.AllowedOrigins.Add("https://localhost:5001");
-            options.AllowedOrigins.Add("https://localhost:5002");
-            app.UseWebSockets(options);
-
-            app.UseCors(config => 
+            app.UseCors(config =>
             {
                 config.AllowAnyOrigin();
                 config.AllowAnyMethod();

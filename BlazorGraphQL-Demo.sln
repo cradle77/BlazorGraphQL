@@ -10,9 +10,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleQueries", "SampleQueries", "{C43F013C-BB97-42CA-B0AE-36BE88B6B7CC}"
 	ProjectSection(SolutionItems) = preProject
 		Commands.txt = Commands.txt
+		Directory.Build.props = Directory.Build.props
 		global.json = global.json
 		SampleQueries.txt = SampleQueries.txt
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GqlDemo.InvestorsServer", "GqlDemo.InvestorsServer\GqlDemo.InvestorsServer.csproj", "{E89BCCFD-0D49-4658-98BB-9E0D8F60B5F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GqlDemo.Gateway", "GqlDemo.Gateway\GqlDemo.Gateway.csproj", "{8C51DDDE-96E5-43A2-AE9C-467882545FCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +33,14 @@ Global
 		{22E266EF-7FD3-42E3-86F3-67F437A0C703}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22E266EF-7FD3-42E3-86F3-67F437A0C703}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22E266EF-7FD3-42E3-86F3-67F437A0C703}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E89BCCFD-0D49-4658-98BB-9E0D8F60B5F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E89BCCFD-0D49-4658-98BB-9E0D8F60B5F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E89BCCFD-0D49-4658-98BB-9E0D8F60B5F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E89BCCFD-0D49-4658-98BB-9E0D8F60B5F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C51DDDE-96E5-43A2-AE9C-467882545FCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C51DDDE-96E5-43A2-AE9C-467882545FCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C51DDDE-96E5-43A2-AE9C-467882545FCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C51DDDE-96E5-43A2-AE9C-467882545FCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

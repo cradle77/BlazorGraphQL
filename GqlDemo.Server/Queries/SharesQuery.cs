@@ -1,9 +1,12 @@
 ﻿using GqlDemo.Server.Data;
 using HotChocolate;
 using HotChocolate.Data;
+using HotChocolate.Resolvers;
 using HotChocolate.Types;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GqlDemo.Server.Queries
 {
@@ -14,6 +17,22 @@ namespace GqlDemo.Server.Queries
         public IQueryable<Industry> GetAllIndustries([ScopedService] MyContext dbcontext)
         {
             return dbcontext.Industries;
+        }
+
+        [GraphQLName("industryById")]
+        [UseDbContext(typeof(MyContext))]
+        public async Task<Industry> GetIndustry([ScopedService] MyContext dbcontext, int id, 
+            IResolverContext context, CancellationToken token)
+        {
+            return await context.BatchDataLoader<int, Industry>(async (ids, ct) =>
+            {
+                var result = await dbcontext.Industries
+                    .Where(x => ids.Contains(x.Id))
+                    .ToListAsync();
+
+                return result.ToDictionary(x => x.Id);
+            })
+                .LoadAsync(id, token);
         }
 
         [GraphQLName("shares")]

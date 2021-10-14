@@ -30,6 +30,46 @@ a, .btn-link {
     color: red;
 }
 
+.blink-red {
+    animation: color-red 2s;
+}
+
+.blink-green {
+    animation: color-green 2s;
+}
+
+@keyframes color-red {
+    0% {
+        background: white;
+    }
+
+    50% {
+        background: #F00;
+    }
+
+    100% {
+        background: white;
+    }
+}
+
+@keyframes color-green {
+    0% {
+        background: white;
+    }
+
+    50% {
+        background: #26b050;
+    }
+
+    100% {
+        background: white;
+    }
+}
+
+.background-green {
+    background: #26b050;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
