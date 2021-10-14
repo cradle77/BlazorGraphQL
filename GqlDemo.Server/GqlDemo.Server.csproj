@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.1.0" />
-    <PackageReference Include="HotChocolate.Data" Version="11.1.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="$(HcVersion)" />
+    <PackageReference Include="HotChocolate.Data" Version="$(HcVersion)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
