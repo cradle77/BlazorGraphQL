@@ -1,256 +1,10 @@
-﻿// ShareEntity.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ShareEntity
-    {
-        public ShareEntity(
-            global::System.Int32 id,
-            global::System.String? companyName,
-            global::System.Decimal value,
-            global::StrawberryShake.EntityId? industry)
-        {
-            Id = id;
-            CompanyName = companyName;
-            Value = value;
-            Industry = industry;
-        }
-
-        public global::System.Int32 Id { get; }
-
-        public global::System.String? CompanyName { get; }
-
-        public global::System.Decimal Value { get; }
-
-        public global::StrawberryShake.EntityId? Industry { get; }
-    }
-}
-
-
-// IndustryEntity.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class IndustryEntity
-    {
-        public IndustryEntity(
-            global::System.Int32 id,
-            global::System.String? name)
-        {
-            Id = id;
-            Name = name;
-        }
-
-        public global::System.Int32 Id { get; }
-
-        public global::System.String? Name { get; }
-    }
-}
-
-
-// GetSharesResultFactory.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetSharesResultFactory
-        : global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.GetSharesResult>
-    {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, GetShares_Shares_Nodes_Share> _getShares_Shares_Nodes_ShareFromShareEntityMapper;
-        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper;
-
-        public GetSharesResultFactory(
-            global::StrawberryShake.IEntityStore entityStore,
-            global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, GetShares_Shares_Nodes_Share> getShares_Shares_Nodes_ShareFromShareEntityMapper,
-            global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper)
-        {
-            _entityStore = entityStore
-                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _getShares_Shares_Nodes_ShareFromShareEntityMapper = getShares_Shares_Nodes_ShareFromShareEntityMapper
-                 ?? throw new global::System.ArgumentNullException(nameof(getShares_Shares_Nodes_ShareFromShareEntityMapper));
-            _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper = getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper
-                 ?? throw new global::System.ArgumentNullException(nameof(getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper));
-        }
-
-        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::GqlDemo.Client.IGetSharesResult);
-
-        public GetSharesResult Create(
-            global::StrawberryShake.IOperationResultDataInfo dataInfo,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
-        {
-            if (snapshot is null)
-            {
-                snapshot = _entityStore.CurrentSnapshot;
-            }
-
-            if (dataInfo is GetSharesResultInfo info)
-            {
-                return new GetSharesResult(MapIGetShares_Shares(
-                    info.Shares,
-                    snapshot));
-            }
-
-            throw new global::System.ArgumentException("GetSharesResultInfo expected.");
-        }
-
-        private global::GqlDemo.Client.IGetShares_Shares? MapIGetShares_Shares(
-            global::GqlDemo.Client.State.ShareConnectionData? data,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (data is null)
-            {
-                return null;
-            }
-
-            IGetShares_Shares returnValue = default!;
-
-            if (data?.__typename.Equals(
-                    "ShareConnection",
-                    global::System.StringComparison.Ordinal) ?? false)
-            {
-                returnValue = new GetShares_Shares_ShareConnection(
-                    data.TotalCount ?? throw new global::System.ArgumentNullException(),
-                    MapIGetShares_Shares_NodesArray(
-                        data.Nodes,
-                        snapshot));
-            }
-            else
-            {
-                throw new global::System.NotSupportedException();
-            }
-            return returnValue;
-        }
-
-        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetShares_Shares_Nodes?>? MapIGetShares_Shares_NodesArray(
-            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? list,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (list is null)
-            {
-                return null;
-            }
-
-            var shares = new global::System.Collections.Generic.List<global::GqlDemo.Client.IGetShares_Shares_Nodes?>();
-
-            foreach (global::StrawberryShake.EntityId? child in list)
-            {
-                shares.Add(MapIGetShares_Shares_Nodes(
-                    child,
-                    snapshot));
-            }
-
-            return shares;
-        }
-
-        private global::GqlDemo.Client.IGetShares_Shares_Nodes? MapIGetShares_Shares_Nodes(
-            global::StrawberryShake.EntityId? entityId,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId is null)
-            {
-                return null;
-            }
-
-
-            if (entityId.Value.Name.Equals(
-                    "Share",
-                    global::System.StringComparison.Ordinal))
-            {
-                return _getShares_Shares_Nodes_ShareFromShareEntityMapper.Map(
-                    snapshot.GetEntity<global::GqlDemo.Client.State.ShareEntity>(entityId.Value)
-                        ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? MapIGetShares_Shares_Nodes_Industry(
-            global::StrawberryShake.EntityId? entityId,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId is null)
-            {
-                return null;
-            }
-
-
-            if (entityId.Value.Name.Equals(
-                    "Industry",
-                    global::System.StringComparison.Ordinal))
-            {
-                return _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper.Map(
-                    snapshot.GetEntity<global::GqlDemo.Client.State.IndustryEntity>(entityId.Value)
-                        ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-            throw new global::System.NotSupportedException();
-        }
-
-        global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(
-            global::StrawberryShake.IOperationResultDataInfo dataInfo,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot)
-        {
-            return Create(
-                dataInfo,
-                snapshot);
-        }
-    }
-}
-
-
-// GetSharesResultInfo.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetSharesResultInfo
-        : global::StrawberryShake.IOperationResultDataInfo
-    {
-        private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
-        private readonly global::System.UInt64 _version;
-
-        public GetSharesResultInfo(
-            global::GqlDemo.Client.State.ShareConnectionData? shares,
-            global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds,
-            global::System.UInt64 version)
-        {
-            Shares = shares;
-            _entityIds = entityIds
-                 ?? throw new global::System.ArgumentNullException(nameof(entityIds));
-            _version = version;
-        }
-
-        public global::GqlDemo.Client.State.ShareConnectionData? Shares { get; }
-
-        public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
-
-        public global::System.UInt64 Version => _version;
-
-        public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
-        {
-            return new GetSharesResultInfo(
-                Shares,
-                _entityIds,
-                version);
-        }
-    }
-}
-
-
-// GetSharesResult.cs
+﻿// <auto-generated/>
 #nullable enable
 
 namespace GqlDemo.Client
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetSharesResult
-        : global::System.IEquatable<GetSharesResult>
-        , IGetSharesResult
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetSharesResult : global::System.IEquatable<GetSharesResult>, IGetSharesResult
     {
         public GetSharesResult(global::GqlDemo.Client.IGetShares_Shares? shares)
         {
@@ -259,18 +13,34 @@ namespace GqlDemo.Client
 
         public global::GqlDemo.Client.IGetShares_Shares? Shares { get; }
 
-        public override global::System.Boolean Equals(global::System.Object? obj)
+        public virtual global::System.Boolean Equals(GetSharesResult? other)
         {
-            if (ReferenceEquals(
-                    null,
-                    obj))
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    obj))
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (((Shares is null && other.Shares is null) || Shares != null && Shares.Equals(other.Shares)));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
@@ -283,37 +53,12 @@ namespace GqlDemo.Client
             return Equals((GetSharesResult)obj);
         }
 
-        public global::System.Boolean Equals(GetSharesResult? other)
-        {
-            if (ReferenceEquals(
-                    null,
-                    other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(
-                    this,
-                    other))
-            {
-                return true;
-            }
-
-            if (other.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return (((Shares is null && other.Shares is null) ||Shares != null && Shares.Equals(other.Shares)));
-        }
-
         public override global::System.Int32 GetHashCode()
         {
             unchecked
             {
                 int hash = 5;
-
-                if (!(Shares is null))
+                if (Shares != null)
                 {
                     hash ^= 397 * Shares.GetHashCode();
                 }
@@ -322,25 +67,14 @@ namespace GqlDemo.Client
             }
         }
     }
-}
 
-
-// GetShares_Shares_ShareConnection.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// A connection to a list of items.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetShares_Shares_ShareConnection
-        : global::System.IEquatable<GetShares_Shares_ShareConnection>
-        , IGetShares_Shares_ShareConnection
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetShares_Shares_SharesConnection : global::System.IEquatable<GetShares_Shares_SharesConnection>, IGetShares_Shares_SharesConnection
     {
-        public GetShares_Shares_ShareConnection(
-            global::System.Int32 totalCount,
-            global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetShares_Shares_Nodes?>? nodes)
+        public GetShares_Shares_SharesConnection(global::System.Int32 totalCount, global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetShares_Shares_Nodes?>? nodes)
         {
             TotalCount = totalCount;
             Nodes = nodes;
@@ -353,42 +87,14 @@ namespace GqlDemo.Client
         /// </summary>
         public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetShares_Shares_Nodes?>? Nodes { get; }
 
-        public override global::System.Boolean Equals(global::System.Object? obj)
+        public virtual global::System.Boolean Equals(GetShares_Shares_SharesConnection? other)
         {
-            if (ReferenceEquals(
-                    null,
-                    obj))
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((GetShares_Shares_ShareConnection)obj);
-        }
-
-        public global::System.Boolean Equals(GetShares_Shares_ShareConnection? other)
-        {
-            if (ReferenceEquals(
-                    null,
-                    other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(
-                    this,
-                    other))
+            if (ReferenceEquals(this, other))
             {
                 return true;
             }
@@ -398,10 +104,27 @@ namespace GqlDemo.Client
                 return false;
             }
 
-            return (TotalCount == other.TotalCount)
-                && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(
-                        Nodes,
-                        other.Nodes);
+            return (TotalCount == other.TotalCount) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Nodes, other.Nodes);
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetShares_Shares_SharesConnection)obj);
         }
 
         public override global::System.Int32 GetHashCode()
@@ -409,14 +132,12 @@ namespace GqlDemo.Client
             unchecked
             {
                 int hash = 5;
-
                 hash ^= 397 * TotalCount.GetHashCode();
-
-                if (!(Nodes is null))
+                if (Nodes != null)
                 {
                     foreach (var Nodes_elm in Nodes)
                     {
-                        if (!(Nodes_elm is null))
+                        if (Nodes_elm != null)
                         {
                             hash ^= 397 * Nodes_elm.GetHashCode();
                         }
@@ -427,92 +148,15 @@ namespace GqlDemo.Client
             }
         }
     }
-}
 
-
-// GetShares_Shares_Nodes_ShareFromShareEntityMapper.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetShares_Shares_Nodes_ShareFromShareEntityMapper
-        : global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, GetShares_Shares_Nodes_Share>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetShares_Shares_Nodes_Share : global::System.IEquatable<GetShares_Shares_Nodes_Share>, IGetShares_Shares_Nodes_Share
     {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper;
-
-        public GetShares_Shares_Nodes_ShareFromShareEntityMapper(
-            global::StrawberryShake.IEntityStore entityStore,
-            global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper)
-        {
-            _entityStore = entityStore
-                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper = getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper
-                 ?? throw new global::System.ArgumentNullException(nameof(getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper));
-        }
-
-        public GetShares_Shares_Nodes_Share Map(
-            global::GqlDemo.Client.State.ShareEntity entity,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
-        {
-            if (snapshot is null)
-            {
-                snapshot = _entityStore.CurrentSnapshot;
-            }
-
-            return new GetShares_Shares_Nodes_Share(
-                entity.Id,
-                entity.CompanyName,
-                entity.Value,
-                MapIGetShares_Shares_Nodes_Industry(
-                    entity.Industry,
-                    snapshot));
-        }
-
-        private global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? MapIGetShares_Shares_Nodes_Industry(
-            global::StrawberryShake.EntityId? entityId,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId is null)
-            {
-                return null;
-            }
-
-
-            if (entityId.Value.Name.Equals(
-                    "Industry",
-                    global::System.StringComparison.Ordinal))
-            {
-                return _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper.Map(
-                    snapshot.GetEntity<global::GqlDemo.Client.State.IndustryEntity>(entityId.Value)
-                        ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-            throw new global::System.NotSupportedException();
-        }
-    }
-}
-
-
-// GetShares_Shares_Nodes_Share.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetShares_Shares_Nodes_Share
-        : global::System.IEquatable<GetShares_Shares_Nodes_Share>
-        , IGetShares_Shares_Nodes_Share
-    {
-        public GetShares_Shares_Nodes_Share(
-            global::System.Int32 id,
-            global::System.String? companyName,
-            global::System.Decimal value,
-            global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? industry)
+        public GetShares_Shares_Nodes_Share(global::System.Int32 id, global::System.String? companyName, global::System.Decimal @value, global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? industry)
         {
             Id = id;
             CompanyName = companyName;
-            Value = value;
+            Value = @value;
             Industry = industry;
         }
 
@@ -524,18 +168,34 @@ namespace GqlDemo.Client
 
         public global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? Industry { get; }
 
-        public override global::System.Boolean Equals(global::System.Object? obj)
+        public virtual global::System.Boolean Equals(GetShares_Shares_Nodes_Share? other)
         {
-            if (ReferenceEquals(
-                    null,
-                    obj))
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    obj))
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id) && ((CompanyName is null && other.CompanyName is null) || CompanyName != null && CompanyName.Equals(other.CompanyName)) && Value == other.Value && ((Industry is null && other.Industry is null) || Industry != null && Industry.Equals(other.Industry));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
@@ -548,49 +208,19 @@ namespace GqlDemo.Client
             return Equals((GetShares_Shares_Nodes_Share)obj);
         }
 
-        public global::System.Boolean Equals(GetShares_Shares_Nodes_Share? other)
-        {
-            if (ReferenceEquals(
-                    null,
-                    other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(
-                    this,
-                    other))
-            {
-                return true;
-            }
-
-            if (other.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return (Id == other.Id)
-                && ((CompanyName is null && other.CompanyName is null) ||CompanyName != null && CompanyName.Equals(other.CompanyName))
-                && Value == other.Value
-                && ((Industry is null && other.Industry is null) ||Industry != null && Industry.Equals(other.Industry));
-        }
-
         public override global::System.Int32 GetHashCode()
         {
             unchecked
             {
                 int hash = 5;
-
                 hash ^= 397 * Id.GetHashCode();
-
-                if (!(CompanyName is null))
+                if (CompanyName != null)
                 {
                     hash ^= 397 * CompanyName.GetHashCode();
                 }
 
                 hash ^= 397 * Value.GetHashCode();
-
-                if (!(Industry is null))
+                if (Industry != null)
                 {
                     hash ^= 397 * Industry.GetHashCode();
                 }
@@ -599,56 +229,11 @@ namespace GqlDemo.Client
             }
         }
     }
-}
 
-
-// GetShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper
-        : global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetShares_Shares_Nodes_Industry_Industry : global::System.IEquatable<GetShares_Shares_Nodes_Industry_Industry>, IGetShares_Shares_Nodes_Industry_Industry
     {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-
-        public GetShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper(global::StrawberryShake.IEntityStore entityStore)
-        {
-            _entityStore = entityStore
-                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-        }
-
-        public GetShares_Shares_Nodes_Industry_Industry Map(
-            global::GqlDemo.Client.State.IndustryEntity entity,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
-        {
-            if (snapshot is null)
-            {
-                snapshot = _entityStore.CurrentSnapshot;
-            }
-
-            return new GetShares_Shares_Nodes_Industry_Industry(
-                entity.Id,
-                entity.Name);
-        }
-    }
-}
-
-
-// GetShares_Shares_Nodes_Industry_Industry.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetShares_Shares_Nodes_Industry_Industry
-        : global::System.IEquatable<GetShares_Shares_Nodes_Industry_Industry>
-        , IGetShares_Shares_Nodes_Industry_Industry
-    {
-        public GetShares_Shares_Nodes_Industry_Industry(
-            global::System.Int32 id,
-            global::System.String? name)
+        public GetShares_Shares_Nodes_Industry_Industry(global::System.Int32 id, global::System.String? name)
         {
             Id = id;
             Name = name;
@@ -658,18 +243,34 @@ namespace GqlDemo.Client
 
         public global::System.String? Name { get; }
 
-        public override global::System.Boolean Equals(global::System.Object? obj)
+        public virtual global::System.Boolean Equals(GetShares_Shares_Nodes_Industry_Industry? other)
         {
-            if (ReferenceEquals(
-                    null,
-                    obj))
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    obj))
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id) && ((Name is null && other.Name is null) || Name != null && Name.Equals(other.Name));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
@@ -682,40 +283,13 @@ namespace GqlDemo.Client
             return Equals((GetShares_Shares_Nodes_Industry_Industry)obj);
         }
 
-        public global::System.Boolean Equals(GetShares_Shares_Nodes_Industry_Industry? other)
-        {
-            if (ReferenceEquals(
-                    null,
-                    other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(
-                    this,
-                    other))
-            {
-                return true;
-            }
-
-            if (other.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return (Id == other.Id)
-                && ((Name is null && other.Name is null) ||Name != null && Name.Equals(other.Name));
-        }
-
         public override global::System.Int32 GetHashCode()
         {
             unchecked
             {
                 int hash = 5;
-
                 hash ^= 397 * Id.GetHashCode();
-
-                if (!(Name is null))
+                if (Name != null)
                 {
                     hash ^= 397 * Name.GetHashCode();
                 }
@@ -724,31 +298,17 @@ namespace GqlDemo.Client
             }
         }
     }
-}
 
-
-// IGetSharesResult.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
     public interface IGetSharesResult
     {
         public global::GqlDemo.Client.IGetShares_Shares? Shares { get; }
     }
-}
 
-
-// IGetShares_Shares.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// A connection to a list of items.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
     public interface IGetShares_Shares
     {
         public global::System.Int32 TotalCount { get; }
@@ -758,31 +318,16 @@ namespace GqlDemo.Client
         /// </summary>
         public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetShares_Shares_Nodes?>? Nodes { get; }
     }
-}
 
-
-// IGetShares_Shares_ShareConnection.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// A connection to a list of items.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetShares_Shares_ShareConnection
-        : IGetShares_Shares
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IGetShares_Shares_SharesConnection : IGetShares_Shares
     {
     }
-}
 
-
-// IShare.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
     public interface IShare
     {
         public global::System.Int32 Id { get; }
@@ -793,222 +338,37 @@ namespace GqlDemo.Client
 
         public global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? Industry { get; }
     }
-}
 
-
-// IGetShares_Shares_Nodes.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetShares_Shares_Nodes
-        : IShare
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IGetShares_Shares_Nodes : IShare
     {
     }
-}
 
-
-// IGetShares_Shares_Nodes_Share.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetShares_Shares_Nodes_Share
-        : IGetShares_Shares_Nodes
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IGetShares_Shares_Nodes_Share : IGetShares_Shares_Nodes
     {
     }
-}
 
-
-// IIndustry.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
     public interface IIndustry
     {
         public global::System.Int32 Id { get; }
 
         public global::System.String? Name { get; }
     }
-}
 
-
-// IGetShares_Shares_Nodes_Industry.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetShares_Shares_Nodes_Industry
-        : IIndustry
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IGetShares_Shares_Nodes_Industry : IIndustry
     {
     }
-}
 
-
-// IGetShares_Shares_Nodes_Industry_Industry.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetShares_Shares_Nodes_Industry_Industry
-        : IGetShares_Shares_Nodes_Industry
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IGetShares_Shares_Nodes_Industry_Industry : IGetShares_Shares_Nodes_Industry
     {
     }
-}
 
-
-// GetIndustriesResultFactory.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetIndustriesResultFactory
-        : global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.GetIndustriesResult>
-    {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetIndustries_Industries_Industry> _getIndustries_Industries_IndustryFromIndustryEntityMapper;
-
-        public GetIndustriesResultFactory(
-            global::StrawberryShake.IEntityStore entityStore,
-            global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetIndustries_Industries_Industry> getIndustries_Industries_IndustryFromIndustryEntityMapper)
-        {
-            _entityStore = entityStore
-                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _getIndustries_Industries_IndustryFromIndustryEntityMapper = getIndustries_Industries_IndustryFromIndustryEntityMapper
-                 ?? throw new global::System.ArgumentNullException(nameof(getIndustries_Industries_IndustryFromIndustryEntityMapper));
-        }
-
-        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::GqlDemo.Client.IGetIndustriesResult);
-
-        public GetIndustriesResult Create(
-            global::StrawberryShake.IOperationResultDataInfo dataInfo,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
-        {
-            if (snapshot is null)
-            {
-                snapshot = _entityStore.CurrentSnapshot;
-            }
-
-            if (dataInfo is GetIndustriesResultInfo info)
-            {
-                return new GetIndustriesResult(MapIGetIndustries_IndustriesArray(
-                    info.Industries,
-                    snapshot));
-            }
-
-            throw new global::System.ArgumentException("GetIndustriesResultInfo expected.");
-        }
-
-        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetIndustries_Industries?>? MapIGetIndustries_IndustriesArray(
-            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? list,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (list is null)
-            {
-                return null;
-            }
-
-            var industrys = new global::System.Collections.Generic.List<global::GqlDemo.Client.IGetIndustries_Industries?>();
-
-            foreach (global::StrawberryShake.EntityId? child in list)
-            {
-                industrys.Add(MapIGetIndustries_Industries(
-                    child,
-                    snapshot));
-            }
-
-            return industrys;
-        }
-
-        private global::GqlDemo.Client.IGetIndustries_Industries? MapIGetIndustries_Industries(
-            global::StrawberryShake.EntityId? entityId,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId is null)
-            {
-                return null;
-            }
-
-
-            if (entityId.Value.Name.Equals(
-                    "Industry",
-                    global::System.StringComparison.Ordinal))
-            {
-                return _getIndustries_Industries_IndustryFromIndustryEntityMapper.Map(
-                    snapshot.GetEntity<global::GqlDemo.Client.State.IndustryEntity>(entityId.Value)
-                        ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-            throw new global::System.NotSupportedException();
-        }
-
-        global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(
-            global::StrawberryShake.IOperationResultDataInfo dataInfo,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot)
-        {
-            return Create(
-                dataInfo,
-                snapshot);
-        }
-    }
-}
-
-
-// GetIndustriesResultInfo.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetIndustriesResultInfo
-        : global::StrawberryShake.IOperationResultDataInfo
-    {
-        private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
-        private readonly global::System.UInt64 _version;
-
-        public GetIndustriesResultInfo(
-            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? industries,
-            global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds,
-            global::System.UInt64 version)
-        {
-            Industries = industries;
-            _entityIds = entityIds
-                 ?? throw new global::System.ArgumentNullException(nameof(entityIds));
-            _version = version;
-        }
-
-        public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? Industries { get; }
-
-        public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
-
-        public global::System.UInt64 Version => _version;
-
-        public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
-        {
-            return new GetIndustriesResultInfo(
-                Industries,
-                _entityIds,
-                version);
-        }
-    }
-}
-
-
-// GetIndustriesResult.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetIndustriesResult
-        : global::System.IEquatable<GetIndustriesResult>
-        , IGetIndustriesResult
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetIndustriesResult : global::System.IEquatable<GetIndustriesResult>, IGetIndustriesResult
     {
         public GetIndustriesResult(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetIndustries_Industries?>? industries)
         {
@@ -1017,18 +377,34 @@ namespace GqlDemo.Client
 
         public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetIndustries_Industries?>? Industries { get; }
 
-        public override global::System.Boolean Equals(global::System.Object? obj)
+        public virtual global::System.Boolean Equals(GetIndustriesResult? other)
         {
-            if (ReferenceEquals(
-                    null,
-                    obj))
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    obj))
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Industries, other.Industries));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
@@ -1041,43 +417,16 @@ namespace GqlDemo.Client
             return Equals((GetIndustriesResult)obj);
         }
 
-        public global::System.Boolean Equals(GetIndustriesResult? other)
-        {
-            if (ReferenceEquals(
-                    null,
-                    other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(
-                    this,
-                    other))
-            {
-                return true;
-            }
-
-            if (other.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return (global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(
-                        Industries,
-                        other.Industries));
-        }
-
         public override global::System.Int32 GetHashCode()
         {
             unchecked
             {
                 int hash = 5;
-
-                if (!(Industries is null))
+                if (Industries != null)
                 {
                     foreach (var Industries_elm in Industries)
                     {
-                        if (!(Industries_elm is null))
+                        if (Industries_elm != null)
                         {
                             hash ^= 397 * Industries_elm.GetHashCode();
                         }
@@ -1088,56 +437,11 @@ namespace GqlDemo.Client
             }
         }
     }
-}
 
-
-// GetIndustries_Industries_IndustryFromIndustryEntityMapper.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetIndustries_Industries_IndustryFromIndustryEntityMapper
-        : global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetIndustries_Industries_Industry>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetIndustries_Industries_Industry : global::System.IEquatable<GetIndustries_Industries_Industry>, IGetIndustries_Industries_Industry
     {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-
-        public GetIndustries_Industries_IndustryFromIndustryEntityMapper(global::StrawberryShake.IEntityStore entityStore)
-        {
-            _entityStore = entityStore
-                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-        }
-
-        public GetIndustries_Industries_Industry Map(
-            global::GqlDemo.Client.State.IndustryEntity entity,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
-        {
-            if (snapshot is null)
-            {
-                snapshot = _entityStore.CurrentSnapshot;
-            }
-
-            return new GetIndustries_Industries_Industry(
-                entity.Id,
-                entity.Name);
-        }
-    }
-}
-
-
-// GetIndustries_Industries_Industry.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetIndustries_Industries_Industry
-        : global::System.IEquatable<GetIndustries_Industries_Industry>
-        , IGetIndustries_Industries_Industry
-    {
-        public GetIndustries_Industries_Industry(
-            global::System.Int32 id,
-            global::System.String? name)
+        public GetIndustries_Industries_Industry(global::System.Int32 id, global::System.String? name)
         {
             Id = id;
             Name = name;
@@ -1147,18 +451,34 @@ namespace GqlDemo.Client
 
         public global::System.String? Name { get; }
 
-        public override global::System.Boolean Equals(global::System.Object? obj)
+        public virtual global::System.Boolean Equals(GetIndustries_Industries_Industry? other)
         {
-            if (ReferenceEquals(
-                    null,
-                    obj))
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    obj))
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id) && ((Name is null && other.Name is null) || Name != null && Name.Equals(other.Name));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
@@ -1171,18 +491,56 @@ namespace GqlDemo.Client
             return Equals((GetIndustries_Industries_Industry)obj);
         }
 
-        public global::System.Boolean Equals(GetIndustries_Industries_Industry? other)
+        public override global::System.Int32 GetHashCode()
         {
-            if (ReferenceEquals(
-                    null,
-                    other))
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * Id.GetHashCode();
+                if (Name != null)
+                {
+                    hash ^= 397 * Name.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IGetIndustriesResult
+    {
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetIndustries_Industries?>? Industries { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IGetIndustries_Industries : IIndustry
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IGetIndustries_Industries_Industry : IGetIndustries_Industries
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValueResult : global::System.IEquatable<ChangeValueResult>, IChangeValueResult
+    {
+        public ChangeValueResult(global::GqlDemo.Client.IChangeValue_ChangeValue? changeValue)
+        {
+            ChangeValue = changeValue;
+        }
+
+        public global::GqlDemo.Client.IChangeValue_ChangeValue? ChangeValue { get; }
+
+        public virtual global::System.Boolean Equals(ChangeValueResult? other)
+        {
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    other))
+            if (ReferenceEquals(this, other))
             {
                 return true;
             }
@@ -1192,265 +550,17 @@ namespace GqlDemo.Client
                 return false;
             }
 
-            return (Id == other.Id)
-                && ((Name is null && other.Name is null) ||Name != null && Name.Equals(other.Name));
+            return (((ChangeValue is null && other.ChangeValue is null) || ChangeValue != null && ChangeValue.Equals(other.ChangeValue)));
         }
-
-        public override global::System.Int32 GetHashCode()
-        {
-            unchecked
-            {
-                int hash = 5;
-
-                hash ^= 397 * Id.GetHashCode();
-
-                if (!(Name is null))
-                {
-                    hash ^= 397 * Name.GetHashCode();
-                }
-
-                return hash;
-            }
-        }
-    }
-}
-
-
-// IGetIndustriesResult.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetIndustriesResult
-    {
-        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetIndustries_Industries?>? Industries { get; }
-    }
-}
-
-
-// IGetIndustries_Industries.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetIndustries_Industries
-        : IIndustry
-    {
-    }
-}
-
-
-// IGetIndustries_Industries_Industry.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetIndustries_Industries_Industry
-        : IGetIndustries_Industries
-    {
-    }
-}
-
-
-// ChangeValueResultFactory.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValueResultFactory
-        : global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.ChangeValueResult>
-    {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, ChangeValue_ChangeValue_Share_Share> _changeValue_ChangeValue_Share_ShareFromShareEntityMapper;
-        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper;
-
-        public ChangeValueResultFactory(
-            global::StrawberryShake.IEntityStore entityStore,
-            global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, ChangeValue_ChangeValue_Share_Share> changeValue_ChangeValue_Share_ShareFromShareEntityMapper,
-            global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper)
-        {
-            _entityStore = entityStore
-                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _changeValue_ChangeValue_Share_ShareFromShareEntityMapper = changeValue_ChangeValue_Share_ShareFromShareEntityMapper
-                 ?? throw new global::System.ArgumentNullException(nameof(changeValue_ChangeValue_Share_ShareFromShareEntityMapper));
-            _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper = getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper
-                 ?? throw new global::System.ArgumentNullException(nameof(getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper));
-        }
-
-        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::GqlDemo.Client.IChangeValueResult);
-
-        public ChangeValueResult Create(
-            global::StrawberryShake.IOperationResultDataInfo dataInfo,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
-        {
-            if (snapshot is null)
-            {
-                snapshot = _entityStore.CurrentSnapshot;
-            }
-
-            if (dataInfo is ChangeValueResultInfo info)
-            {
-                return new ChangeValueResult(MapIChangeValue_ChangeValue(
-                    info.ChangeValue,
-                    snapshot));
-            }
-
-            throw new global::System.ArgumentException("ChangeValueResultInfo expected.");
-        }
-
-        private global::GqlDemo.Client.IChangeValue_ChangeValue? MapIChangeValue_ChangeValue(
-            global::GqlDemo.Client.State.ChangeValuePayloadData? data,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (data is null)
-            {
-                return null;
-            }
-
-            IChangeValue_ChangeValue returnValue = default!;
-
-            if (data?.__typename.Equals(
-                    "ChangeValuePayload",
-                    global::System.StringComparison.Ordinal) ?? false)
-            {
-                returnValue = new ChangeValue_ChangeValue_ChangeValuePayload(MapIChangeValue_ChangeValue_Share(
-                    data.Share,
-                    snapshot));
-            }
-            else
-            {
-                throw new global::System.NotSupportedException();
-            }
-            return returnValue;
-        }
-
-        private global::GqlDemo.Client.IChangeValue_ChangeValue_Share? MapIChangeValue_ChangeValue_Share(
-            global::StrawberryShake.EntityId? entityId,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId is null)
-            {
-                return null;
-            }
-
-
-            if (entityId.Value.Name.Equals(
-                    "Share",
-                    global::System.StringComparison.Ordinal))
-            {
-                return _changeValue_ChangeValue_Share_ShareFromShareEntityMapper.Map(
-                    snapshot.GetEntity<global::GqlDemo.Client.State.ShareEntity>(entityId.Value)
-                        ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? MapIGetShares_Shares_Nodes_Industry(
-            global::StrawberryShake.EntityId? entityId,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId is null)
-            {
-                return null;
-            }
-
-
-            if (entityId.Value.Name.Equals(
-                    "Industry",
-                    global::System.StringComparison.Ordinal))
-            {
-                return _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper.Map(
-                    snapshot.GetEntity<global::GqlDemo.Client.State.IndustryEntity>(entityId.Value)
-                        ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-            throw new global::System.NotSupportedException();
-        }
-
-        global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(
-            global::StrawberryShake.IOperationResultDataInfo dataInfo,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot)
-        {
-            return Create(
-                dataInfo,
-                snapshot);
-        }
-    }
-}
-
-
-// ChangeValueResultInfo.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValueResultInfo
-        : global::StrawberryShake.IOperationResultDataInfo
-    {
-        private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
-        private readonly global::System.UInt64 _version;
-
-        public ChangeValueResultInfo(
-            global::GqlDemo.Client.State.ChangeValuePayloadData? changeValue,
-            global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds,
-            global::System.UInt64 version)
-        {
-            ChangeValue = changeValue;
-            _entityIds = entityIds
-                 ?? throw new global::System.ArgumentNullException(nameof(entityIds));
-            _version = version;
-        }
-
-        public global::GqlDemo.Client.State.ChangeValuePayloadData? ChangeValue { get; }
-
-        public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
-
-        public global::System.UInt64 Version => _version;
-
-        public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
-        {
-            return new ChangeValueResultInfo(
-                ChangeValue,
-                _entityIds,
-                version);
-        }
-    }
-}
-
-
-// ChangeValueResult.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValueResult
-        : global::System.IEquatable<ChangeValueResult>
-        , IChangeValueResult
-    {
-        public ChangeValueResult(global::GqlDemo.Client.IChangeValue_ChangeValue? changeValue)
-        {
-            ChangeValue = changeValue;
-        }
-
-        public global::GqlDemo.Client.IChangeValue_ChangeValue? ChangeValue { get; }
 
         public override global::System.Boolean Equals(global::System.Object? obj)
         {
-            if (ReferenceEquals(
-                    null,
-                    obj))
+            if (ReferenceEquals(null, obj))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    obj))
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
@@ -1463,18 +573,39 @@ namespace GqlDemo.Client
             return Equals((ChangeValueResult)obj);
         }
 
-        public global::System.Boolean Equals(ChangeValueResult? other)
+        public override global::System.Int32 GetHashCode()
         {
-            if (ReferenceEquals(
-                    null,
-                    other))
+            unchecked
+            {
+                int hash = 5;
+                if (ChangeValue != null)
+                {
+                    hash ^= 397 * ChangeValue.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValue_ChangeValue_ChangeValuePayload : global::System.IEquatable<ChangeValue_ChangeValue_ChangeValuePayload>, IChangeValue_ChangeValue_ChangeValuePayload
+    {
+        public ChangeValue_ChangeValue_ChangeValuePayload(global::GqlDemo.Client.IChangeValue_ChangeValue_Share? share)
+        {
+            Share = share;
+        }
+
+        public global::GqlDemo.Client.IChangeValue_ChangeValue_Share? Share { get; }
+
+        public virtual global::System.Boolean Equals(ChangeValue_ChangeValue_ChangeValuePayload? other)
+        {
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    other))
+            if (ReferenceEquals(this, other))
             {
                 return true;
             }
@@ -1484,56 +615,17 @@ namespace GqlDemo.Client
                 return false;
             }
 
-            return (((ChangeValue is null && other.ChangeValue is null) ||ChangeValue != null && ChangeValue.Equals(other.ChangeValue)));
+            return (((Share is null && other.Share is null) || Share != null && Share.Equals(other.Share)));
         }
-
-        public override global::System.Int32 GetHashCode()
-        {
-            unchecked
-            {
-                int hash = 5;
-
-                if (!(ChangeValue is null))
-                {
-                    hash ^= 397 * ChangeValue.GetHashCode();
-                }
-
-                return hash;
-            }
-        }
-    }
-}
-
-
-// ChangeValue_ChangeValue_ChangeValuePayload.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValue_ChangeValue_ChangeValuePayload
-        : global::System.IEquatable<ChangeValue_ChangeValue_ChangeValuePayload>
-        , IChangeValue_ChangeValue_ChangeValuePayload
-    {
-        public ChangeValue_ChangeValue_ChangeValuePayload(global::GqlDemo.Client.IChangeValue_ChangeValue_Share? share)
-        {
-            Share = share;
-        }
-
-        public global::GqlDemo.Client.IChangeValue_ChangeValue_Share? Share { get; }
 
         public override global::System.Boolean Equals(global::System.Object? obj)
         {
-            if (ReferenceEquals(
-                    null,
-                    obj))
+            if (ReferenceEquals(null, obj))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    obj))
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
@@ -1546,37 +638,12 @@ namespace GqlDemo.Client
             return Equals((ChangeValue_ChangeValue_ChangeValuePayload)obj);
         }
 
-        public global::System.Boolean Equals(ChangeValue_ChangeValue_ChangeValuePayload? other)
-        {
-            if (ReferenceEquals(
-                    null,
-                    other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(
-                    this,
-                    other))
-            {
-                return true;
-            }
-
-            if (other.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return (((Share is null && other.Share is null) ||Share != null && Share.Equals(other.Share)));
-        }
-
         public override global::System.Int32 GetHashCode()
         {
             unchecked
             {
                 int hash = 5;
-
-                if (!(Share is null))
+                if (Share != null)
                 {
                     hash ^= 397 * Share.GetHashCode();
                 }
@@ -1585,92 +652,15 @@ namespace GqlDemo.Client
             }
         }
     }
-}
 
-
-// ChangeValue_ChangeValue_Share_ShareFromShareEntityMapper.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValue_ChangeValue_Share_ShareFromShareEntityMapper
-        : global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, ChangeValue_ChangeValue_Share_Share>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValue_ChangeValue_Share_Share : global::System.IEquatable<ChangeValue_ChangeValue_Share_Share>, IChangeValue_ChangeValue_Share_Share
     {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper;
-
-        public ChangeValue_ChangeValue_Share_ShareFromShareEntityMapper(
-            global::StrawberryShake.IEntityStore entityStore,
-            global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper)
-        {
-            _entityStore = entityStore
-                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper = getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper
-                 ?? throw new global::System.ArgumentNullException(nameof(getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper));
-        }
-
-        public ChangeValue_ChangeValue_Share_Share Map(
-            global::GqlDemo.Client.State.ShareEntity entity,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
-        {
-            if (snapshot is null)
-            {
-                snapshot = _entityStore.CurrentSnapshot;
-            }
-
-            return new ChangeValue_ChangeValue_Share_Share(
-                entity.Id,
-                entity.CompanyName,
-                entity.Value,
-                MapIGetShares_Shares_Nodes_Industry(
-                    entity.Industry,
-                    snapshot));
-        }
-
-        private global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? MapIGetShares_Shares_Nodes_Industry(
-            global::StrawberryShake.EntityId? entityId,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId is null)
-            {
-                return null;
-            }
-
-
-            if (entityId.Value.Name.Equals(
-                    "Industry",
-                    global::System.StringComparison.Ordinal))
-            {
-                return _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper.Map(
-                    snapshot.GetEntity<global::GqlDemo.Client.State.IndustryEntity>(entityId.Value)
-                        ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-            throw new global::System.NotSupportedException();
-        }
-    }
-}
-
-
-// ChangeValue_ChangeValue_Share_Share.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValue_ChangeValue_Share_Share
-        : global::System.IEquatable<ChangeValue_ChangeValue_Share_Share>
-        , IChangeValue_ChangeValue_Share_Share
-    {
-        public ChangeValue_ChangeValue_Share_Share(
-            global::System.Int32 id,
-            global::System.String? companyName,
-            global::System.Decimal value,
-            global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? industry)
+        public ChangeValue_ChangeValue_Share_Share(global::System.Int32 id, global::System.String? companyName, global::System.Decimal @value, global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? industry)
         {
             Id = id;
             CompanyName = companyName;
-            Value = value;
+            Value = @value;
             Industry = industry;
         }
 
@@ -1682,18 +672,34 @@ namespace GqlDemo.Client
 
         public global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? Industry { get; }
 
-        public override global::System.Boolean Equals(global::System.Object? obj)
+        public virtual global::System.Boolean Equals(ChangeValue_ChangeValue_Share_Share? other)
         {
-            if (ReferenceEquals(
-                    null,
-                    obj))
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    obj))
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id) && ((CompanyName is null && other.CompanyName is null) || CompanyName != null && CompanyName.Equals(other.CompanyName)) && Value == other.Value && ((Industry is null && other.Industry is null) || Industry != null && Industry.Equals(other.Industry));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
@@ -1706,49 +712,19 @@ namespace GqlDemo.Client
             return Equals((ChangeValue_ChangeValue_Share_Share)obj);
         }
 
-        public global::System.Boolean Equals(ChangeValue_ChangeValue_Share_Share? other)
-        {
-            if (ReferenceEquals(
-                    null,
-                    other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(
-                    this,
-                    other))
-            {
-                return true;
-            }
-
-            if (other.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return (Id == other.Id)
-                && ((CompanyName is null && other.CompanyName is null) ||CompanyName != null && CompanyName.Equals(other.CompanyName))
-                && Value == other.Value
-                && ((Industry is null && other.Industry is null) ||Industry != null && Industry.Equals(other.Industry));
-        }
-
         public override global::System.Int32 GetHashCode()
         {
             unchecked
             {
                 int hash = 5;
-
                 hash ^= 397 * Id.GetHashCode();
-
-                if (!(CompanyName is null))
+                if (CompanyName != null)
                 {
                     hash ^= 397 * CompanyName.GetHashCode();
                 }
 
                 hash ^= 397 * Value.GetHashCode();
-
-                if (!(Industry is null))
+                if (Industry != null)
                 {
                     hash ^= 397 * Industry.GetHashCode();
                 }
@@ -1757,56 +733,11 @@ namespace GqlDemo.Client
             }
         }
     }
-}
 
-
-// ChangeValue_ChangeValue_Share_Industry_IndustryFromIndustryEntityMapper.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValue_ChangeValue_Share_Industry_IndustryFromIndustryEntityMapper
-        : global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, ChangeValue_ChangeValue_Share_Industry_Industry>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValue_ChangeValue_Share_Industry_Industry : global::System.IEquatable<ChangeValue_ChangeValue_Share_Industry_Industry>, IChangeValue_ChangeValue_Share_Industry_Industry
     {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-
-        public ChangeValue_ChangeValue_Share_Industry_IndustryFromIndustryEntityMapper(global::StrawberryShake.IEntityStore entityStore)
-        {
-            _entityStore = entityStore
-                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-        }
-
-        public ChangeValue_ChangeValue_Share_Industry_Industry Map(
-            global::GqlDemo.Client.State.IndustryEntity entity,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
-        {
-            if (snapshot is null)
-            {
-                snapshot = _entityStore.CurrentSnapshot;
-            }
-
-            return new ChangeValue_ChangeValue_Share_Industry_Industry(
-                entity.Id,
-                entity.Name);
-        }
-    }
-}
-
-
-// ChangeValue_ChangeValue_Share_Industry_Industry.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValue_ChangeValue_Share_Industry_Industry
-        : global::System.IEquatable<ChangeValue_ChangeValue_Share_Industry_Industry>
-        , IChangeValue_ChangeValue_Share_Industry_Industry
-    {
-        public ChangeValue_ChangeValue_Share_Industry_Industry(
-            global::System.Int32 id,
-            global::System.String? name)
+        public ChangeValue_ChangeValue_Share_Industry_Industry(global::System.Int32 id, global::System.String? name)
         {
             Id = id;
             Name = name;
@@ -1816,18 +747,34 @@ namespace GqlDemo.Client
 
         public global::System.String? Name { get; }
 
-        public override global::System.Boolean Equals(global::System.Object? obj)
+        public virtual global::System.Boolean Equals(ChangeValue_ChangeValue_Share_Industry_Industry? other)
         {
-            if (ReferenceEquals(
-                    null,
-                    obj))
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    obj))
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id) && ((Name is null && other.Name is null) || Name != null && Name.Equals(other.Name));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
@@ -1840,18 +787,251 @@ namespace GqlDemo.Client
             return Equals((ChangeValue_ChangeValue_Share_Industry_Industry)obj);
         }
 
-        public global::System.Boolean Equals(ChangeValue_ChangeValue_Share_Industry_Industry? other)
+        public override global::System.Int32 GetHashCode()
         {
-            if (ReferenceEquals(
-                    null,
-                    other))
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * Id.GetHashCode();
+                if (Name != null)
+                {
+                    hash ^= 397 * Name.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IChangeValueResult
+    {
+        public global::GqlDemo.Client.IChangeValue_ChangeValue? ChangeValue { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IChangeValue_ChangeValue
+    {
+        public global::GqlDemo.Client.IChangeValue_ChangeValue_Share? Share { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IChangeValue_ChangeValue_ChangeValuePayload : IChangeValue_ChangeValue
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IChangeValue_ChangeValue_Share : IShare
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IChangeValue_ChangeValue_Share_Share : IChangeValue_ChangeValue_Share
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IChangeValue_ChangeValue_Share_Industry : IIndustry
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IChangeValue_ChangeValue_Share_Industry_Industry : IChangeValue_ChangeValue_Share_Industry
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ShareFilterInputInputValueFormatter : global::StrawberryShake.Serialization.IInputObjectFormatter
+    {
+        private global::StrawberryShake.Serialization.IInputValueFormatter _shareFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _comparableInt32OperationFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _stringOperationFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _comparableDecimalOperationFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _industryFilterInputFormatter = default !;
+        public global::System.String TypeName => "ShareFilterInput";
+        public void Initialize(global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _shareFilterInputFormatter = serializerResolver.GetInputValueFormatter("ShareFilterInput");
+            _comparableInt32OperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("ComparableInt32OperationFilterInput");
+            _stringOperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("StringOperationFilterInput");
+            _comparableDecimalOperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("ComparableDecimalOperationFilterInput");
+            _industryFilterInputFormatter = serializerResolver.GetInputValueFormatter("IndustryFilterInput");
+        }
+
+        public global::System.Object? Format(global::System.Object? runtimeValue)
+        {
+            if (runtimeValue is null)
+            {
+                return null;
+            }
+
+            var input = runtimeValue as global::GqlDemo.Client.ShareFilterInput;
+            var inputInfo = runtimeValue as global::GqlDemo.Client.State.IShareFilterInputInfo;
+            if (input is null || inputInfo is null)
+            {
+                throw new global::System.ArgumentException(nameof(runtimeValue));
+            }
+
+            var fields = new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>>();
+            if (inputInfo.IsAndSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("and", FormatAnd(input.And)));
+            }
+
+            if (inputInfo.IsOrSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("or", FormatOr(input.Or)));
+            }
+
+            if (inputInfo.IsIdSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("id", FormatId(input.Id)));
+            }
+
+            if (inputInfo.IsCompanyNameSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("companyName", FormatCompanyName(input.CompanyName)));
+            }
+
+            if (inputInfo.IsValueSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("value", FormatValue(input.Value)));
+            }
+
+            if (inputInfo.IsIndustrySet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("industry", FormatIndustry(input.Industry)));
+            }
+
+            return fields;
+        }
+
+        private global::System.Object? FormatAnd(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_shareFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatOr(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_shareFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatId(global::GqlDemo.Client.ComparableInt32OperationFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _comparableInt32OperationFilterInputFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatCompanyName(global::GqlDemo.Client.StringOperationFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringOperationFilterInputFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatValue(global::GqlDemo.Client.ComparableDecimalOperationFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _comparableDecimalOperationFilterInputFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatIndustry(global::GqlDemo.Client.IndustryFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _industryFilterInputFormatter.Format(input);
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ShareFilterInput : global::GqlDemo.Client.State.IShareFilterInputInfo, global::System.IEquatable<ShareFilterInput>
+    {
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
             {
                 return false;
             }
 
-            if (ReferenceEquals(
-                    this,
-                    other))
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((ShareFilterInput)obj);
+        }
+
+        public virtual global::System.Boolean Equals(ShareFilterInput? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
             {
                 return true;
             }
@@ -1861,8 +1041,7 @@ namespace GqlDemo.Client
                 return false;
             }
 
-            return (Id == other.Id)
-                && ((Name is null && other.Name is null) ||Name != null && Name.Equals(other.Name));
+            return (global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(And, other.And)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Or, other.Or) && ((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id)) && ((CompanyName is null && other.CompanyName is null) || CompanyName != null && CompanyName.Equals(other.CompanyName)) && ((Value is null && other.Value is null) || Value != null && Value.Equals(other.Value)) && ((Industry is null && other.Industry is null) || Industry != null && Industry.Equals(other.Industry));
         }
 
         public override global::System.Int32 GetHashCode()
@@ -1870,10 +1049,1932 @@ namespace GqlDemo.Client
             unchecked
             {
                 int hash = 5;
+                if (And != null)
+                {
+                    foreach (var And_elm in And)
+                    {
+                        hash ^= 397 * And_elm.GetHashCode();
+                    }
+                }
 
-                hash ^= 397 * Id.GetHashCode();
+                if (Or != null)
+                {
+                    foreach (var Or_elm in Or)
+                    {
+                        hash ^= 397 * Or_elm.GetHashCode();
+                    }
+                }
 
-                if (!(Name is null))
+                if (Id != null)
+                {
+                    hash ^= 397 * Id.GetHashCode();
+                }
+
+                if (CompanyName != null)
+                {
+                    hash ^= 397 * CompanyName.GetHashCode();
+                }
+
+                if (Value != null)
+                {
+                    hash ^= 397 * Value.GetHashCode();
+                }
+
+                if (Industry != null)
+                {
+                    hash ^= 397 * Industry.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? _value_and;
+        private global::System.Boolean _set_and;
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? _value_or;
+        private global::System.Boolean _set_or;
+        private global::GqlDemo.Client.ComparableInt32OperationFilterInput? _value_id;
+        private global::System.Boolean _set_id;
+        private global::GqlDemo.Client.StringOperationFilterInput? _value_companyName;
+        private global::System.Boolean _set_companyName;
+        private global::GqlDemo.Client.ComparableDecimalOperationFilterInput? _value_value;
+        private global::System.Boolean _set_value;
+        private global::GqlDemo.Client.IndustryFilterInput? _value_industry;
+        private global::System.Boolean _set_industry;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? And
+        {
+            get => _value_and;
+            set
+            {
+                _set_and = true;
+                _value_and = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsAndSet => _set_and;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? Or
+        {
+            get => _value_or;
+            set
+            {
+                _set_or = true;
+                _value_or = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsOrSet => _set_or;
+        public global::GqlDemo.Client.ComparableInt32OperationFilterInput? Id
+        {
+            get => _value_id;
+            set
+            {
+                _set_id = true;
+                _value_id = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsIdSet => _set_id;
+        public global::GqlDemo.Client.StringOperationFilterInput? CompanyName
+        {
+            get => _value_companyName;
+            set
+            {
+                _set_companyName = true;
+                _value_companyName = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsCompanyNameSet => _set_companyName;
+        public global::GqlDemo.Client.ComparableDecimalOperationFilterInput? Value
+        {
+            get => _value_value;
+            set
+            {
+                _set_value = true;
+                _value_value = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsValueSet => _set_value;
+        public global::GqlDemo.Client.IndustryFilterInput? Industry
+        {
+            get => _value_industry;
+            set
+            {
+                _set_industry = true;
+                _value_industry = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsIndustrySet => _set_industry;
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ComparableInt32OperationFilterInputInputValueFormatter : global::StrawberryShake.Serialization.IInputObjectFormatter
+    {
+        private global::StrawberryShake.Serialization.IInputValueFormatter _intFormatter = default !;
+        public global::System.String TypeName => "ComparableInt32OperationFilterInput";
+        public void Initialize(global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _intFormatter = serializerResolver.GetInputValueFormatter("Int");
+        }
+
+        public global::System.Object? Format(global::System.Object? runtimeValue)
+        {
+            if (runtimeValue is null)
+            {
+                return null;
+            }
+
+            var input = runtimeValue as global::GqlDemo.Client.ComparableInt32OperationFilterInput;
+            var inputInfo = runtimeValue as global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo;
+            if (input is null || inputInfo is null)
+            {
+                throw new global::System.ArgumentException(nameof(runtimeValue));
+            }
+
+            var fields = new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>>();
+            if (inputInfo.IsEqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("eq", FormatEq(input.Eq)));
+            }
+
+            if (inputInfo.IsNeqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("neq", FormatNeq(input.Neq)));
+            }
+
+            if (inputInfo.IsInSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("in", FormatIn(input.In)));
+            }
+
+            if (inputInfo.IsNinSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nin", FormatNin(input.Nin)));
+            }
+
+            if (inputInfo.IsGtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("gt", FormatGt(input.Gt)));
+            }
+
+            if (inputInfo.IsNgtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("ngt", FormatNgt(input.Ngt)));
+            }
+
+            if (inputInfo.IsGteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("gte", FormatGte(input.Gte)));
+            }
+
+            if (inputInfo.IsNgteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("ngte", FormatNgte(input.Ngte)));
+            }
+
+            if (inputInfo.IsLtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("lt", FormatLt(input.Lt)));
+            }
+
+            if (inputInfo.IsNltSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nlt", FormatNlt(input.Nlt)));
+            }
+
+            if (inputInfo.IsLteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("lte", FormatLte(input.Lte)));
+            }
+
+            if (inputInfo.IsNlteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nlte", FormatNlte(input.Nlte)));
+            }
+
+            return fields;
+        }
+
+        private global::System.Object? FormatEq(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNeq(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatIn(global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    input_list.Add(_intFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatNin(global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    input_list.Add(_intFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatGt(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNgt(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatGte(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNgte(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatLt(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNlt(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatLte(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNlte(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ComparableInt32OperationFilterInput : global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo, global::System.IEquatable<ComparableInt32OperationFilterInput>
+    {
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((ComparableInt32OperationFilterInput)obj);
+        }
+
+        public virtual global::System.Boolean Equals(ComparableInt32OperationFilterInput? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Eq == other.Eq) && Neq == other.Neq && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(In, other.In) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Nin, other.Nin) && Gt == other.Gt && Ngt == other.Ngt && Gte == other.Gte && Ngte == other.Ngte && Lt == other.Lt && Nlt == other.Nlt && Lte == other.Lte && Nlte == other.Nlte;
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                if (Eq != null)
+                {
+                    hash ^= 397 * Eq.GetHashCode();
+                }
+
+                if (Neq != null)
+                {
+                    hash ^= 397 * Neq.GetHashCode();
+                }
+
+                if (In != null)
+                {
+                    foreach (var In_elm in In)
+                    {
+                        hash ^= 397 * In_elm.GetHashCode();
+                    }
+                }
+
+                if (Nin != null)
+                {
+                    foreach (var Nin_elm in Nin)
+                    {
+                        hash ^= 397 * Nin_elm.GetHashCode();
+                    }
+                }
+
+                if (Gt != null)
+                {
+                    hash ^= 397 * Gt.GetHashCode();
+                }
+
+                if (Ngt != null)
+                {
+                    hash ^= 397 * Ngt.GetHashCode();
+                }
+
+                if (Gte != null)
+                {
+                    hash ^= 397 * Gte.GetHashCode();
+                }
+
+                if (Ngte != null)
+                {
+                    hash ^= 397 * Ngte.GetHashCode();
+                }
+
+                if (Lt != null)
+                {
+                    hash ^= 397 * Lt.GetHashCode();
+                }
+
+                if (Nlt != null)
+                {
+                    hash ^= 397 * Nlt.GetHashCode();
+                }
+
+                if (Lte != null)
+                {
+                    hash ^= 397 * Lte.GetHashCode();
+                }
+
+                if (Nlte != null)
+                {
+                    hash ^= 397 * Nlte.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+
+        private global::System.Int32? _value_eq;
+        private global::System.Boolean _set_eq;
+        private global::System.Int32? _value_neq;
+        private global::System.Boolean _set_neq;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? _value_in;
+        private global::System.Boolean _set_in;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? _value_nin;
+        private global::System.Boolean _set_nin;
+        private global::System.Int32? _value_gt;
+        private global::System.Boolean _set_gt;
+        private global::System.Int32? _value_ngt;
+        private global::System.Boolean _set_ngt;
+        private global::System.Int32? _value_gte;
+        private global::System.Boolean _set_gte;
+        private global::System.Int32? _value_ngte;
+        private global::System.Boolean _set_ngte;
+        private global::System.Int32? _value_lt;
+        private global::System.Boolean _set_lt;
+        private global::System.Int32? _value_nlt;
+        private global::System.Boolean _set_nlt;
+        private global::System.Int32? _value_lte;
+        private global::System.Boolean _set_lte;
+        private global::System.Int32? _value_nlte;
+        private global::System.Boolean _set_nlte;
+        public global::System.Int32? Eq
+        {
+            get => _value_eq;
+            set
+            {
+                _set_eq = true;
+                _value_eq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsEqSet => _set_eq;
+        public global::System.Int32? Neq
+        {
+            get => _value_neq;
+            set
+            {
+                _set_neq = true;
+                _value_neq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNeqSet => _set_neq;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? In
+        {
+            get => _value_in;
+            set
+            {
+                _set_in = true;
+                _value_in = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsInSet => _set_in;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? Nin
+        {
+            get => _value_nin;
+            set
+            {
+                _set_nin = true;
+                _value_nin = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNinSet => _set_nin;
+        public global::System.Int32? Gt
+        {
+            get => _value_gt;
+            set
+            {
+                _set_gt = true;
+                _value_gt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsGtSet => _set_gt;
+        public global::System.Int32? Ngt
+        {
+            get => _value_ngt;
+            set
+            {
+                _set_ngt = true;
+                _value_ngt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNgtSet => _set_ngt;
+        public global::System.Int32? Gte
+        {
+            get => _value_gte;
+            set
+            {
+                _set_gte = true;
+                _value_gte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsGteSet => _set_gte;
+        public global::System.Int32? Ngte
+        {
+            get => _value_ngte;
+            set
+            {
+                _set_ngte = true;
+                _value_ngte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNgteSet => _set_ngte;
+        public global::System.Int32? Lt
+        {
+            get => _value_lt;
+            set
+            {
+                _set_lt = true;
+                _value_lt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsLtSet => _set_lt;
+        public global::System.Int32? Nlt
+        {
+            get => _value_nlt;
+            set
+            {
+                _set_nlt = true;
+                _value_nlt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNltSet => _set_nlt;
+        public global::System.Int32? Lte
+        {
+            get => _value_lte;
+            set
+            {
+                _set_lte = true;
+                _value_lte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsLteSet => _set_lte;
+        public global::System.Int32? Nlte
+        {
+            get => _value_nlte;
+            set
+            {
+                _set_nlte = true;
+                _value_nlte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNlteSet => _set_nlte;
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class StringOperationFilterInputInputValueFormatter : global::StrawberryShake.Serialization.IInputObjectFormatter
+    {
+        private global::StrawberryShake.Serialization.IInputValueFormatter _stringOperationFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _stringFormatter = default !;
+        public global::System.String TypeName => "StringOperationFilterInput";
+        public void Initialize(global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _stringOperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("StringOperationFilterInput");
+            _stringFormatter = serializerResolver.GetInputValueFormatter("String");
+        }
+
+        public global::System.Object? Format(global::System.Object? runtimeValue)
+        {
+            if (runtimeValue is null)
+            {
+                return null;
+            }
+
+            var input = runtimeValue as global::GqlDemo.Client.StringOperationFilterInput;
+            var inputInfo = runtimeValue as global::GqlDemo.Client.State.IStringOperationFilterInputInfo;
+            if (input is null || inputInfo is null)
+            {
+                throw new global::System.ArgumentException(nameof(runtimeValue));
+            }
+
+            var fields = new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>>();
+            if (inputInfo.IsAndSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("and", FormatAnd(input.And)));
+            }
+
+            if (inputInfo.IsOrSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("or", FormatOr(input.Or)));
+            }
+
+            if (inputInfo.IsEqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("eq", FormatEq(input.Eq)));
+            }
+
+            if (inputInfo.IsNeqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("neq", FormatNeq(input.Neq)));
+            }
+
+            if (inputInfo.IsContainsSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("contains", FormatContains(input.Contains)));
+            }
+
+            if (inputInfo.IsNcontainsSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("ncontains", FormatNcontains(input.Ncontains)));
+            }
+
+            if (inputInfo.IsInSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("in", FormatIn(input.In)));
+            }
+
+            if (inputInfo.IsNinSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nin", FormatNin(input.Nin)));
+            }
+
+            if (inputInfo.IsStartsWithSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("startsWith", FormatStartsWith(input.StartsWith)));
+            }
+
+            if (inputInfo.IsNstartsWithSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nstartsWith", FormatNstartsWith(input.NstartsWith)));
+            }
+
+            if (inputInfo.IsEndsWithSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("endsWith", FormatEndsWith(input.EndsWith)));
+            }
+
+            if (inputInfo.IsNendsWithSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nendsWith", FormatNendsWith(input.NendsWith)));
+            }
+
+            return fields;
+        }
+
+        private global::System.Object? FormatAnd(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_stringOperationFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatOr(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_stringOperationFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatEq(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNeq(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatContains(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNcontains(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatIn(global::System.Collections.Generic.IReadOnlyList<global::System.String?>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        input_list.Add(input_elm);
+                    }
+                    else
+                    {
+                        input_list.Add(_stringFormatter.Format(input_elm));
+                    }
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatNin(global::System.Collections.Generic.IReadOnlyList<global::System.String?>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        input_list.Add(input_elm);
+                    }
+                    else
+                    {
+                        input_list.Add(_stringFormatter.Format(input_elm));
+                    }
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatStartsWith(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNstartsWith(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatEndsWith(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNendsWith(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class StringOperationFilterInput : global::GqlDemo.Client.State.IStringOperationFilterInputInfo, global::System.IEquatable<StringOperationFilterInput>
+    {
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((StringOperationFilterInput)obj);
+        }
+
+        public virtual global::System.Boolean Equals(StringOperationFilterInput? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(And, other.And)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Or, other.Or) && ((Eq is null && other.Eq is null) || Eq != null && Eq.Equals(other.Eq)) && ((Neq is null && other.Neq is null) || Neq != null && Neq.Equals(other.Neq)) && ((Contains is null && other.Contains is null) || Contains != null && Contains.Equals(other.Contains)) && ((Ncontains is null && other.Ncontains is null) || Ncontains != null && Ncontains.Equals(other.Ncontains)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(In, other.In) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Nin, other.Nin) && ((StartsWith is null && other.StartsWith is null) || StartsWith != null && StartsWith.Equals(other.StartsWith)) && ((NstartsWith is null && other.NstartsWith is null) || NstartsWith != null && NstartsWith.Equals(other.NstartsWith)) && ((EndsWith is null && other.EndsWith is null) || EndsWith != null && EndsWith.Equals(other.EndsWith)) && ((NendsWith is null && other.NendsWith is null) || NendsWith != null && NendsWith.Equals(other.NendsWith));
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                if (And != null)
+                {
+                    foreach (var And_elm in And)
+                    {
+                        hash ^= 397 * And_elm.GetHashCode();
+                    }
+                }
+
+                if (Or != null)
+                {
+                    foreach (var Or_elm in Or)
+                    {
+                        hash ^= 397 * Or_elm.GetHashCode();
+                    }
+                }
+
+                if (Eq != null)
+                {
+                    hash ^= 397 * Eq.GetHashCode();
+                }
+
+                if (Neq != null)
+                {
+                    hash ^= 397 * Neq.GetHashCode();
+                }
+
+                if (Contains != null)
+                {
+                    hash ^= 397 * Contains.GetHashCode();
+                }
+
+                if (Ncontains != null)
+                {
+                    hash ^= 397 * Ncontains.GetHashCode();
+                }
+
+                if (In != null)
+                {
+                    foreach (var In_elm in In)
+                    {
+                        if (In_elm != null)
+                        {
+                            hash ^= 397 * In_elm.GetHashCode();
+                        }
+                    }
+                }
+
+                if (Nin != null)
+                {
+                    foreach (var Nin_elm in Nin)
+                    {
+                        if (Nin_elm != null)
+                        {
+                            hash ^= 397 * Nin_elm.GetHashCode();
+                        }
+                    }
+                }
+
+                if (StartsWith != null)
+                {
+                    hash ^= 397 * StartsWith.GetHashCode();
+                }
+
+                if (NstartsWith != null)
+                {
+                    hash ^= 397 * NstartsWith.GetHashCode();
+                }
+
+                if (EndsWith != null)
+                {
+                    hash ^= 397 * EndsWith.GetHashCode();
+                }
+
+                if (NendsWith != null)
+                {
+                    hash ^= 397 * NendsWith.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? _value_and;
+        private global::System.Boolean _set_and;
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? _value_or;
+        private global::System.Boolean _set_or;
+        private global::System.String? _value_eq;
+        private global::System.Boolean _set_eq;
+        private global::System.String? _value_neq;
+        private global::System.Boolean _set_neq;
+        private global::System.String? _value_contains;
+        private global::System.Boolean _set_contains;
+        private global::System.String? _value_ncontains;
+        private global::System.Boolean _set_ncontains;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.String?>? _value_in;
+        private global::System.Boolean _set_in;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.String?>? _value_nin;
+        private global::System.Boolean _set_nin;
+        private global::System.String? _value_startsWith;
+        private global::System.Boolean _set_startsWith;
+        private global::System.String? _value_nstartsWith;
+        private global::System.Boolean _set_nstartsWith;
+        private global::System.String? _value_endsWith;
+        private global::System.Boolean _set_endsWith;
+        private global::System.String? _value_nendsWith;
+        private global::System.Boolean _set_nendsWith;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? And
+        {
+            get => _value_and;
+            set
+            {
+                _set_and = true;
+                _value_and = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsAndSet => _set_and;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? Or
+        {
+            get => _value_or;
+            set
+            {
+                _set_or = true;
+                _value_or = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsOrSet => _set_or;
+        public global::System.String? Eq
+        {
+            get => _value_eq;
+            set
+            {
+                _set_eq = true;
+                _value_eq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsEqSet => _set_eq;
+        public global::System.String? Neq
+        {
+            get => _value_neq;
+            set
+            {
+                _set_neq = true;
+                _value_neq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsNeqSet => _set_neq;
+        public global::System.String? Contains
+        {
+            get => _value_contains;
+            set
+            {
+                _set_contains = true;
+                _value_contains = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsContainsSet => _set_contains;
+        public global::System.String? Ncontains
+        {
+            get => _value_ncontains;
+            set
+            {
+                _set_ncontains = true;
+                _value_ncontains = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsNcontainsSet => _set_ncontains;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.String?>? In
+        {
+            get => _value_in;
+            set
+            {
+                _set_in = true;
+                _value_in = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsInSet => _set_in;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.String?>? Nin
+        {
+            get => _value_nin;
+            set
+            {
+                _set_nin = true;
+                _value_nin = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsNinSet => _set_nin;
+        public global::System.String? StartsWith
+        {
+            get => _value_startsWith;
+            set
+            {
+                _set_startsWith = true;
+                _value_startsWith = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsStartsWithSet => _set_startsWith;
+        public global::System.String? NstartsWith
+        {
+            get => _value_nstartsWith;
+            set
+            {
+                _set_nstartsWith = true;
+                _value_nstartsWith = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsNstartsWithSet => _set_nstartsWith;
+        public global::System.String? EndsWith
+        {
+            get => _value_endsWith;
+            set
+            {
+                _set_endsWith = true;
+                _value_endsWith = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsEndsWithSet => _set_endsWith;
+        public global::System.String? NendsWith
+        {
+            get => _value_nendsWith;
+            set
+            {
+                _set_nendsWith = true;
+                _value_nendsWith = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsNendsWithSet => _set_nendsWith;
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ComparableDecimalOperationFilterInputInputValueFormatter : global::StrawberryShake.Serialization.IInputObjectFormatter
+    {
+        private global::StrawberryShake.Serialization.IInputValueFormatter _decimalFormatter = default !;
+        public global::System.String TypeName => "ComparableDecimalOperationFilterInput";
+        public void Initialize(global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _decimalFormatter = serializerResolver.GetInputValueFormatter("Decimal");
+        }
+
+        public global::System.Object? Format(global::System.Object? runtimeValue)
+        {
+            if (runtimeValue is null)
+            {
+                return null;
+            }
+
+            var input = runtimeValue as global::GqlDemo.Client.ComparableDecimalOperationFilterInput;
+            var inputInfo = runtimeValue as global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo;
+            if (input is null || inputInfo is null)
+            {
+                throw new global::System.ArgumentException(nameof(runtimeValue));
+            }
+
+            var fields = new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>>();
+            if (inputInfo.IsEqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("eq", FormatEq(input.Eq)));
+            }
+
+            if (inputInfo.IsNeqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("neq", FormatNeq(input.Neq)));
+            }
+
+            if (inputInfo.IsInSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("in", FormatIn(input.In)));
+            }
+
+            if (inputInfo.IsNinSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nin", FormatNin(input.Nin)));
+            }
+
+            if (inputInfo.IsGtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("gt", FormatGt(input.Gt)));
+            }
+
+            if (inputInfo.IsNgtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("ngt", FormatNgt(input.Ngt)));
+            }
+
+            if (inputInfo.IsGteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("gte", FormatGte(input.Gte)));
+            }
+
+            if (inputInfo.IsNgteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("ngte", FormatNgte(input.Ngte)));
+            }
+
+            if (inputInfo.IsLtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("lt", FormatLt(input.Lt)));
+            }
+
+            if (inputInfo.IsNltSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nlt", FormatNlt(input.Nlt)));
+            }
+
+            if (inputInfo.IsLteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("lte", FormatLte(input.Lte)));
+            }
+
+            if (inputInfo.IsNlteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nlte", FormatNlte(input.Nlte)));
+            }
+
+            return fields;
+        }
+
+        private global::System.Object? FormatEq(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNeq(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatIn(global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    input_list.Add(_decimalFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatNin(global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    input_list.Add(_decimalFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatGt(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNgt(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatGte(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNgte(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatLt(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNlt(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatLte(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNlte(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ComparableDecimalOperationFilterInput : global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo, global::System.IEquatable<ComparableDecimalOperationFilterInput>
+    {
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((ComparableDecimalOperationFilterInput)obj);
+        }
+
+        public virtual global::System.Boolean Equals(ComparableDecimalOperationFilterInput? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Eq == other.Eq) && Neq == other.Neq && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(In, other.In) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Nin, other.Nin) && Gt == other.Gt && Ngt == other.Ngt && Gte == other.Gte && Ngte == other.Ngte && Lt == other.Lt && Nlt == other.Nlt && Lte == other.Lte && Nlte == other.Nlte;
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                if (Eq != null)
+                {
+                    hash ^= 397 * Eq.GetHashCode();
+                }
+
+                if (Neq != null)
+                {
+                    hash ^= 397 * Neq.GetHashCode();
+                }
+
+                if (In != null)
+                {
+                    foreach (var In_elm in In)
+                    {
+                        hash ^= 397 * In_elm.GetHashCode();
+                    }
+                }
+
+                if (Nin != null)
+                {
+                    foreach (var Nin_elm in Nin)
+                    {
+                        hash ^= 397 * Nin_elm.GetHashCode();
+                    }
+                }
+
+                if (Gt != null)
+                {
+                    hash ^= 397 * Gt.GetHashCode();
+                }
+
+                if (Ngt != null)
+                {
+                    hash ^= 397 * Ngt.GetHashCode();
+                }
+
+                if (Gte != null)
+                {
+                    hash ^= 397 * Gte.GetHashCode();
+                }
+
+                if (Ngte != null)
+                {
+                    hash ^= 397 * Ngte.GetHashCode();
+                }
+
+                if (Lt != null)
+                {
+                    hash ^= 397 * Lt.GetHashCode();
+                }
+
+                if (Nlt != null)
+                {
+                    hash ^= 397 * Nlt.GetHashCode();
+                }
+
+                if (Lte != null)
+                {
+                    hash ^= 397 * Lte.GetHashCode();
+                }
+
+                if (Nlte != null)
+                {
+                    hash ^= 397 * Nlte.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+
+        private global::System.Decimal? _value_eq;
+        private global::System.Boolean _set_eq;
+        private global::System.Decimal? _value_neq;
+        private global::System.Boolean _set_neq;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? _value_in;
+        private global::System.Boolean _set_in;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? _value_nin;
+        private global::System.Boolean _set_nin;
+        private global::System.Decimal? _value_gt;
+        private global::System.Boolean _set_gt;
+        private global::System.Decimal? _value_ngt;
+        private global::System.Boolean _set_ngt;
+        private global::System.Decimal? _value_gte;
+        private global::System.Boolean _set_gte;
+        private global::System.Decimal? _value_ngte;
+        private global::System.Boolean _set_ngte;
+        private global::System.Decimal? _value_lt;
+        private global::System.Boolean _set_lt;
+        private global::System.Decimal? _value_nlt;
+        private global::System.Boolean _set_nlt;
+        private global::System.Decimal? _value_lte;
+        private global::System.Boolean _set_lte;
+        private global::System.Decimal? _value_nlte;
+        private global::System.Boolean _set_nlte;
+        public global::System.Decimal? Eq
+        {
+            get => _value_eq;
+            set
+            {
+                _set_eq = true;
+                _value_eq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsEqSet => _set_eq;
+        public global::System.Decimal? Neq
+        {
+            get => _value_neq;
+            set
+            {
+                _set_neq = true;
+                _value_neq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNeqSet => _set_neq;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? In
+        {
+            get => _value_in;
+            set
+            {
+                _set_in = true;
+                _value_in = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsInSet => _set_in;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? Nin
+        {
+            get => _value_nin;
+            set
+            {
+                _set_nin = true;
+                _value_nin = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNinSet => _set_nin;
+        public global::System.Decimal? Gt
+        {
+            get => _value_gt;
+            set
+            {
+                _set_gt = true;
+                _value_gt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsGtSet => _set_gt;
+        public global::System.Decimal? Ngt
+        {
+            get => _value_ngt;
+            set
+            {
+                _set_ngt = true;
+                _value_ngt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNgtSet => _set_ngt;
+        public global::System.Decimal? Gte
+        {
+            get => _value_gte;
+            set
+            {
+                _set_gte = true;
+                _value_gte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsGteSet => _set_gte;
+        public global::System.Decimal? Ngte
+        {
+            get => _value_ngte;
+            set
+            {
+                _set_ngte = true;
+                _value_ngte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNgteSet => _set_ngte;
+        public global::System.Decimal? Lt
+        {
+            get => _value_lt;
+            set
+            {
+                _set_lt = true;
+                _value_lt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsLtSet => _set_lt;
+        public global::System.Decimal? Nlt
+        {
+            get => _value_nlt;
+            set
+            {
+                _set_nlt = true;
+                _value_nlt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNltSet => _set_nlt;
+        public global::System.Decimal? Lte
+        {
+            get => _value_lte;
+            set
+            {
+                _set_lte = true;
+                _value_lte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsLteSet => _set_lte;
+        public global::System.Decimal? Nlte
+        {
+            get => _value_nlte;
+            set
+            {
+                _set_nlte = true;
+                _value_nlte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNlteSet => _set_nlte;
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class IndustryFilterInputInputValueFormatter : global::StrawberryShake.Serialization.IInputObjectFormatter
+    {
+        private global::StrawberryShake.Serialization.IInputValueFormatter _industryFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _comparableInt32OperationFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _stringOperationFilterInputFormatter = default !;
+        public global::System.String TypeName => "IndustryFilterInput";
+        public void Initialize(global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _industryFilterInputFormatter = serializerResolver.GetInputValueFormatter("IndustryFilterInput");
+            _comparableInt32OperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("ComparableInt32OperationFilterInput");
+            _stringOperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("StringOperationFilterInput");
+        }
+
+        public global::System.Object? Format(global::System.Object? runtimeValue)
+        {
+            if (runtimeValue is null)
+            {
+                return null;
+            }
+
+            var input = runtimeValue as global::GqlDemo.Client.IndustryFilterInput;
+            var inputInfo = runtimeValue as global::GqlDemo.Client.State.IIndustryFilterInputInfo;
+            if (input is null || inputInfo is null)
+            {
+                throw new global::System.ArgumentException(nameof(runtimeValue));
+            }
+
+            var fields = new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>>();
+            if (inputInfo.IsAndSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("and", FormatAnd(input.And)));
+            }
+
+            if (inputInfo.IsOrSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("or", FormatOr(input.Or)));
+            }
+
+            if (inputInfo.IsIdSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("id", FormatId(input.Id)));
+            }
+
+            if (inputInfo.IsNameSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("name", FormatName(input.Name)));
+            }
+
+            return fields;
+        }
+
+        private global::System.Object? FormatAnd(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_industryFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatOr(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_industryFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatId(global::GqlDemo.Client.ComparableInt32OperationFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _comparableInt32OperationFilterInputFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatName(global::GqlDemo.Client.StringOperationFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringOperationFilterInputFormatter.Format(input);
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class IndustryFilterInput : global::GqlDemo.Client.State.IIndustryFilterInputInfo, global::System.IEquatable<IndustryFilterInput>
+    {
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((IndustryFilterInput)obj);
+        }
+
+        public virtual global::System.Boolean Equals(IndustryFilterInput? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(And, other.And)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Or, other.Or) && ((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id)) && ((Name is null && other.Name is null) || Name != null && Name.Equals(other.Name));
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                if (And != null)
+                {
+                    foreach (var And_elm in And)
+                    {
+                        hash ^= 397 * And_elm.GetHashCode();
+                    }
+                }
+
+                if (Or != null)
+                {
+                    foreach (var Or_elm in Or)
+                    {
+                        hash ^= 397 * Or_elm.GetHashCode();
+                    }
+                }
+
+                if (Id != null)
+                {
+                    hash ^= 397 * Id.GetHashCode();
+                }
+
+                if (Name != null)
                 {
                     hash ^= 397 * Name.GetHashCode();
                 }
@@ -1881,111 +2982,66 @@ namespace GqlDemo.Client
                 return hash;
             }
         }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? _value_and;
+        private global::System.Boolean _set_and;
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? _value_or;
+        private global::System.Boolean _set_or;
+        private global::GqlDemo.Client.ComparableInt32OperationFilterInput? _value_id;
+        private global::System.Boolean _set_id;
+        private global::GqlDemo.Client.StringOperationFilterInput? _value_name;
+        private global::System.Boolean _set_name;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? And
+        {
+            get => _value_and;
+            set
+            {
+                _set_and = true;
+                _value_and = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IIndustryFilterInputInfo.IsAndSet => _set_and;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? Or
+        {
+            get => _value_or;
+            set
+            {
+                _set_or = true;
+                _value_or = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IIndustryFilterInputInfo.IsOrSet => _set_or;
+        public global::GqlDemo.Client.ComparableInt32OperationFilterInput? Id
+        {
+            get => _value_id;
+            set
+            {
+                _set_id = true;
+                _value_id = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IIndustryFilterInputInfo.IsIdSet => _set_id;
+        public global::GqlDemo.Client.StringOperationFilterInput? Name
+        {
+            get => _value_name;
+            set
+            {
+                _set_name = true;
+                _value_name = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IIndustryFilterInputInfo.IsNameSet => _set_name;
     }
-}
 
-
-// IChangeValueResult.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IChangeValueResult
-    {
-        public global::GqlDemo.Client.IChangeValue_ChangeValue? ChangeValue { get; }
-    }
-}
-
-
-// IChangeValue_ChangeValue.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IChangeValue_ChangeValue
-    {
-        public global::GqlDemo.Client.IChangeValue_ChangeValue_Share? Share { get; }
-    }
-}
-
-
-// IChangeValue_ChangeValue_ChangeValuePayload.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IChangeValue_ChangeValue_ChangeValuePayload
-        : IChangeValue_ChangeValue
-    {
-    }
-}
-
-
-// IChangeValue_ChangeValue_Share.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IChangeValue_ChangeValue_Share
-        : IShare
-    {
-    }
-}
-
-
-// IChangeValue_ChangeValue_Share_Share.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IChangeValue_ChangeValue_Share_Share
-        : IChangeValue_ChangeValue_Share
-    {
-    }
-}
-
-
-// IChangeValue_ChangeValue_Share_Industry.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IChangeValue_ChangeValue_Share_Industry
-        : IIndustry
-    {
-    }
-}
-
-
-// IChangeValue_ChangeValue_Share_Industry_Industry.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IChangeValue_ChangeValue_Share_Industry_Industry
-        : IChangeValue_ChangeValue_Share_Industry
-    {
-    }
-}
-
-
-// GetSharesQueryDocument.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// Represents the operation service of the GetShares GraphQL operation
     /// <code>
-    /// query GetShares($first: Int, $last: Int, $industryId: Int) {
-    ///   shares(first: $first, last: $last, industryId: $industryId) {
+    /// query GetShares($first: Int, $last: Int, $where: ShareFilterInput) {
+    ///   shares(first: $first, last: $last, where: $where) {
     ///     __typename
     ///     totalCount
     ///     nodes {
@@ -2017,44 +3073,32 @@ namespace GqlDemo.Client
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetSharesQueryDocument
-        : global::StrawberryShake.IDocument
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetSharesQueryDocument : global::StrawberryShake.IDocument
     {
         private GetSharesQueryDocument()
         {
         }
 
         public static GetSharesQueryDocument Instance { get; } = new GetSharesQueryDocument();
-
         public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Query;
-
-        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{ 0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x53, 0x68, 0x61, 0x72, 0x65, 0x73, 0x28, 0x24, 0x66, 0x69, 0x72, 0x73, 0x74, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x2c, 0x20, 0x24, 0x6c, 0x61, 0x73, 0x74, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x2c, 0x20, 0x24, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x49, 0x64, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x29, 0x20, 0x7b, 0x20, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x28, 0x66, 0x69, 0x72, 0x73, 0x74, 0x3a, 0x20, 0x24, 0x66, 0x69, 0x72, 0x73, 0x74, 0x2c, 0x20, 0x6c, 0x61, 0x73, 0x74, 0x3a, 0x20, 0x24, 0x6c, 0x61, 0x73, 0x74, 0x2c, 0x20, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x49, 0x64, 0x3a, 0x20, 0x24, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x49, 0x64, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x20, 0x6e, 0x6f, 0x64, 0x65, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x63, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x20, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d };
-
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("sha1Hash", "d5639207b79a5dcef79ff6bf13f2834fd8cb1709");
-
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x53, 0x68, 0x61, 0x72, 0x65, 0x73, 0x28, 0x24, 0x66, 0x69, 0x72, 0x73, 0x74, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x2c, 0x20, 0x24, 0x6c, 0x61, 0x73, 0x74, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x2c, 0x20, 0x24, 0x77, 0x68, 0x65, 0x72, 0x65, 0x3a, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x46, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x29, 0x20, 0x7b, 0x20, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x28, 0x66, 0x69, 0x72, 0x73, 0x74, 0x3a, 0x20, 0x24, 0x66, 0x69, 0x72, 0x73, 0x74, 0x2c, 0x20, 0x6c, 0x61, 0x73, 0x74, 0x3a, 0x20, 0x24, 0x6c, 0x61, 0x73, 0x74, 0x2c, 0x20, 0x77, 0x68, 0x65, 0x72, 0x65, 0x3a, 0x20, 0x24, 0x77, 0x68, 0x65, 0x72, 0x65, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x20, 0x6e, 0x6f, 0x64, 0x65, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x63, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x20, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d};
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "6d7593ea47f2dbf753059281d8e84ec9");
         public override global::System.String ToString()
         {
-            #if NETSTANDARD2_0
-            return global::System.Text.Encoding.UTF8.GetString(Body.ToArray());
-            #else
+#if NETSTANDARD2_0
+        return global::System.Text.Encoding.UTF8.GetString(Body.ToArray());
+#else
             return global::System.Text.Encoding.UTF8.GetString(Body);
-            #endif
+#endif
         }
     }
-}
 
-
-// GetSharesQuery.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// Represents the operation service of the GetShares GraphQL operation
     /// <code>
-    /// query GetShares($first: Int, $last: Int, $industryId: Int) {
-    ///   shares(first: $first, last: $last, industryId: $industryId) {
+    /// query GetShares($first: Int, $last: Int, $where: ShareFilterInput) {
+    ///   shares(first: $first, last: $last, where: $where) {
     ///     __typename
     ///     totalCount
     ///     nodes {
@@ -2086,121 +3130,79 @@ namespace GqlDemo.Client
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetSharesQuery
-        : global::GqlDemo.Client.IGetSharesQuery
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetSharesQuery : global::GqlDemo.Client.IGetSharesQuery
     {
         private readonly global::StrawberryShake.IOperationExecutor<IGetSharesResult> _operationExecutor;
         private readonly global::StrawberryShake.Serialization.IInputValueFormatter _intFormatter;
-
-        public GetSharesQuery(
-            global::StrawberryShake.IOperationExecutor<IGetSharesResult> operationExecutor,
-            global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        private readonly global::StrawberryShake.Serialization.IInputValueFormatter _shareFilterInputFormatter;
+        public GetSharesQuery(global::StrawberryShake.IOperationExecutor<IGetSharesResult> operationExecutor, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
         {
-            _operationExecutor = operationExecutor
-                 ?? throw new global::System.ArgumentNullException(nameof(operationExecutor));
+            _operationExecutor = operationExecutor ?? throw new global::System.ArgumentNullException(nameof(operationExecutor));
             _intFormatter = serializerResolver.GetInputValueFormatter("Int");
+            _shareFilterInputFormatter = serializerResolver.GetInputValueFormatter("ShareFilterInput");
         }
 
         global::System.Type global::StrawberryShake.IOperationRequestFactory.ResultType => typeof(IGetSharesResult);
-
-        public async global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetSharesResult>> ExecuteAsync(
-            global::System.Int32? first,
-            global::System.Int32? last,
-            global::System.Int32? industryId,
-            global::System.Threading.CancellationToken cancellationToken = default)
+        public async global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetSharesResult>> ExecuteAsync(global::System.Int32? first, global::System.Int32? last, global::GqlDemo.Client.ShareFilterInput? @where, global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var request = CreateRequest(
-                first,
-                last,
-                industryId);
-
-            return await _operationExecutor
-                .ExecuteAsync(
-                    request,
-                    cancellationToken)
-                .ConfigureAwait(false);
+            var request = CreateRequest(first, last, @where);
+            return await _operationExecutor.ExecuteAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
-        public global::System.IObservable<global::StrawberryShake.IOperationResult<IGetSharesResult>> Watch(
-            global::System.Int32? first,
-            global::System.Int32? last,
-            global::System.Int32? industryId,
-            global::StrawberryShake.ExecutionStrategy? strategy = null)
+        public global::System.IObservable<global::StrawberryShake.IOperationResult<IGetSharesResult>> Watch(global::System.Int32? first, global::System.Int32? last, global::GqlDemo.Client.ShareFilterInput? @where, global::StrawberryShake.ExecutionStrategy? strategy = null)
         {
-            var request = CreateRequest(
-                first,
-                last,
-                industryId);
-            return _operationExecutor.Watch(
-                request,
-                strategy);
+            var request = CreateRequest(first, last, @where);
+            return _operationExecutor.Watch(request, strategy);
         }
 
-        private global::StrawberryShake.OperationRequest CreateRequest(
-            global::System.Int32? first,
-            global::System.Int32? last,
-            global::System.Int32? industryId)
+        private global::StrawberryShake.OperationRequest CreateRequest(global::System.Int32? first, global::System.Int32? last, global::GqlDemo.Client.ShareFilterInput? @where)
         {
             var variables = new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>();
-
-            variables.Add(
-                "first",
-                FormatFirst(first));
-            variables.Add(
-                "last",
-                FormatLast(last));
-            variables.Add(
-                "industryId",
-                FormatIndustryId(industryId));
-
+            variables.Add("first", FormatFirst(first));
+            variables.Add("last", FormatLast(last));
+            variables.Add("where", FormatWhere(@where));
             return CreateRequest(variables);
         }
 
         private global::StrawberryShake.OperationRequest CreateRequest(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
         {
-
-            return new global::StrawberryShake.OperationRequest(
-                id: GetSharesQueryDocument.Instance.Hash.Value,
-                name: "GetShares",
-                document: GetSharesQueryDocument.Instance,
-                strategy: global::StrawberryShake.RequestStrategy.Default,
-                variables:variables);
+            return new global::StrawberryShake.OperationRequest(id: GetSharesQueryDocument.Instance.Hash.Value, name: "GetShares", document: GetSharesQueryDocument.Instance, strategy: global::StrawberryShake.RequestStrategy.Default, variables: variables);
         }
 
         private global::System.Object? FormatFirst(global::System.Int32? value)
         {
-            if (!(value is null))
+            if (value is null)
             {
-                return _intFormatter.Format(value);
+                return value;
             }
             else
             {
-                return value;
+                return _intFormatter.Format(value);
             }
         }
 
         private global::System.Object? FormatLast(global::System.Int32? value)
         {
-            if (!(value is null))
+            if (value is null)
             {
-                return _intFormatter.Format(value);
+                return value;
             }
             else
             {
-                return value;
+                return _intFormatter.Format(value);
             }
         }
 
-        private global::System.Object? FormatIndustryId(global::System.Int32? value)
+        private global::System.Object? FormatWhere(global::GqlDemo.Client.ShareFilterInput? value)
         {
-            if (!(value is null))
+            if (value is null)
             {
-                return _intFormatter.Format(value);
+                return value;
             }
             else
             {
-                return value;
+                return _shareFilterInputFormatter.Format(value);
             }
         }
 
@@ -2209,19 +3211,12 @@ namespace GqlDemo.Client
             return CreateRequest(variables!);
         }
     }
-}
 
-
-// IGetSharesQuery.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// Represents the operation service of the GetShares GraphQL operation
     /// <code>
-    /// query GetShares($first: Int, $last: Int, $industryId: Int) {
-    ///   shares(first: $first, last: $last, industryId: $industryId) {
+    /// query GetShares($first: Int, $last: Int, $where: ShareFilterInput) {
+    ///   shares(first: $first, last: $last, where: $where) {
     ///     __typename
     ///     totalCount
     ///     nodes {
@@ -2253,30 +3248,13 @@ namespace GqlDemo.Client
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetSharesQuery
-        : global::StrawberryShake.IOperationRequestFactory
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IGetSharesQuery : global::StrawberryShake.IOperationRequestFactory
     {
-        global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetSharesResult>> ExecuteAsync(
-            global::System.Int32? first,
-            global::System.Int32? last,
-            global::System.Int32? industryId,
-            global::System.Threading.CancellationToken cancellationToken = default);
-
-        global::System.IObservable<global::StrawberryShake.IOperationResult<IGetSharesResult>> Watch(
-            global::System.Int32? first,
-            global::System.Int32? last,
-            global::System.Int32? industryId,
-            global::StrawberryShake.ExecutionStrategy? strategy = null);
+        global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetSharesResult>> ExecuteAsync(global::System.Int32? first, global::System.Int32? last, global::GqlDemo.Client.ShareFilterInput? @where, global::System.Threading.CancellationToken cancellationToken = default);
+        global::System.IObservable<global::StrawberryShake.IOperationResult<IGetSharesResult>> Watch(global::System.Int32? first, global::System.Int32? last, global::GqlDemo.Client.ShareFilterInput? @where, global::StrawberryShake.ExecutionStrategy? strategy = null);
     }
-}
 
-
-// GetIndustriesQueryDocument.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// Represents the operation service of the GetIndustries GraphQL operation
     /// <code>
@@ -2296,39 +3274,27 @@ namespace GqlDemo.Client
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetIndustriesQueryDocument
-        : global::StrawberryShake.IDocument
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetIndustriesQueryDocument : global::StrawberryShake.IDocument
     {
         private GetIndustriesQueryDocument()
         {
         }
 
         public static GetIndustriesQueryDocument Instance { get; } = new GetIndustriesQueryDocument();
-
         public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Query;
-
-        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{ 0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x69, 0x65, 0x73, 0x20, 0x7b, 0x20, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x69, 0x65, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d };
-
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("sha1Hash", "b8357879bff3049cd7f03551f2d8a21b1c43eb99");
-
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x69, 0x65, 0x73, 0x20, 0x7b, 0x20, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x69, 0x65, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d};
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "23556d7bf1d1b5ada2b810e3286619cf");
         public override global::System.String ToString()
         {
-            #if NETSTANDARD2_0
-            return global::System.Text.Encoding.UTF8.GetString(Body.ToArray());
-            #else
+#if NETSTANDARD2_0
+        return global::System.Text.Encoding.UTF8.GetString(Body.ToArray());
+#else
             return global::System.Text.Encoding.UTF8.GetString(Body);
-            #endif
+#endif
         }
     }
-}
 
-
-// GetIndustriesQuery.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// Represents the operation service of the GetIndustries GraphQL operation
     /// <code>
@@ -2348,53 +3314,36 @@ namespace GqlDemo.Client
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetIndustriesQuery
-        : global::GqlDemo.Client.IGetIndustriesQuery
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetIndustriesQuery : global::GqlDemo.Client.IGetIndustriesQuery
     {
         private readonly global::StrawberryShake.IOperationExecutor<IGetIndustriesResult> _operationExecutor;
-
         public GetIndustriesQuery(global::StrawberryShake.IOperationExecutor<IGetIndustriesResult> operationExecutor)
         {
-            _operationExecutor = operationExecutor
-                 ?? throw new global::System.ArgumentNullException(nameof(operationExecutor));
+            _operationExecutor = operationExecutor ?? throw new global::System.ArgumentNullException(nameof(operationExecutor));
         }
 
         global::System.Type global::StrawberryShake.IOperationRequestFactory.ResultType => typeof(IGetIndustriesResult);
-
         public async global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetIndustriesResult>> ExecuteAsync(global::System.Threading.CancellationToken cancellationToken = default)
         {
             var request = CreateRequest();
-
-            return await _operationExecutor
-                .ExecuteAsync(
-                    request,
-                    cancellationToken)
-                .ConfigureAwait(false);
+            return await _operationExecutor.ExecuteAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         public global::System.IObservable<global::StrawberryShake.IOperationResult<IGetIndustriesResult>> Watch(global::StrawberryShake.ExecutionStrategy? strategy = null)
         {
             var request = CreateRequest();
-            return _operationExecutor.Watch(
-                request,
-                strategy);
+            return _operationExecutor.Watch(request, strategy);
         }
 
         private global::StrawberryShake.OperationRequest CreateRequest()
         {
-
             return CreateRequest(null);
         }
 
         private global::StrawberryShake.OperationRequest CreateRequest(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
         {
-
-            return new global::StrawberryShake.OperationRequest(
-                id: GetIndustriesQueryDocument.Instance.Hash.Value,
-                name: "GetIndustries",
-                document: GetIndustriesQueryDocument.Instance,
-                strategy: global::StrawberryShake.RequestStrategy.Default);
+            return new global::StrawberryShake.OperationRequest(id: GetIndustriesQueryDocument.Instance.Hash.Value, name: "GetIndustries", document: GetIndustriesQueryDocument.Instance, strategy: global::StrawberryShake.RequestStrategy.Default);
         }
 
         global::StrawberryShake.OperationRequest global::StrawberryShake.IOperationRequestFactory.Create(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
@@ -2402,14 +3351,7 @@ namespace GqlDemo.Client
             return CreateRequest();
         }
     }
-}
 
-
-// IGetIndustriesQuery.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// Represents the operation service of the GetIndustries GraphQL operation
     /// <code>
@@ -2429,22 +3371,13 @@ namespace GqlDemo.Client
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetIndustriesQuery
-        : global::StrawberryShake.IOperationRequestFactory
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IGetIndustriesQuery : global::StrawberryShake.IOperationRequestFactory
     {
         global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetIndustriesResult>> ExecuteAsync(global::System.Threading.CancellationToken cancellationToken = default);
-
         global::System.IObservable<global::StrawberryShake.IOperationResult<IGetIndustriesResult>> Watch(global::StrawberryShake.ExecutionStrategy? strategy = null);
     }
-}
 
-
-// ChangeValueMutationDocument.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// Represents the operation service of the ChangeValue GraphQL operation
     /// <code>
@@ -2480,39 +3413,27 @@ namespace GqlDemo.Client
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValueMutationDocument
-        : global::StrawberryShake.IDocument
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValueMutationDocument : global::StrawberryShake.IDocument
     {
         private ChangeValueMutationDocument()
         {
         }
 
         public static ChangeValueMutationDocument Instance { get; } = new ChangeValueMutationDocument();
-
         public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Mutation;
-
-        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{ 0x6d, 0x75, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x28, 0x24, 0x69, 0x64, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x21, 0x2c, 0x20, 0x24, 0x70, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x21, 0x29, 0x20, 0x7b, 0x20, 0x63, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x28, 0x69, 0x6e, 0x70, 0x75, 0x74, 0x3a, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x3a, 0x20, 0x24, 0x69, 0x64, 0x2c, 0x20, 0x70, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x3a, 0x20, 0x24, 0x70, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x20, 0x7d, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x73, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x63, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x20, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d };
-
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("sha1Hash", "e94335263b2a1d819a863840938a8f7ade208082");
-
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x6d, 0x75, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x28, 0x24, 0x69, 0x64, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x21, 0x2c, 0x20, 0x24, 0x70, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x21, 0x29, 0x20, 0x7b, 0x20, 0x63, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x28, 0x69, 0x6e, 0x70, 0x75, 0x74, 0x3a, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x3a, 0x20, 0x24, 0x69, 0x64, 0x2c, 0x20, 0x70, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x3a, 0x20, 0x24, 0x70, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x20, 0x7d, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x73, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x63, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x20, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d};
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "ffb0dde751d7d41d79b945e809747b50");
         public override global::System.String ToString()
         {
-            #if NETSTANDARD2_0
-            return global::System.Text.Encoding.UTF8.GetString(Body.ToArray());
-            #else
+#if NETSTANDARD2_0
+        return global::System.Text.Encoding.UTF8.GetString(Body.ToArray());
+#else
             return global::System.Text.Encoding.UTF8.GetString(Body);
-            #endif
+#endif
         }
     }
-}
 
-
-// ChangeValueMutation.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// Represents the operation service of the ChangeValue GraphQL operation
     /// <code>
@@ -2548,78 +3469,41 @@ namespace GqlDemo.Client
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValueMutation
-        : global::GqlDemo.Client.IChangeValueMutation
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValueMutation : global::GqlDemo.Client.IChangeValueMutation
     {
         private readonly global::StrawberryShake.IOperationExecutor<IChangeValueResult> _operationExecutor;
         private readonly global::StrawberryShake.Serialization.IInputValueFormatter _intFormatter;
-
-        public ChangeValueMutation(
-            global::StrawberryShake.IOperationExecutor<IChangeValueResult> operationExecutor,
-            global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        public ChangeValueMutation(global::StrawberryShake.IOperationExecutor<IChangeValueResult> operationExecutor, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
         {
-            _operationExecutor = operationExecutor
-                 ?? throw new global::System.ArgumentNullException(nameof(operationExecutor));
+            _operationExecutor = operationExecutor ?? throw new global::System.ArgumentNullException(nameof(operationExecutor));
             _intFormatter = serializerResolver.GetInputValueFormatter("Int");
         }
 
         global::System.Type global::StrawberryShake.IOperationRequestFactory.ResultType => typeof(IChangeValueResult);
-
-        public async global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IChangeValueResult>> ExecuteAsync(
-            global::System.Int32 id,
-            global::System.Int32 percentage,
-            global::System.Threading.CancellationToken cancellationToken = default)
+        public async global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IChangeValueResult>> ExecuteAsync(global::System.Int32 id, global::System.Int32 percentage, global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var request = CreateRequest(
-                id,
-                percentage);
-
-            return await _operationExecutor
-                .ExecuteAsync(
-                    request,
-                    cancellationToken)
-                .ConfigureAwait(false);
+            var request = CreateRequest(id, percentage);
+            return await _operationExecutor.ExecuteAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
-        public global::System.IObservable<global::StrawberryShake.IOperationResult<IChangeValueResult>> Watch(
-            global::System.Int32 id,
-            global::System.Int32 percentage,
-            global::StrawberryShake.ExecutionStrategy? strategy = null)
+        public global::System.IObservable<global::StrawberryShake.IOperationResult<IChangeValueResult>> Watch(global::System.Int32 id, global::System.Int32 percentage, global::StrawberryShake.ExecutionStrategy? strategy = null)
         {
-            var request = CreateRequest(
-                id,
-                percentage);
-            return _operationExecutor.Watch(
-                request,
-                strategy);
+            var request = CreateRequest(id, percentage);
+            return _operationExecutor.Watch(request, strategy);
         }
 
-        private global::StrawberryShake.OperationRequest CreateRequest(
-            global::System.Int32 id,
-            global::System.Int32 percentage)
+        private global::StrawberryShake.OperationRequest CreateRequest(global::System.Int32 id, global::System.Int32 percentage)
         {
             var variables = new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>();
-
-            variables.Add(
-                "id",
-                FormatId(id));
-            variables.Add(
-                "percentage",
-                FormatPercentage(percentage));
-
+            variables.Add("id", FormatId(id));
+            variables.Add("percentage", FormatPercentage(percentage));
             return CreateRequest(variables);
         }
 
         private global::StrawberryShake.OperationRequest CreateRequest(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
         {
-
-            return new global::StrawberryShake.OperationRequest(
-                id: ChangeValueMutationDocument.Instance.Hash.Value,
-                name: "ChangeValue",
-                document: ChangeValueMutationDocument.Instance,
-                strategy: global::StrawberryShake.RequestStrategy.Default,
-                variables:variables);
+            return new global::StrawberryShake.OperationRequest(id: ChangeValueMutationDocument.Instance.Hash.Value, name: "ChangeValue", document: ChangeValueMutationDocument.Instance, strategy: global::StrawberryShake.RequestStrategy.Default, variables: variables);
         }
 
         private global::System.Object? FormatId(global::System.Int32 value)
@@ -2637,14 +3521,7 @@ namespace GqlDemo.Client
             return CreateRequest(variables!);
         }
     }
-}
 
-
-// IChangeValueMutation.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// Represents the operation service of the ChangeValue GraphQL operation
     /// <code>
@@ -2680,939 +3557,39 @@ namespace GqlDemo.Client
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IChangeValueMutation
-        : global::StrawberryShake.IOperationRequestFactory
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public interface IChangeValueMutation : global::StrawberryShake.IOperationRequestFactory
     {
-        global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IChangeValueResult>> ExecuteAsync(
-            global::System.Int32 id,
-            global::System.Int32 percentage,
-            global::System.Threading.CancellationToken cancellationToken = default);
-
-        global::System.IObservable<global::StrawberryShake.IOperationResult<IChangeValueResult>> Watch(
-            global::System.Int32 id,
-            global::System.Int32 percentage,
-            global::StrawberryShake.ExecutionStrategy? strategy = null);
+        global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IChangeValueResult>> ExecuteAsync(global::System.Int32 id, global::System.Int32 percentage, global::System.Threading.CancellationToken cancellationToken = default);
+        global::System.IObservable<global::StrawberryShake.IOperationResult<IChangeValueResult>> Watch(global::System.Int32 id, global::System.Int32 percentage, global::StrawberryShake.ExecutionStrategy? strategy = null);
     }
-}
 
-
-// GetSharesBuilder.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetSharesBuilder
-        : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetSharesResult>
-    {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
-        private readonly global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetSharesResult> _resultDataFactory;
-        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Int32, global::System.Int32> _intParser;
-        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
-        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Decimal, global::System.Decimal> _decimalParser;
-
-        public GetSharesBuilder(
-            global::StrawberryShake.IEntityStore entityStore,
-            global::StrawberryShake.IEntityIdSerializer idSerializer,
-            global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetSharesResult> resultDataFactory,
-            global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
-        {
-            _entityStore = entityStore
-                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _idSerializer = idSerializer
-                 ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
-            _resultDataFactory = resultDataFactory
-                 ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
-            _intParser = serializerResolver.GetLeafValueParser<global::System.Int32, global::System.Int32>("Int")
-                 ?? throw new global::System.ArgumentException("No serializer for type `Int` found.");
-            _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String")
-                 ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
-            _decimalParser = serializerResolver.GetLeafValueParser<global::System.Decimal, global::System.Decimal>("Decimal")
-                 ?? throw new global::System.ArgumentException("No serializer for type `Decimal` found.");
-        }
-
-        public global::StrawberryShake.IOperationResult<IGetSharesResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
-        {
-            (IGetSharesResult Result, GetSharesResultInfo Info)? data = null;
-            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.IClientError>? errors = null;
-
-            try
-            {
-                if (response.Body != null)
-                {
-                    if (response.Body.RootElement.TryGetProperty("data", out global::System.Text.Json.JsonElement dataElement) && dataElement.ValueKind == global::System.Text.Json.JsonValueKind.Object)
-                    {
-                        data = BuildData(dataElement);
-                    }
-                    if (response.Body.RootElement.TryGetProperty("errors", out global::System.Text.Json.JsonElement errorsElement))
-                    {
-                        errors = global::StrawberryShake.Json.JsonErrorParser.ParseErrors(errorsElement);
-                    }
-                }
-            }
-            catch(global::System.Exception ex)
-            {
-                errors = new global::StrawberryShake.IClientError[] {
-                    new global::StrawberryShake.ClientError(
-                        ex.Message,
-                        exception: ex)
-                };
-            }
-
-            return new global::StrawberryShake.OperationResult<IGetSharesResult>(
-                data?.Result,
-                data?.Info,
-                _resultDataFactory,
-                errors);
-        }
-
-        private (IGetSharesResult, GetSharesResultInfo) BuildData(global::System.Text.Json.JsonElement obj)
-        {
-            var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
-            global::StrawberryShake.IEntityStoreSnapshot snapshot = default!;
-
-            global::GqlDemo.Client.State.ShareConnectionData? sharesId = default!;
-            _entityStore.Update(session => 
-            {
-                sharesId = DeserializeIGetShares_Shares(
-                    session,
-                    global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                        obj,
-                        "shares"),
-                    entityIds);
-
-                snapshot = session.CurrentSnapshot;
-            });
-
-            var resultInfo = new GetSharesResultInfo(
-                sharesId,
-                entityIds,
-                snapshot.Version);
-
-            return (
-                _resultDataFactory.Create(resultInfo),
-                resultInfo
-            );
-        }
-
-        private global::GqlDemo.Client.State.ShareConnectionData? DeserializeIGetShares_Shares(
-            global::StrawberryShake.IEntityStoreUpdateSession session,
-            global::System.Text.Json.JsonElement? obj,
-            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            var typename = obj.Value
-                .GetProperty("__typename")
-                .GetString();
-
-            if (typename?.Equals("ShareConnection", global::System.StringComparison.Ordinal) ?? false)
-            {
-                return new global::GqlDemo.Client.State.ShareConnectionData(
-                    typename,
-                    totalCount: DeserializeNonNullableInt32(
-                        global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                            obj,
-                            "totalCount")),
-                    nodes: UpdateIGetShares_Shares_NodesEntityArray(
-                        session,
-                        global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                            obj,
-                            "nodes"),
-                        entityIds));
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::System.Int32 DeserializeNonNullableInt32(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                throw new global::System.ArgumentNullException();
-            }
-
-            return _intParser.Parse(obj.Value.GetInt32()!);
-        }
-
-        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? UpdateIGetShares_Shares_NodesEntityArray(
-            global::StrawberryShake.IEntityStoreUpdateSession session,
-            global::System.Text.Json.JsonElement? obj,
-            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            var shares = new global::System.Collections.Generic.List<global::StrawberryShake.EntityId?>();
-
-            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
-            {
-                shares.Add(UpdateIGetShares_Shares_NodesEntity(
-                    session,
-                    child,
-                    entityIds));
-            }
-
-            return shares;
-        }
-
-        private global::StrawberryShake.EntityId? UpdateIGetShares_Shares_NodesEntity(
-            global::StrawberryShake.IEntityStoreUpdateSession session,
-            global::System.Text.Json.JsonElement? obj,
-            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
-            entityIds.Add(entityId);
-
-
-            if (entityId.Name.Equals(
-                    "Share",
-                    global::System.StringComparison.Ordinal))
-            {
-                if (session.CurrentSnapshot.TryGetEntity(
-                        entityId,
-                        out global::GqlDemo.Client.State.ShareEntity? entity))
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::GqlDemo.Client.State.ShareEntity(
-                            DeserializeNonNullableInt32(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "id")),
-                            DeserializeString(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "companyName")),
-                            DeserializeNonNullableDecimal(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "value")),
-                            UpdateIGetShares_Shares_Nodes_IndustryEntity(
-                                session,
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "industry"),
-                                entityIds)));
-                }
-                else
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::GqlDemo.Client.State.ShareEntity(
-                            DeserializeNonNullableInt32(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "id")),
-                            DeserializeString(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "companyName")),
-                            DeserializeNonNullableDecimal(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "value")),
-                            UpdateIGetShares_Shares_Nodes_IndustryEntity(
-                                session,
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "industry"),
-                                entityIds)));
-                }
-
-                return entityId;
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::System.String? DeserializeString(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            return _stringParser.Parse(obj.Value.GetString()!);
-        }
-
-        private global::System.Decimal DeserializeNonNullableDecimal(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                throw new global::System.ArgumentNullException();
-            }
-
-            return _decimalParser.Parse(obj.Value.GetDecimal()!);
-        }
-
-        private global::StrawberryShake.EntityId? UpdateIGetShares_Shares_Nodes_IndustryEntity(
-            global::StrawberryShake.IEntityStoreUpdateSession session,
-            global::System.Text.Json.JsonElement? obj,
-            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
-            entityIds.Add(entityId);
-
-
-            if (entityId.Name.Equals(
-                    "Industry",
-                    global::System.StringComparison.Ordinal))
-            {
-                if (session.CurrentSnapshot.TryGetEntity(
-                        entityId,
-                        out global::GqlDemo.Client.State.IndustryEntity? entity))
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::GqlDemo.Client.State.IndustryEntity(
-                            DeserializeNonNullableInt32(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "id")),
-                            DeserializeString(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "name"))));
-                }
-                else
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::GqlDemo.Client.State.IndustryEntity(
-                            DeserializeNonNullableInt32(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "id")),
-                            DeserializeString(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "name"))));
-                }
-
-                return entityId;
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-    }
-}
-
-
-// GetIndustriesBuilder.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetIndustriesBuilder
-        : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetIndustriesResult>
-    {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
-        private readonly global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetIndustriesResult> _resultDataFactory;
-        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Int32, global::System.Int32> _intParser;
-        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
-
-        public GetIndustriesBuilder(
-            global::StrawberryShake.IEntityStore entityStore,
-            global::StrawberryShake.IEntityIdSerializer idSerializer,
-            global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetIndustriesResult> resultDataFactory,
-            global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
-        {
-            _entityStore = entityStore
-                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _idSerializer = idSerializer
-                 ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
-            _resultDataFactory = resultDataFactory
-                 ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
-            _intParser = serializerResolver.GetLeafValueParser<global::System.Int32, global::System.Int32>("Int")
-                 ?? throw new global::System.ArgumentException("No serializer for type `Int` found.");
-            _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String")
-                 ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
-        }
-
-        public global::StrawberryShake.IOperationResult<IGetIndustriesResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
-        {
-            (IGetIndustriesResult Result, GetIndustriesResultInfo Info)? data = null;
-            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.IClientError>? errors = null;
-
-            try
-            {
-                if (response.Body != null)
-                {
-                    if (response.Body.RootElement.TryGetProperty("data", out global::System.Text.Json.JsonElement dataElement) && dataElement.ValueKind == global::System.Text.Json.JsonValueKind.Object)
-                    {
-                        data = BuildData(dataElement);
-                    }
-                    if (response.Body.RootElement.TryGetProperty("errors", out global::System.Text.Json.JsonElement errorsElement))
-                    {
-                        errors = global::StrawberryShake.Json.JsonErrorParser.ParseErrors(errorsElement);
-                    }
-                }
-            }
-            catch(global::System.Exception ex)
-            {
-                errors = new global::StrawberryShake.IClientError[] {
-                    new global::StrawberryShake.ClientError(
-                        ex.Message,
-                        exception: ex)
-                };
-            }
-
-            return new global::StrawberryShake.OperationResult<IGetIndustriesResult>(
-                data?.Result,
-                data?.Info,
-                _resultDataFactory,
-                errors);
-        }
-
-        private (IGetIndustriesResult, GetIndustriesResultInfo) BuildData(global::System.Text.Json.JsonElement obj)
-        {
-            var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
-            global::StrawberryShake.IEntityStoreSnapshot snapshot = default!;
-
-            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? industriesId = default!;
-            _entityStore.Update(session => 
-            {
-                industriesId = UpdateIGetIndustries_IndustriesEntityArray(
-                    session,
-                    global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                        obj,
-                        "industries"),
-                    entityIds);
-
-                snapshot = session.CurrentSnapshot;
-            });
-
-            var resultInfo = new GetIndustriesResultInfo(
-                industriesId,
-                entityIds,
-                snapshot.Version);
-
-            return (
-                _resultDataFactory.Create(resultInfo),
-                resultInfo
-            );
-        }
-
-        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? UpdateIGetIndustries_IndustriesEntityArray(
-            global::StrawberryShake.IEntityStoreUpdateSession session,
-            global::System.Text.Json.JsonElement? obj,
-            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            var industrys = new global::System.Collections.Generic.List<global::StrawberryShake.EntityId?>();
-
-            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
-            {
-                industrys.Add(UpdateIGetIndustries_IndustriesEntity(
-                    session,
-                    child,
-                    entityIds));
-            }
-
-            return industrys;
-        }
-
-        private global::StrawberryShake.EntityId? UpdateIGetIndustries_IndustriesEntity(
-            global::StrawberryShake.IEntityStoreUpdateSession session,
-            global::System.Text.Json.JsonElement? obj,
-            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
-            entityIds.Add(entityId);
-
-
-            if (entityId.Name.Equals(
-                    "Industry",
-                    global::System.StringComparison.Ordinal))
-            {
-                if (session.CurrentSnapshot.TryGetEntity(
-                        entityId,
-                        out global::GqlDemo.Client.State.IndustryEntity? entity))
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::GqlDemo.Client.State.IndustryEntity(
-                            DeserializeNonNullableInt32(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "id")),
-                            DeserializeString(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "name"))));
-                }
-                else
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::GqlDemo.Client.State.IndustryEntity(
-                            DeserializeNonNullableInt32(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "id")),
-                            DeserializeString(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "name"))));
-                }
-
-                return entityId;
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::System.Int32 DeserializeNonNullableInt32(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                throw new global::System.ArgumentNullException();
-            }
-
-            return _intParser.Parse(obj.Value.GetInt32()!);
-        }
-
-        private global::System.String? DeserializeString(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            return _stringParser.Parse(obj.Value.GetString()!);
-        }
-    }
-}
-
-
-// ChangeValueBuilder.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValueBuilder
-        : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IChangeValueResult>
-    {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
-        private readonly global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IChangeValueResult> _resultDataFactory;
-        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Int32, global::System.Int32> _intParser;
-        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
-        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Decimal, global::System.Decimal> _decimalParser;
-
-        public ChangeValueBuilder(
-            global::StrawberryShake.IEntityStore entityStore,
-            global::StrawberryShake.IEntityIdSerializer idSerializer,
-            global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IChangeValueResult> resultDataFactory,
-            global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
-        {
-            _entityStore = entityStore
-                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _idSerializer = idSerializer
-                 ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
-            _resultDataFactory = resultDataFactory
-                 ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
-            _intParser = serializerResolver.GetLeafValueParser<global::System.Int32, global::System.Int32>("Int")
-                 ?? throw new global::System.ArgumentException("No serializer for type `Int` found.");
-            _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String")
-                 ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
-            _decimalParser = serializerResolver.GetLeafValueParser<global::System.Decimal, global::System.Decimal>("Decimal")
-                 ?? throw new global::System.ArgumentException("No serializer for type `Decimal` found.");
-        }
-
-        public global::StrawberryShake.IOperationResult<IChangeValueResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
-        {
-            (IChangeValueResult Result, ChangeValueResultInfo Info)? data = null;
-            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.IClientError>? errors = null;
-
-            try
-            {
-                if (response.Body != null)
-                {
-                    if (response.Body.RootElement.TryGetProperty("data", out global::System.Text.Json.JsonElement dataElement) && dataElement.ValueKind == global::System.Text.Json.JsonValueKind.Object)
-                    {
-                        data = BuildData(dataElement);
-                    }
-                    if (response.Body.RootElement.TryGetProperty("errors", out global::System.Text.Json.JsonElement errorsElement))
-                    {
-                        errors = global::StrawberryShake.Json.JsonErrorParser.ParseErrors(errorsElement);
-                    }
-                }
-            }
-            catch(global::System.Exception ex)
-            {
-                errors = new global::StrawberryShake.IClientError[] {
-                    new global::StrawberryShake.ClientError(
-                        ex.Message,
-                        exception: ex)
-                };
-            }
-
-            return new global::StrawberryShake.OperationResult<IChangeValueResult>(
-                data?.Result,
-                data?.Info,
-                _resultDataFactory,
-                errors);
-        }
-
-        private (IChangeValueResult, ChangeValueResultInfo) BuildData(global::System.Text.Json.JsonElement obj)
-        {
-            var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
-            global::StrawberryShake.IEntityStoreSnapshot snapshot = default!;
-
-            global::GqlDemo.Client.State.ChangeValuePayloadData? changeValueId = default!;
-            _entityStore.Update(session => 
-            {
-                changeValueId = DeserializeIChangeValue_ChangeValue(
-                    session,
-                    global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                        obj,
-                        "changeValue"),
-                    entityIds);
-
-                snapshot = session.CurrentSnapshot;
-            });
-
-            var resultInfo = new ChangeValueResultInfo(
-                changeValueId,
-                entityIds,
-                snapshot.Version);
-
-            return (
-                _resultDataFactory.Create(resultInfo),
-                resultInfo
-            );
-        }
-
-        private global::GqlDemo.Client.State.ChangeValuePayloadData? DeserializeIChangeValue_ChangeValue(
-            global::StrawberryShake.IEntityStoreUpdateSession session,
-            global::System.Text.Json.JsonElement? obj,
-            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            var typename = obj.Value
-                .GetProperty("__typename")
-                .GetString();
-
-            if (typename?.Equals("ChangeValuePayload", global::System.StringComparison.Ordinal) ?? false)
-            {
-                return new global::GqlDemo.Client.State.ChangeValuePayloadData(
-                    typename,
-                    share: UpdateIChangeValue_ChangeValue_ShareEntity(
-                        session,
-                        global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                            obj,
-                            "share"),
-                        entityIds));
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::StrawberryShake.EntityId? UpdateIChangeValue_ChangeValue_ShareEntity(
-            global::StrawberryShake.IEntityStoreUpdateSession session,
-            global::System.Text.Json.JsonElement? obj,
-            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
-            entityIds.Add(entityId);
-
-
-            if (entityId.Name.Equals(
-                    "Share",
-                    global::System.StringComparison.Ordinal))
-            {
-                if (session.CurrentSnapshot.TryGetEntity(
-                        entityId,
-                        out global::GqlDemo.Client.State.ShareEntity? entity))
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::GqlDemo.Client.State.ShareEntity(
-                            DeserializeNonNullableInt32(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "id")),
-                            DeserializeString(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "companyName")),
-                            DeserializeNonNullableDecimal(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "value")),
-                            UpdateIGetShares_Shares_Nodes_IndustryEntity(
-                                session,
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "industry"),
-                                entityIds)));
-                }
-                else
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::GqlDemo.Client.State.ShareEntity(
-                            DeserializeNonNullableInt32(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "id")),
-                            DeserializeString(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "companyName")),
-                            DeserializeNonNullableDecimal(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "value")),
-                            UpdateIGetShares_Shares_Nodes_IndustryEntity(
-                                session,
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "industry"),
-                                entityIds)));
-                }
-
-                return entityId;
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::System.Int32 DeserializeNonNullableInt32(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                throw new global::System.ArgumentNullException();
-            }
-
-            return _intParser.Parse(obj.Value.GetInt32()!);
-        }
-
-        private global::System.String? DeserializeString(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            return _stringParser.Parse(obj.Value.GetString()!);
-        }
-
-        private global::System.Decimal DeserializeNonNullableDecimal(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                throw new global::System.ArgumentNullException();
-            }
-
-            return _decimalParser.Parse(obj.Value.GetDecimal()!);
-        }
-
-        private global::StrawberryShake.EntityId? UpdateIGetShares_Shares_Nodes_IndustryEntity(
-            global::StrawberryShake.IEntityStoreUpdateSession session,
-            global::System.Text.Json.JsonElement? obj,
-            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
-            entityIds.Add(entityId);
-
-
-            if (entityId.Name.Equals(
-                    "Industry",
-                    global::System.StringComparison.Ordinal))
-            {
-                if (session.CurrentSnapshot.TryGetEntity(
-                        entityId,
-                        out global::GqlDemo.Client.State.IndustryEntity? entity))
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::GqlDemo.Client.State.IndustryEntity(
-                            DeserializeNonNullableInt32(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "id")),
-                            DeserializeString(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "name"))));
-                }
-                else
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::GqlDemo.Client.State.IndustryEntity(
-                            DeserializeNonNullableInt32(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "id")),
-                            DeserializeString(
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "name"))));
-                }
-
-                return entityId;
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-    }
-}
-
-
-// ShareConnectionData.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    /// <summary>
-    /// A connection to a list of items.
-    /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ShareConnectionData
-    {
-        public ShareConnectionData(
-            global::System.String __typename,
-            global::System.Int32? totalCount = null,
-            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? nodes = null)
-        {
-            this.__typename = __typename
-                 ?? throw new global::System.ArgumentNullException(nameof(__typename));
-            TotalCount = totalCount;
-            Nodes = nodes;
-        }
-
-        public global::System.String __typename { get; }
-
-        public global::System.Int32? TotalCount { get; }
-
-        /// <summary>
-        /// A flattened list of the nodes.
-        /// </summary>
-        public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? Nodes { get; }
-    }
-}
-
-
-// ChangeValuePayloadData.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class ChangeValuePayloadData
-    {
-        public ChangeValuePayloadData(
-            global::System.String __typename,
-            global::StrawberryShake.EntityId? share = null)
-        {
-            this.__typename = __typename
-                 ?? throw new global::System.ArgumentNullException(nameof(__typename));
-            Share = share;
-        }
-
-        public global::System.String __typename { get; }
-
-        public global::StrawberryShake.EntityId? Share { get; }
-    }
-}
-
-
-// SharesClient.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// Represents the SharesClient GraphQL client
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class SharesClient
-        : global::GqlDemo.Client.ISharesClient
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class SharesClient : global::GqlDemo.Client.ISharesClient
     {
         private readonly global::GqlDemo.Client.IGetSharesQuery _getShares;
         private readonly global::GqlDemo.Client.IGetIndustriesQuery _getIndustries;
         private readonly global::GqlDemo.Client.IChangeValueMutation _changeValue;
-
-        public SharesClient(
-            global::GqlDemo.Client.IGetSharesQuery getShares,
-            global::GqlDemo.Client.IGetIndustriesQuery getIndustries,
-            global::GqlDemo.Client.IChangeValueMutation changeValue)
+        public SharesClient(global::GqlDemo.Client.IGetSharesQuery getShares, global::GqlDemo.Client.IGetIndustriesQuery getIndustries, global::GqlDemo.Client.IChangeValueMutation changeValue)
         {
-            _getShares = getShares
-                 ?? throw new global::System.ArgumentNullException(nameof(getShares));
-            _getIndustries = getIndustries
-                 ?? throw new global::System.ArgumentNullException(nameof(getIndustries));
-            _changeValue = changeValue
-                 ?? throw new global::System.ArgumentNullException(nameof(changeValue));
+            _getShares = getShares ?? throw new global::System.ArgumentNullException(nameof(getShares));
+            _getIndustries = getIndustries ?? throw new global::System.ArgumentNullException(nameof(getIndustries));
+            _changeValue = changeValue ?? throw new global::System.ArgumentNullException(nameof(changeValue));
         }
 
         public static global::System.String ClientName => "SharesClient";
-
         public global::GqlDemo.Client.IGetSharesQuery GetShares => _getShares;
-
         public global::GqlDemo.Client.IGetIndustriesQuery GetIndustries => _getIndustries;
-
         public global::GqlDemo.Client.IChangeValueMutation ChangeValue => _changeValue;
     }
-}
 
-
-// ISharesClient.cs
-#nullable enable
-
-namespace GqlDemo.Client
-{
     /// <summary>
     /// Represents the SharesClient GraphQL client
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
     public interface ISharesClient
     {
         global::GqlDemo.Client.IGetSharesQuery GetShares { get; }
@@ -3623,207 +3600,1217 @@ namespace GqlDemo.Client
     }
 }
 
-
-// SharesClientEntityIdFactory.cs
-#nullable enable
-
 namespace GqlDemo.Client.State
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class SharesClientEntityIdFactory
-        : global::StrawberryShake.IEntityIdSerializer
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ShareEntity
     {
-        private static readonly global::System.Text.Json.JsonWriterOptions _options = new global::System.Text.Json.JsonWriterOptions(){ Indented = false };
+        public ShareEntity(global::System.Int32 id = default !, global::System.String? companyName = default !, global::System.Decimal @value = default !, global::StrawberryShake.EntityId? industry = default !)
+        {
+            Id = id;
+            CompanyName = companyName;
+            Value = @value;
+            Industry = industry;
+        }
 
+        public global::System.Int32 Id { get; }
+
+        public global::System.String? CompanyName { get; }
+
+        public global::System.Decimal Value { get; }
+
+        public global::StrawberryShake.EntityId? Industry { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class IndustryEntity
+    {
+        public IndustryEntity(global::System.Int32 id = default !, global::System.String? name = default !)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public global::System.Int32 Id { get; }
+
+        public global::System.String? Name { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetSharesResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.GetSharesResult>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, GetShares_Shares_Nodes_Share> _getShares_Shares_Nodes_ShareFromShareEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper;
+        public GetSharesResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, GetShares_Shares_Nodes_Share> getShares_Shares_Nodes_ShareFromShareEntityMapper, global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getShares_Shares_Nodes_ShareFromShareEntityMapper = getShares_Shares_Nodes_ShareFromShareEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getShares_Shares_Nodes_ShareFromShareEntityMapper));
+            _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper = getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper));
+        }
+
+        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::GqlDemo.Client.IGetSharesResult);
+        public GetSharesResult Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            if (dataInfo is GetSharesResultInfo info)
+            {
+                return new GetSharesResult(MapIGetShares_Shares(info.Shares, snapshot));
+            }
+
+            throw new global::System.ArgumentException("GetSharesResultInfo expected.");
+        }
+
+        private global::GqlDemo.Client.IGetShares_Shares? MapIGetShares_Shares(global::GqlDemo.Client.State.SharesConnectionData? data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (data is null)
+            {
+                return null;
+            }
+
+            IGetShares_Shares returnValue = default !;
+            if (data?.__typename.Equals("SharesConnection", global::System.StringComparison.Ordinal) ?? false)
+            {
+                returnValue = new GetShares_Shares_SharesConnection(data.TotalCount ?? throw new global::System.ArgumentNullException(), MapIGetShares_Shares_NodesArray(data.Nodes, snapshot));
+            }
+            else
+            {
+                throw new global::System.NotSupportedException();
+            }
+
+            return returnValue;
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetShares_Shares_Nodes?>? MapIGetShares_Shares_NodesArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (list is null)
+            {
+                return null;
+            }
+
+            var shares = new global::System.Collections.Generic.List<global::GqlDemo.Client.IGetShares_Shares_Nodes?>();
+            foreach (global::StrawberryShake.EntityId? child in list)
+            {
+                shares.Add(MapIGetShares_Shares_Nodes(child, snapshot));
+            }
+
+            return shares;
+        }
+
+        private global::GqlDemo.Client.IGetShares_Shares_Nodes? MapIGetShares_Shares_Nodes(global::StrawberryShake.EntityId? entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId is null)
+            {
+                return null;
+            }
+
+            if (entityId.Value.Name.Equals("Share", global::System.StringComparison.Ordinal))
+            {
+                return _getShares_Shares_Nodes_ShareFromShareEntityMapper.Map(snapshot.GetEntity<global::GqlDemo.Client.State.ShareEntity>(entityId.Value) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? MapIGetShares_Shares_Nodes_Industry(global::StrawberryShake.EntityId? entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId is null)
+            {
+                return null;
+            }
+
+            if (entityId.Value.Name.Equals("Industry", global::System.StringComparison.Ordinal))
+            {
+                return _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper.Map(snapshot.GetEntity<global::GqlDemo.Client.State.IndustryEntity>(entityId.Value) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot)
+        {
+            return Create(dataInfo, snapshot);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetSharesResultInfo : global::StrawberryShake.IOperationResultDataInfo
+    {
+        private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
+        private readonly global::System.UInt64 _version;
+        public GetSharesResultInfo(global::GqlDemo.Client.State.SharesConnectionData? shares, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
+        {
+            Shares = shares;
+            _entityIds = entityIds ?? throw new global::System.ArgumentNullException(nameof(entityIds));
+            _version = version;
+        }
+
+        public global::GqlDemo.Client.State.SharesConnectionData? Shares { get; }
+
+        public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
+        public global::System.UInt64 Version => _version;
+        public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
+        {
+            return new GetSharesResultInfo(Shares, _entityIds, version);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetShares_Shares_Nodes_ShareFromShareEntityMapper : global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, GetShares_Shares_Nodes_Share>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper;
+        public GetShares_Shares_Nodes_ShareFromShareEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper = getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper));
+        }
+
+        public GetShares_Shares_Nodes_Share Map(global::GqlDemo.Client.State.ShareEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new GetShares_Shares_Nodes_Share(entity.Id, entity.CompanyName, entity.Value, MapIGetShares_Shares_Nodes_Industry(entity.Industry, snapshot));
+        }
+
+        private global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? MapIGetShares_Shares_Nodes_Industry(global::StrawberryShake.EntityId? entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId is null)
+            {
+                return null;
+            }
+
+            if (entityId.Value.Name.Equals("Industry", global::System.StringComparison.Ordinal))
+            {
+                return _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper.Map(snapshot.GetEntity<global::GqlDemo.Client.State.IndustryEntity>(entityId.Value) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper : global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        public GetShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper(global::StrawberryShake.IEntityStore entityStore)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+        }
+
+        public GetShares_Shares_Nodes_Industry_Industry Map(global::GqlDemo.Client.State.IndustryEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new GetShares_Shares_Nodes_Industry_Industry(entity.Id, entity.Name);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetIndustriesResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.GetIndustriesResult>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetIndustries_Industries_Industry> _getIndustries_Industries_IndustryFromIndustryEntityMapper;
+        public GetIndustriesResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetIndustries_Industries_Industry> getIndustries_Industries_IndustryFromIndustryEntityMapper)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getIndustries_Industries_IndustryFromIndustryEntityMapper = getIndustries_Industries_IndustryFromIndustryEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getIndustries_Industries_IndustryFromIndustryEntityMapper));
+        }
+
+        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::GqlDemo.Client.IGetIndustriesResult);
+        public GetIndustriesResult Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            if (dataInfo is GetIndustriesResultInfo info)
+            {
+                return new GetIndustriesResult(MapIGetIndustries_IndustriesArray(info.Industries, snapshot));
+            }
+
+            throw new global::System.ArgumentException("GetIndustriesResultInfo expected.");
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IGetIndustries_Industries?>? MapIGetIndustries_IndustriesArray(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? list, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (list is null)
+            {
+                return null;
+            }
+
+            var industrys = new global::System.Collections.Generic.List<global::GqlDemo.Client.IGetIndustries_Industries?>();
+            foreach (global::StrawberryShake.EntityId? child in list)
+            {
+                industrys.Add(MapIGetIndustries_Industries(child, snapshot));
+            }
+
+            return industrys;
+        }
+
+        private global::GqlDemo.Client.IGetIndustries_Industries? MapIGetIndustries_Industries(global::StrawberryShake.EntityId? entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId is null)
+            {
+                return null;
+            }
+
+            if (entityId.Value.Name.Equals("Industry", global::System.StringComparison.Ordinal))
+            {
+                return _getIndustries_Industries_IndustryFromIndustryEntityMapper.Map(snapshot.GetEntity<global::GqlDemo.Client.State.IndustryEntity>(entityId.Value) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot)
+        {
+            return Create(dataInfo, snapshot);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetIndustriesResultInfo : global::StrawberryShake.IOperationResultDataInfo
+    {
+        private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
+        private readonly global::System.UInt64 _version;
+        public GetIndustriesResultInfo(global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? industries, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
+        {
+            Industries = industries;
+            _entityIds = entityIds ?? throw new global::System.ArgumentNullException(nameof(entityIds));
+            _version = version;
+        }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? Industries { get; }
+
+        public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
+        public global::System.UInt64 Version => _version;
+        public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
+        {
+            return new GetIndustriesResultInfo(Industries, _entityIds, version);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetIndustries_Industries_IndustryFromIndustryEntityMapper : global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetIndustries_Industries_Industry>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        public GetIndustries_Industries_IndustryFromIndustryEntityMapper(global::StrawberryShake.IEntityStore entityStore)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+        }
+
+        public GetIndustries_Industries_Industry Map(global::GqlDemo.Client.State.IndustryEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new GetIndustries_Industries_Industry(entity.Id, entity.Name);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValueResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.ChangeValueResult>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, ChangeValue_ChangeValue_Share_Share> _changeValue_ChangeValue_Share_ShareFromShareEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper;
+        public ChangeValueResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, ChangeValue_ChangeValue_Share_Share> changeValue_ChangeValue_Share_ShareFromShareEntityMapper, global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _changeValue_ChangeValue_Share_ShareFromShareEntityMapper = changeValue_ChangeValue_Share_ShareFromShareEntityMapper ?? throw new global::System.ArgumentNullException(nameof(changeValue_ChangeValue_Share_ShareFromShareEntityMapper));
+            _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper = getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper));
+        }
+
+        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::GqlDemo.Client.IChangeValueResult);
+        public ChangeValueResult Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            if (dataInfo is ChangeValueResultInfo info)
+            {
+                return new ChangeValueResult(MapIChangeValue_ChangeValue(info.ChangeValue, snapshot));
+            }
+
+            throw new global::System.ArgumentException("ChangeValueResultInfo expected.");
+        }
+
+        private global::GqlDemo.Client.IChangeValue_ChangeValue? MapIChangeValue_ChangeValue(global::GqlDemo.Client.State.ChangeValuePayloadData? data, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (data is null)
+            {
+                return null;
+            }
+
+            IChangeValue_ChangeValue returnValue = default !;
+            if (data?.__typename.Equals("ChangeValuePayload", global::System.StringComparison.Ordinal) ?? false)
+            {
+                returnValue = new ChangeValue_ChangeValue_ChangeValuePayload(MapIChangeValue_ChangeValue_Share(data.Share, snapshot));
+            }
+            else
+            {
+                throw new global::System.NotSupportedException();
+            }
+
+            return returnValue;
+        }
+
+        private global::GqlDemo.Client.IChangeValue_ChangeValue_Share? MapIChangeValue_ChangeValue_Share(global::StrawberryShake.EntityId? entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId is null)
+            {
+                return null;
+            }
+
+            if (entityId.Value.Name.Equals("Share", global::System.StringComparison.Ordinal))
+            {
+                return _changeValue_ChangeValue_Share_ShareFromShareEntityMapper.Map(snapshot.GetEntity<global::GqlDemo.Client.State.ShareEntity>(entityId.Value) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? MapIGetShares_Shares_Nodes_Industry(global::StrawberryShake.EntityId? entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId is null)
+            {
+                return null;
+            }
+
+            if (entityId.Value.Name.Equals("Industry", global::System.StringComparison.Ordinal))
+            {
+                return _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper.Map(snapshot.GetEntity<global::GqlDemo.Client.State.IndustryEntity>(entityId.Value) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot)
+        {
+            return Create(dataInfo, snapshot);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValueResultInfo : global::StrawberryShake.IOperationResultDataInfo
+    {
+        private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
+        private readonly global::System.UInt64 _version;
+        public ChangeValueResultInfo(global::GqlDemo.Client.State.ChangeValuePayloadData? changeValue, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
+        {
+            ChangeValue = changeValue;
+            _entityIds = entityIds ?? throw new global::System.ArgumentNullException(nameof(entityIds));
+            _version = version;
+        }
+
+        public global::GqlDemo.Client.State.ChangeValuePayloadData? ChangeValue { get; }
+
+        public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
+        public global::System.UInt64 Version => _version;
+        public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
+        {
+            return new ChangeValueResultInfo(ChangeValue, _entityIds, version);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValue_ChangeValue_Share_ShareFromShareEntityMapper : global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, ChangeValue_ChangeValue_Share_Share>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper;
+        public ChangeValue_ChangeValue_Share_ShareFromShareEntityMapper(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, GetShares_Shares_Nodes_Industry_Industry> getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper = getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper ?? throw new global::System.ArgumentNullException(nameof(getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper));
+        }
+
+        public ChangeValue_ChangeValue_Share_Share Map(global::GqlDemo.Client.State.ShareEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new ChangeValue_ChangeValue_Share_Share(entity.Id, entity.CompanyName, entity.Value, MapIGetShares_Shares_Nodes_Industry(entity.Industry, snapshot));
+        }
+
+        private global::GqlDemo.Client.IGetShares_Shares_Nodes_Industry? MapIGetShares_Shares_Nodes_Industry(global::StrawberryShake.EntityId? entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId is null)
+            {
+                return null;
+            }
+
+            if (entityId.Value.Name.Equals("Industry", global::System.StringComparison.Ordinal))
+            {
+                return _getShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper.Map(snapshot.GetEntity<global::GqlDemo.Client.State.IndustryEntity>(entityId.Value) ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValue_ChangeValue_Share_Industry_IndustryFromIndustryEntityMapper : global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, ChangeValue_ChangeValue_Share_Industry_Industry>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        public ChangeValue_ChangeValue_Share_Industry_IndustryFromIndustryEntityMapper(global::StrawberryShake.IEntityStore entityStore)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+        }
+
+        public ChangeValue_ChangeValue_Share_Industry_Industry Map(global::GqlDemo.Client.State.IndustryEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new ChangeValue_ChangeValue_Share_Industry_Industry(entity.Id, entity.Name);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    internal interface IShareFilterInputInfo
+    {
+        global::System.Boolean IsAndSet { get; }
+
+        global::System.Boolean IsOrSet { get; }
+
+        global::System.Boolean IsIdSet { get; }
+
+        global::System.Boolean IsCompanyNameSet { get; }
+
+        global::System.Boolean IsValueSet { get; }
+
+        global::System.Boolean IsIndustrySet { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    internal interface IComparableInt32OperationFilterInputInfo
+    {
+        global::System.Boolean IsEqSet { get; }
+
+        global::System.Boolean IsNeqSet { get; }
+
+        global::System.Boolean IsInSet { get; }
+
+        global::System.Boolean IsNinSet { get; }
+
+        global::System.Boolean IsGtSet { get; }
+
+        global::System.Boolean IsNgtSet { get; }
+
+        global::System.Boolean IsGteSet { get; }
+
+        global::System.Boolean IsNgteSet { get; }
+
+        global::System.Boolean IsLtSet { get; }
+
+        global::System.Boolean IsNltSet { get; }
+
+        global::System.Boolean IsLteSet { get; }
+
+        global::System.Boolean IsNlteSet { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    internal interface IStringOperationFilterInputInfo
+    {
+        global::System.Boolean IsAndSet { get; }
+
+        global::System.Boolean IsOrSet { get; }
+
+        global::System.Boolean IsEqSet { get; }
+
+        global::System.Boolean IsNeqSet { get; }
+
+        global::System.Boolean IsContainsSet { get; }
+
+        global::System.Boolean IsNcontainsSet { get; }
+
+        global::System.Boolean IsInSet { get; }
+
+        global::System.Boolean IsNinSet { get; }
+
+        global::System.Boolean IsStartsWithSet { get; }
+
+        global::System.Boolean IsNstartsWithSet { get; }
+
+        global::System.Boolean IsEndsWithSet { get; }
+
+        global::System.Boolean IsNendsWithSet { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    internal interface IComparableDecimalOperationFilterInputInfo
+    {
+        global::System.Boolean IsEqSet { get; }
+
+        global::System.Boolean IsNeqSet { get; }
+
+        global::System.Boolean IsInSet { get; }
+
+        global::System.Boolean IsNinSet { get; }
+
+        global::System.Boolean IsGtSet { get; }
+
+        global::System.Boolean IsNgtSet { get; }
+
+        global::System.Boolean IsGteSet { get; }
+
+        global::System.Boolean IsNgteSet { get; }
+
+        global::System.Boolean IsLtSet { get; }
+
+        global::System.Boolean IsNltSet { get; }
+
+        global::System.Boolean IsLteSet { get; }
+
+        global::System.Boolean IsNlteSet { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    internal interface IIndustryFilterInputInfo
+    {
+        global::System.Boolean IsAndSet { get; }
+
+        global::System.Boolean IsOrSet { get; }
+
+        global::System.Boolean IsIdSet { get; }
+
+        global::System.Boolean IsNameSet { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetSharesBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetSharesResult>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
+        private readonly global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetSharesResult> _resultDataFactory;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Int32, global::System.Int32> _intParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Decimal, global::System.Decimal> _decimalParser;
+        public GetSharesBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetSharesResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _idSerializer = idSerializer ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
+            _resultDataFactory = resultDataFactory ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
+            _intParser = serializerResolver.GetLeafValueParser<global::System.Int32, global::System.Int32>("Int") ?? throw new global::System.ArgumentException("No serializer for type `Int` found.");
+            _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String") ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
+            _decimalParser = serializerResolver.GetLeafValueParser<global::System.Decimal, global::System.Decimal>("Decimal") ?? throw new global::System.ArgumentException("No serializer for type `Decimal` found.");
+        }
+
+        public global::StrawberryShake.IOperationResult<IGetSharesResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
+        {
+            (IGetSharesResult Result, GetSharesResultInfo Info)? data = null;
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.IClientError>? errors = null;
+            if (response.Exception is null)
+            {
+                try
+                {
+                    if (response.Body != null)
+                    {
+                        if (response.Body.RootElement.TryGetProperty("data", out global::System.Text.Json.JsonElement dataElement) && dataElement.ValueKind == global::System.Text.Json.JsonValueKind.Object)
+                        {
+                            data = BuildData(dataElement);
+                        }
+
+                        if (response.Body.RootElement.TryGetProperty("errors", out global::System.Text.Json.JsonElement errorsElement))
+                        {
+                            errors = global::StrawberryShake.Json.JsonErrorParser.ParseErrors(errorsElement);
+                        }
+                    }
+                }
+                catch (global::System.Exception ex)
+                {
+                    errors = new global::StrawberryShake.IClientError[]{new global::StrawberryShake.ClientError(ex.Message, exception: ex, extensions: new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>{{"body", response.Body?.RootElement.ToString()}})};
+                }
+            }
+            else
+            {
+                errors = new global::StrawberryShake.IClientError[]{new global::StrawberryShake.ClientError(response.Exception.Message, exception: response.Exception, extensions: new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>{{"body", response.Body?.RootElement.ToString()}})};
+            }
+
+            return new global::StrawberryShake.OperationResult<IGetSharesResult>(data?.Result, data?.Info, _resultDataFactory, errors);
+        }
+
+        private (IGetSharesResult, GetSharesResultInfo) BuildData(global::System.Text.Json.JsonElement obj)
+        {
+            var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
+            global::StrawberryShake.IEntityStoreSnapshot snapshot = default !;
+            global::GqlDemo.Client.State.SharesConnectionData? sharesId = default !;
+            _entityStore.Update(session =>
+            {
+                sharesId = DeserializeIGetShares_Shares(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "shares"), entityIds);
+                snapshot = session.CurrentSnapshot;
+            });
+            var resultInfo = new GetSharesResultInfo(sharesId, entityIds, snapshot.Version);
+            return (_resultDataFactory.Create(resultInfo), resultInfo);
+        }
+
+        private global::GqlDemo.Client.State.SharesConnectionData? DeserializeIGetShares_Shares(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            var typename = obj.Value.GetProperty("__typename").GetString();
+            if (typename?.Equals("SharesConnection", global::System.StringComparison.Ordinal) ?? false)
+            {
+                return new global::GqlDemo.Client.State.SharesConnectionData(typename, totalCount: DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "totalCount")), nodes: UpdateIGetShares_Shares_NodesEntityArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "nodes"), entityIds));
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Int32 DeserializeNonNullableInt32(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _intParser.Parse(obj.Value.GetInt32()!);
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? UpdateIGetShares_Shares_NodesEntityArray(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            var shares = new global::System.Collections.Generic.List<global::StrawberryShake.EntityId?>();
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                shares.Add(UpdateIGetShares_Shares_NodesEntity(session, child, entityIds));
+            }
+
+            return shares;
+        }
+
+        private global::StrawberryShake.EntityId? UpdateIGetShares_Shares_NodesEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("Share", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::GqlDemo.Client.State.ShareEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::GqlDemo.Client.State.ShareEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "companyName")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "value")), UpdateIGetShares_Shares_Nodes_IndustryEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "industry"), entityIds)));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::GqlDemo.Client.State.ShareEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "companyName")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "value")), UpdateIGetShares_Shares_Nodes_IndustryEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "industry"), entityIds)));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.String? DeserializeString(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            return _stringParser.Parse(obj.Value.GetString()!);
+        }
+
+        private global::System.Decimal DeserializeNonNullableDecimal(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _decimalParser.Parse(obj.Value.GetDecimal()!);
+        }
+
+        private global::StrawberryShake.EntityId? UpdateIGetShares_Shares_Nodes_IndustryEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("Industry", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::GqlDemo.Client.State.IndustryEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::GqlDemo.Client.State.IndustryEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::GqlDemo.Client.State.IndustryEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class GetIndustriesBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetIndustriesResult>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
+        private readonly global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetIndustriesResult> _resultDataFactory;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Int32, global::System.Int32> _intParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
+        public GetIndustriesBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetIndustriesResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _idSerializer = idSerializer ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
+            _resultDataFactory = resultDataFactory ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
+            _intParser = serializerResolver.GetLeafValueParser<global::System.Int32, global::System.Int32>("Int") ?? throw new global::System.ArgumentException("No serializer for type `Int` found.");
+            _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String") ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
+        }
+
+        public global::StrawberryShake.IOperationResult<IGetIndustriesResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
+        {
+            (IGetIndustriesResult Result, GetIndustriesResultInfo Info)? data = null;
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.IClientError>? errors = null;
+            if (response.Exception is null)
+            {
+                try
+                {
+                    if (response.Body != null)
+                    {
+                        if (response.Body.RootElement.TryGetProperty("data", out global::System.Text.Json.JsonElement dataElement) && dataElement.ValueKind == global::System.Text.Json.JsonValueKind.Object)
+                        {
+                            data = BuildData(dataElement);
+                        }
+
+                        if (response.Body.RootElement.TryGetProperty("errors", out global::System.Text.Json.JsonElement errorsElement))
+                        {
+                            errors = global::StrawberryShake.Json.JsonErrorParser.ParseErrors(errorsElement);
+                        }
+                    }
+                }
+                catch (global::System.Exception ex)
+                {
+                    errors = new global::StrawberryShake.IClientError[]{new global::StrawberryShake.ClientError(ex.Message, exception: ex, extensions: new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>{{"body", response.Body?.RootElement.ToString()}})};
+                }
+            }
+            else
+            {
+                errors = new global::StrawberryShake.IClientError[]{new global::StrawberryShake.ClientError(response.Exception.Message, exception: response.Exception, extensions: new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>{{"body", response.Body?.RootElement.ToString()}})};
+            }
+
+            return new global::StrawberryShake.OperationResult<IGetIndustriesResult>(data?.Result, data?.Info, _resultDataFactory, errors);
+        }
+
+        private (IGetIndustriesResult, GetIndustriesResultInfo) BuildData(global::System.Text.Json.JsonElement obj)
+        {
+            var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
+            global::StrawberryShake.IEntityStoreSnapshot snapshot = default !;
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? industriesId = default !;
+            _entityStore.Update(session =>
+            {
+                industriesId = UpdateIGetIndustries_IndustriesEntityArray(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "industries"), entityIds);
+                snapshot = session.CurrentSnapshot;
+            });
+            var resultInfo = new GetIndustriesResultInfo(industriesId, entityIds, snapshot.Version);
+            return (_resultDataFactory.Create(resultInfo), resultInfo);
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? UpdateIGetIndustries_IndustriesEntityArray(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            var industrys = new global::System.Collections.Generic.List<global::StrawberryShake.EntityId?>();
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                industrys.Add(UpdateIGetIndustries_IndustriesEntity(session, child, entityIds));
+            }
+
+            return industrys;
+        }
+
+        private global::StrawberryShake.EntityId? UpdateIGetIndustries_IndustriesEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("Industry", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::GqlDemo.Client.State.IndustryEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::GqlDemo.Client.State.IndustryEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::GqlDemo.Client.State.IndustryEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Int32 DeserializeNonNullableInt32(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _intParser.Parse(obj.Value.GetInt32()!);
+        }
+
+        private global::System.String? DeserializeString(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            return _stringParser.Parse(obj.Value.GetString()!);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValueBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IChangeValueResult>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
+        private readonly global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IChangeValueResult> _resultDataFactory;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Int32, global::System.Int32> _intParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Decimal, global::System.Decimal> _decimalParser;
+        public ChangeValueBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IChangeValueResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _idSerializer = idSerializer ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
+            _resultDataFactory = resultDataFactory ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
+            _intParser = serializerResolver.GetLeafValueParser<global::System.Int32, global::System.Int32>("Int") ?? throw new global::System.ArgumentException("No serializer for type `Int` found.");
+            _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String") ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
+            _decimalParser = serializerResolver.GetLeafValueParser<global::System.Decimal, global::System.Decimal>("Decimal") ?? throw new global::System.ArgumentException("No serializer for type `Decimal` found.");
+        }
+
+        public global::StrawberryShake.IOperationResult<IChangeValueResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
+        {
+            (IChangeValueResult Result, ChangeValueResultInfo Info)? data = null;
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.IClientError>? errors = null;
+            if (response.Exception is null)
+            {
+                try
+                {
+                    if (response.Body != null)
+                    {
+                        if (response.Body.RootElement.TryGetProperty("data", out global::System.Text.Json.JsonElement dataElement) && dataElement.ValueKind == global::System.Text.Json.JsonValueKind.Object)
+                        {
+                            data = BuildData(dataElement);
+                        }
+
+                        if (response.Body.RootElement.TryGetProperty("errors", out global::System.Text.Json.JsonElement errorsElement))
+                        {
+                            errors = global::StrawberryShake.Json.JsonErrorParser.ParseErrors(errorsElement);
+                        }
+                    }
+                }
+                catch (global::System.Exception ex)
+                {
+                    errors = new global::StrawberryShake.IClientError[]{new global::StrawberryShake.ClientError(ex.Message, exception: ex, extensions: new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>{{"body", response.Body?.RootElement.ToString()}})};
+                }
+            }
+            else
+            {
+                errors = new global::StrawberryShake.IClientError[]{new global::StrawberryShake.ClientError(response.Exception.Message, exception: response.Exception, extensions: new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>{{"body", response.Body?.RootElement.ToString()}})};
+            }
+
+            return new global::StrawberryShake.OperationResult<IChangeValueResult>(data?.Result, data?.Info, _resultDataFactory, errors);
+        }
+
+        private (IChangeValueResult, ChangeValueResultInfo) BuildData(global::System.Text.Json.JsonElement obj)
+        {
+            var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
+            global::StrawberryShake.IEntityStoreSnapshot snapshot = default !;
+            global::GqlDemo.Client.State.ChangeValuePayloadData? changeValueId = default !;
+            _entityStore.Update(session =>
+            {
+                changeValueId = DeserializeIChangeValue_ChangeValue(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "changeValue"), entityIds);
+                snapshot = session.CurrentSnapshot;
+            });
+            var resultInfo = new ChangeValueResultInfo(changeValueId, entityIds, snapshot.Version);
+            return (_resultDataFactory.Create(resultInfo), resultInfo);
+        }
+
+        private global::GqlDemo.Client.State.ChangeValuePayloadData? DeserializeIChangeValue_ChangeValue(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            var typename = obj.Value.GetProperty("__typename").GetString();
+            if (typename?.Equals("ChangeValuePayload", global::System.StringComparison.Ordinal) ?? false)
+            {
+                return new global::GqlDemo.Client.State.ChangeValuePayloadData(typename, share: UpdateIChangeValue_ChangeValue_ShareEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "share"), entityIds));
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::StrawberryShake.EntityId? UpdateIChangeValue_ChangeValue_ShareEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("Share", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::GqlDemo.Client.State.ShareEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::GqlDemo.Client.State.ShareEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "companyName")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "value")), UpdateIGetShares_Shares_Nodes_IndustryEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "industry"), entityIds)));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::GqlDemo.Client.State.ShareEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "companyName")), DeserializeNonNullableDecimal(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "value")), UpdateIGetShares_Shares_Nodes_IndustryEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "industry"), entityIds)));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Int32 DeserializeNonNullableInt32(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _intParser.Parse(obj.Value.GetInt32()!);
+        }
+
+        private global::System.String? DeserializeString(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            return _stringParser.Parse(obj.Value.GetString()!);
+        }
+
+        private global::System.Decimal DeserializeNonNullableDecimal(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _decimalParser.Parse(obj.Value.GetDecimal()!);
+        }
+
+        private global::StrawberryShake.EntityId? UpdateIGetShares_Shares_Nodes_IndustryEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("Industry", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::GqlDemo.Client.State.IndustryEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::GqlDemo.Client.State.IndustryEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::GqlDemo.Client.State.IndustryEntity(DeserializeNonNullableInt32(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "name"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+    }
+
+    ///<summary>A connection to a list of items.</summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class SharesConnectionData
+    {
+        public SharesConnectionData(global::System.String __typename, global::System.Int32? totalCount = default !, global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? nodes = default !)
+        {
+            this.__typename = __typename ?? throw new global::System.ArgumentNullException(nameof(__typename));
+            TotalCount = totalCount;
+            Nodes = nodes;
+        }
+
+        public global::System.String __typename { get; }
+
+        public global::System.Int32? TotalCount { get; }
+
+        ///<summary>A flattened list of the nodes.</summary>
+        public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? Nodes { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ChangeValuePayloadData
+    {
+        public ChangeValuePayloadData(global::System.String __typename, global::StrawberryShake.EntityId? share = default !)
+        {
+            this.__typename = __typename ?? throw new global::System.ArgumentNullException(nameof(__typename));
+            Share = share;
+        }
+
+        public global::System.String __typename { get; }
+
+        public global::StrawberryShake.EntityId? Share { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class SharesClientEntityIdFactory : global::StrawberryShake.IEntityIdSerializer
+    {
+        private static readonly global::System.Text.Json.JsonWriterOptions _options = new global::System.Text.Json.JsonWriterOptions()
+        {Indented = false};
         public global::StrawberryShake.EntityId Parse(global::System.Text.Json.JsonElement obj)
         {
-            global::System.String __typename = obj
-                .GetProperty("__typename")
-                .GetString()!;
-
+            global::System.String __typename = obj.GetProperty("__typename").GetString()!;
             return __typename switch
             {
-                "Share" => ParseShareEntityId(
-                    obj,
-                    __typename),
-                "Industry" => ParseIndustryEntityId(
-                    obj,
-                    __typename),
-                _ => throw new global::System.NotSupportedException()
-            };
+            "Share" => ParseShareEntityId(obj, __typename), "Industry" => ParseIndustryEntityId(obj, __typename), _ => throw new global::System.NotSupportedException()}
+
+            ;
         }
 
         public global::System.String Format(global::StrawberryShake.EntityId entityId)
         {
             return entityId.Name switch
             {
-                "Share" => FormatShareEntityId(entityId),
-                "Industry" => FormatIndustryEntityId(entityId),
-                _ => throw new global::System.NotSupportedException()
-            };
+            "Share" => FormatShareEntityId(entityId), "Industry" => FormatIndustryEntityId(entityId), _ => throw new global::System.NotSupportedException()}
+
+            ;
         }
 
-        private global::StrawberryShake.EntityId ParseShareEntityId(
-            global::System.Text.Json.JsonElement obj,
-            global::System.String type)
+        private global::StrawberryShake.EntityId ParseShareEntityId(global::System.Text.Json.JsonElement obj, global::System.String type)
         {
-            return new global::StrawberryShake.EntityId(
-                type,
-                obj
-                    .GetProperty("id")
-                    .GetInt32()!);
+            return new global::StrawberryShake.EntityId(type, obj.GetProperty("id").GetInt32()!);
         }
 
         private global::System.String FormatShareEntityId(global::StrawberryShake.EntityId entityId)
         {
             using var writer = new global::StrawberryShake.Internal.ArrayWriter();
-            using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(
-                writer,
-                _options);
+            using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(writer, _options);
             jsonWriter.WriteStartObject();
-
-            jsonWriter.WriteString(
-                "__typename",
-                entityId.Name);
-
-            jsonWriter.WriteNumber(
-                "id",
-                (global::System.Int32)entityId.Value);
+            jsonWriter.WriteString("__typename", entityId.Name);
+            jsonWriter.WriteNumber("id", (global::System.Int32)entityId.Value);
             jsonWriter.WriteEndObject();
             jsonWriter.Flush();
-
-            return global::System.Text.Encoding.UTF8.GetString(
-                writer.GetInternalBuffer(),
-                0,
-                writer.Length);
+            return global::System.Text.Encoding.UTF8.GetString(writer.GetInternalBuffer(), 0, writer.Length);
         }
 
-        private global::StrawberryShake.EntityId ParseIndustryEntityId(
-            global::System.Text.Json.JsonElement obj,
-            global::System.String type)
+        private global::StrawberryShake.EntityId ParseIndustryEntityId(global::System.Text.Json.JsonElement obj, global::System.String type)
         {
-            return new global::StrawberryShake.EntityId(
-                type,
-                obj
-                    .GetProperty("id")
-                    .GetInt32()!);
+            return new global::StrawberryShake.EntityId(type, obj.GetProperty("id").GetInt32()!);
         }
 
         private global::System.String FormatIndustryEntityId(global::StrawberryShake.EntityId entityId)
         {
             using var writer = new global::StrawberryShake.Internal.ArrayWriter();
-            using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(
-                writer,
-                _options);
+            using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(writer, _options);
             jsonWriter.WriteStartObject();
-
-            jsonWriter.WriteString(
-                "__typename",
-                entityId.Name);
-
-            jsonWriter.WriteNumber(
-                "id",
-                (global::System.Int32)entityId.Value);
+            jsonWriter.WriteString("__typename", entityId.Name);
+            jsonWriter.WriteNumber("id", (global::System.Int32)entityId.Value);
             jsonWriter.WriteEndObject();
             jsonWriter.Flush();
+            return global::System.Text.Encoding.UTF8.GetString(writer.GetInternalBuffer(), 0, writer.Length);
+        }
+    }
 
-            return global::System.Text.Encoding.UTF8.GetString(
-                writer.GetInternalBuffer(),
-                0,
-                writer.Length);
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class SharesClientStoreAccessor : global::StrawberryShake.StoreAccessor
+    {
+        public SharesClientStoreAccessor(global::StrawberryShake.IOperationStore operationStore, global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer entityIdSerializer, global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationRequestFactory> requestFactories, global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationResultDataFactory> resultDataFactories): base(operationStore, entityStore, entityIdSerializer, requestFactories, resultDataFactories)
+        {
         }
     }
 }
 
-
-// SharesClientServiceCollectionExtensions.cs
-#nullable enable
-
 namespace Microsoft.Extensions.DependencyInjection
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
     public static partial class SharesClientServiceCollectionExtensions
     {
-        public static global::StrawberryShake.IClientBuilder<global::GqlDemo.Client.State.SharesClientStoreAccessor> AddSharesClient(
-            this global::Microsoft.Extensions.DependencyInjection.IServiceCollection services,
-            global::StrawberryShake.ExecutionStrategy strategy = global::StrawberryShake.ExecutionStrategy.NetworkOnly)
+        public static global::StrawberryShake.IClientBuilder<global::GqlDemo.Client.State.SharesClientStoreAccessor> AddSharesClient(this global::Microsoft.Extensions.DependencyInjection.IServiceCollection services, global::StrawberryShake.ExecutionStrategy strategy = global::StrawberryShake.ExecutionStrategy.NetworkOnly)
         {
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(
-                services,
-                sp => 
-                {
-                    var serviceCollection = ConfigureClientDefault(
-                        sp,
-                        strategy);
-
-                    return new ClientServiceProvider(
-                        global::Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(serviceCollection));
-                });
-
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(
-                services,
-                sp => new global::GqlDemo.Client.State.SharesClientStoreAccessor(
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(
-                        global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)),
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityStore>(
-                        global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)),
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityIdSerializer>(
-                        global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)),
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationRequestFactory>>(
-                        global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)),
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationResultDataFactory>>(
-                        global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp))));
-
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.GetSharesQuery>(
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.GetIndustriesQuery>(
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.ChangeValueMutation>(
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
-
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.SharesClient>(
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.ISharesClient>(
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
-
-            return new global::StrawberryShake.ClientBuilder<global::GqlDemo.Client.State.SharesClientStoreAccessor>(
-                "SharesClient",
-                services);
+            var serviceCollection = new global::Microsoft.Extensions.DependencyInjection.ServiceCollection();
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp =>
+            {
+                ConfigureClientDefault(sp, serviceCollection, strategy);
+                return new ClientServiceProvider(global::Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(serviceCollection));
+            });
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => new global::GqlDemo.Client.State.SharesClientStoreAccessor(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityStore>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityIdSerializer>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationRequestFactory>>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationResultDataFactory>>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp))));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.GetSharesQuery>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.GetIndustriesQuery>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.ChangeValueMutation>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.SharesClient>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.ISharesClient>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            return new global::StrawberryShake.ClientBuilder<global::GqlDemo.Client.State.SharesClientStoreAccessor>("SharesClient", services, serviceCollection);
         }
 
-        private static global::Microsoft.Extensions.DependencyInjection.IServiceCollection ConfigureClientDefault(
-            global::System.IServiceProvider parentServices,
-            global::StrawberryShake.ExecutionStrategy strategy = global::StrawberryShake.ExecutionStrategy.NetworkOnly)
+        private static global::Microsoft.Extensions.DependencyInjection.IServiceCollection ConfigureClientDefault(global::System.IServiceProvider parentServices, global::Microsoft.Extensions.DependencyInjection.ServiceCollection services, global::StrawberryShake.ExecutionStrategy strategy = global::StrawberryShake.ExecutionStrategy.NetworkOnly)
         {
-            var services = new global::Microsoft.Extensions.DependencyInjection.ServiceCollection();
             global::Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton<global::StrawberryShake.IEntityStore, global::StrawberryShake.EntityStore>(services);
-            global::Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton<global::StrawberryShake.IOperationStore>(
-                services,
-                sp => new global::StrawberryShake.OperationStore(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityStore>(sp)));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(
-                services,
-                sp => 
-                {
-                    var clientFactory = global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Net.Http.IHttpClientFactory>(parentServices);
-                    return new global::StrawberryShake.Transport.Http.HttpConnection(() => clientFactory.CreateClient("SharesClient"));
-                });
-
+            global::Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton<global::StrawberryShake.IOperationStore>(services, sp => new global::StrawberryShake.OperationStore(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityStore>(sp)));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Transport.Http.IHttpConnection>(services, sp =>
+            {
+                var clientFactory = global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Net.Http.IHttpClientFactory>(parentServices);
+                return new global::StrawberryShake.Transport.Http.HttpConnection(() => clientFactory.CreateClient("SharesClient"));
+            });
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, global::GqlDemo.Client.GetShares_Shares_Nodes_Share>, global::GqlDemo.Client.State.GetShares_Shares_Nodes_ShareFromShareEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, global::GqlDemo.Client.GetShares_Shares_Nodes_Industry_Industry>, global::GqlDemo.Client.State.GetShares_Shares_Nodes_Industry_IndustryFromIndustryEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, global::GqlDemo.Client.GetIndustries_Industries_Industry>, global::GqlDemo.Client.State.GetIndustries_Industries_IndustryFromIndustryEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.ShareEntity, global::GqlDemo.Client.ChangeValue_ChangeValue_Share_Share>, global::GqlDemo.Client.State.ChangeValue_ChangeValue_Share_ShareFromShareEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::GqlDemo.Client.State.IndustryEntity, global::GqlDemo.Client.ChangeValue_ChangeValue_Share_Industry_Industry>, global::GqlDemo.Client.State.ChangeValue_ChangeValue_Share_Industry_IndustryFromIndustryEntityMapper>(services);
-
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.StringSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.BooleanSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.ByteSerializer>(services);
@@ -3833,92 +4820,49 @@ namespace Microsoft.Extensions.DependencyInjection
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.FloatSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.DecimalSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.UrlSerializer>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.UuidSerializer>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.UUIDSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.IdSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.DateTimeSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.DateSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.ByteArraySerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.TimeSpanSerializer>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializerResolver>(
-                services,
-                sp => new global::StrawberryShake.Serialization.SerializerResolver(
-                    global::System.Linq.Enumerable.Concat(
-                        global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.Serialization.ISerializer>>(
-                            parentServices),
-                        global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.Serialization.ISerializer>>(
-                            sp))));
-
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.JsonSerializer>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::GqlDemo.Client.ShareFilterInputInputValueFormatter>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::GqlDemo.Client.ComparableInt32OperationFilterInputInputValueFormatter>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::GqlDemo.Client.StringOperationFilterInputInputValueFormatter>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::GqlDemo.Client.ComparableDecimalOperationFilterInputInputValueFormatter>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::GqlDemo.Client.IndustryFilterInputInputValueFormatter>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializerResolver>(services, sp => new global::StrawberryShake.Serialization.SerializerResolver(global::System.Linq.Enumerable.Concat(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.Serialization.ISerializer>>(parentServices), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.Serialization.ISerializer>>(sp))));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetSharesResult>, global::GqlDemo.Client.State.GetSharesResultFactory>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetSharesResult>>(sp));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.IGetSharesQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetSharesResult>>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.IGetSharesQuery>(sp));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetSharesResult>, global::GqlDemo.Client.State.GetSharesBuilder>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::GqlDemo.Client.IGetSharesResult>>(
-                services,
-                sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetSharesResult>(
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.HttpConnection>(sp),
-                    () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetSharesResult>>(sp),
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp),
-                    strategy));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::GqlDemo.Client.IGetSharesResult>>(services, sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetSharesResult>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.IHttpConnection>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetSharesResult>>(sp), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp), strategy));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.GetSharesQuery>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.IGetSharesQuery>(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.GetSharesQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.IGetSharesQuery>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.GetSharesQuery>(sp));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetIndustriesResult>, global::GqlDemo.Client.State.GetIndustriesResultFactory>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetIndustriesResult>>(sp));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.IGetIndustriesQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetIndustriesResult>>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.IGetIndustriesQuery>(sp));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetIndustriesResult>, global::GqlDemo.Client.State.GetIndustriesBuilder>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::GqlDemo.Client.IGetIndustriesResult>>(
-                services,
-                sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetIndustriesResult>(
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.HttpConnection>(sp),
-                    () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetIndustriesResult>>(sp),
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp),
-                    strategy));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::GqlDemo.Client.IGetIndustriesResult>>(services, sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetIndustriesResult>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.IHttpConnection>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetIndustriesResult>>(sp), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp), strategy));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.GetIndustriesQuery>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.IGetIndustriesQuery>(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.GetIndustriesQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.IGetIndustriesQuery>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.GetIndustriesQuery>(sp));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IChangeValueResult>, global::GqlDemo.Client.State.ChangeValueResultFactory>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IChangeValueResult>>(sp));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.IChangeValueMutation>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IChangeValueResult>>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.IChangeValueMutation>(sp));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IChangeValueResult>, global::GqlDemo.Client.State.ChangeValueBuilder>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::GqlDemo.Client.IChangeValueResult>>(
-                services,
-                sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IChangeValueResult>(
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.HttpConnection>(sp),
-                    () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IChangeValueResult>>(sp),
-                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp),
-                    strategy));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::GqlDemo.Client.IChangeValueResult>>(services, sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IChangeValueResult>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.IHttpConnection>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IChangeValueResult>>(sp), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp), strategy));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.ChangeValueMutation>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.IChangeValueMutation>(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.ChangeValueMutation>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.IChangeValueMutation>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.ChangeValueMutation>(sp));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityIdSerializer, global::GqlDemo.Client.State.SharesClientEntityIdFactory>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.SharesClient>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.ISharesClient>(
-                services,
-                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.SharesClient>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::GqlDemo.Client.ISharesClient>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::GqlDemo.Client.SharesClient>(sp));
             return services;
         }
 
-        private class ClientServiceProvider
-            : System.IServiceProvider
-            , System.IDisposable
+        private class ClientServiceProvider : System.IServiceProvider, System.IDisposable
         {
             private readonly System.IServiceProvider _provider;
-
             public ClientServiceProvider(System.IServiceProvider provider)
             {
                 _provider = provider;
@@ -3939,32 +4883,3 @@ namespace Microsoft.Extensions.DependencyInjection
         }
     }
 }
-
-
-// SharesClientStoreAccessor.cs
-#nullable enable
-
-namespace GqlDemo.Client.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class SharesClientStoreAccessor
-        : global::StrawberryShake.StoreAccessor
-    {
-        public SharesClientStoreAccessor(
-            global::StrawberryShake.IOperationStore operationStore,
-            global::StrawberryShake.IEntityStore entityStore,
-            global::StrawberryShake.IEntityIdSerializer entityIdSerializer,
-            global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationRequestFactory> requestFactories,
-            global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationResultDataFactory> resultDataFactories)
-            : base(
-                operationStore,
-                entityStore,
-                entityIdSerializer,
-                requestFactories,
-                resultDataFactories)
-        {
-        }
-    }
-}
-
-
