@@ -27,6 +27,10 @@ namespace GqlDemo.Server.Mutations
                 nameof(SharesSubscription.OnShareValueChangedAsync),
                 share.Id);
 
+            await eventSender.SendAsync(
+                share.Industry.Name,
+                share.Id);
+
             return new ChangeValuePayload(share);
         }
     }

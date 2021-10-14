@@ -45,3 +45,9 @@ subscription OnShareValueChanged {
     ... Share
   }
 }
+
+subscription OnShareValueChangedByIndustry($industry:String) {
+  onShareValueChangedByIndustry(industry: $industry) {
+    ... Share
+  }
+}

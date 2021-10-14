@@ -22,5 +22,18 @@ namespace GqlDemo.Server.Subscriptions
                 .Include(x => x.Industry)
                 .SingleAsync(x => x.Id == shareId);
         }
+
+        [Subscribe]
+        [UseDbContext(typeof(MyContext))]
+        public Task<Share> OnShareValueChangedByIndustryAsync(
+            [Topic] string industry,
+            [EventMessage] int shareId,
+            [ScopedService] MyContext dbcontext,
+            CancellationToken cancellationToken)
+        {
+            return dbcontext.Shares
+                .Include(x => x.Industry)
+                .SingleAsync(x => x.Id == shareId);
+        }
     }
 }

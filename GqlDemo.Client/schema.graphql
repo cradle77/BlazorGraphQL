@@ -15,6 +15,7 @@ type ShareMutation {
 
 type SharesSubscription {
   onShareValueChanged: Share
+  onShareValueChangedByIndustry(industry: String): Share
 }
 
 input ShareFilterInput {
