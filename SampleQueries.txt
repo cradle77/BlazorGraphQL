@@ -1,23 +1,29 @@
-query GetShares {
-  shares (first:50,last:10,
-    order:{
-      value:DESC
-      },
-    where: {
-      industry: {
-        id: {
-          eq:6
-        }
-      }
-    }) {
+query GetShares ($first:Int, $last:Int, $industryId:Int) {
+  shares(first:$first, last:$last, industryId: $industryId) {
+    totalCount
+
     nodes {
-      id
-      companyName
-      industry {
-        id
-        name
-      }
-      value
+      ... Share
     }
   }
+}
+
+query GetIndustries {
+  industries {
+    ... Industry
+  }
+}
+
+fragment Share on Share {
+  id,
+  companyName,
+  value,
+  industry {
+    ... Industry
+  }
+}
+
+fragment Industry on Industry {
+  id
+  name
 }
