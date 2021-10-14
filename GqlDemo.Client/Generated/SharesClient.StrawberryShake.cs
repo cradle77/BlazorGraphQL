@@ -523,11 +523,2208 @@ namespace GqlDemo.Client
     {
     }
 
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ShareFilterInputInputValueFormatter : global::StrawberryShake.Serialization.IInputObjectFormatter
+    {
+        private global::StrawberryShake.Serialization.IInputValueFormatter _shareFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _comparableInt32OperationFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _stringOperationFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _comparableDecimalOperationFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _industryFilterInputFormatter = default !;
+        public global::System.String TypeName => "ShareFilterInput";
+        public void Initialize(global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _shareFilterInputFormatter = serializerResolver.GetInputValueFormatter("ShareFilterInput");
+            _comparableInt32OperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("ComparableInt32OperationFilterInput");
+            _stringOperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("StringOperationFilterInput");
+            _comparableDecimalOperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("ComparableDecimalOperationFilterInput");
+            _industryFilterInputFormatter = serializerResolver.GetInputValueFormatter("IndustryFilterInput");
+        }
+
+        public global::System.Object? Format(global::System.Object? runtimeValue)
+        {
+            if (runtimeValue is null)
+            {
+                return null;
+            }
+
+            var input = runtimeValue as global::GqlDemo.Client.ShareFilterInput;
+            var inputInfo = runtimeValue as global::GqlDemo.Client.State.IShareFilterInputInfo;
+            if (input is null || inputInfo is null)
+            {
+                throw new global::System.ArgumentException(nameof(runtimeValue));
+            }
+
+            var fields = new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>>();
+            if (inputInfo.IsAndSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("and", FormatAnd(input.And)));
+            }
+
+            if (inputInfo.IsOrSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("or", FormatOr(input.Or)));
+            }
+
+            if (inputInfo.IsIdSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("id", FormatId(input.Id)));
+            }
+
+            if (inputInfo.IsCompanyNameSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("companyName", FormatCompanyName(input.CompanyName)));
+            }
+
+            if (inputInfo.IsValueSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("value", FormatValue(input.Value)));
+            }
+
+            if (inputInfo.IsIndustrySet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("industry", FormatIndustry(input.Industry)));
+            }
+
+            return fields;
+        }
+
+        private global::System.Object? FormatAnd(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_shareFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatOr(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_shareFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatId(global::GqlDemo.Client.ComparableInt32OperationFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _comparableInt32OperationFilterInputFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatCompanyName(global::GqlDemo.Client.StringOperationFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringOperationFilterInputFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatValue(global::GqlDemo.Client.ComparableDecimalOperationFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _comparableDecimalOperationFilterInputFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatIndustry(global::GqlDemo.Client.IndustryFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _industryFilterInputFormatter.Format(input);
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ShareFilterInput : global::GqlDemo.Client.State.IShareFilterInputInfo, global::System.IEquatable<ShareFilterInput>
+    {
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((ShareFilterInput)obj);
+        }
+
+        public virtual global::System.Boolean Equals(ShareFilterInput? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(And, other.And)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Or, other.Or) && ((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id)) && ((CompanyName is null && other.CompanyName is null) || CompanyName != null && CompanyName.Equals(other.CompanyName)) && ((Value is null && other.Value is null) || Value != null && Value.Equals(other.Value)) && ((Industry is null && other.Industry is null) || Industry != null && Industry.Equals(other.Industry));
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                if (And != null)
+                {
+                    foreach (var And_elm in And)
+                    {
+                        hash ^= 397 * And_elm.GetHashCode();
+                    }
+                }
+
+                if (Or != null)
+                {
+                    foreach (var Or_elm in Or)
+                    {
+                        hash ^= 397 * Or_elm.GetHashCode();
+                    }
+                }
+
+                if (Id != null)
+                {
+                    hash ^= 397 * Id.GetHashCode();
+                }
+
+                if (CompanyName != null)
+                {
+                    hash ^= 397 * CompanyName.GetHashCode();
+                }
+
+                if (Value != null)
+                {
+                    hash ^= 397 * Value.GetHashCode();
+                }
+
+                if (Industry != null)
+                {
+                    hash ^= 397 * Industry.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? _value_and;
+        private global::System.Boolean _set_and;
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? _value_or;
+        private global::System.Boolean _set_or;
+        private global::GqlDemo.Client.ComparableInt32OperationFilterInput? _value_id;
+        private global::System.Boolean _set_id;
+        private global::GqlDemo.Client.StringOperationFilterInput? _value_companyName;
+        private global::System.Boolean _set_companyName;
+        private global::GqlDemo.Client.ComparableDecimalOperationFilterInput? _value_value;
+        private global::System.Boolean _set_value;
+        private global::GqlDemo.Client.IndustryFilterInput? _value_industry;
+        private global::System.Boolean _set_industry;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? And
+        {
+            get => _value_and;
+            set
+            {
+                _set_and = true;
+                _value_and = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsAndSet => _set_and;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.ShareFilterInput>? Or
+        {
+            get => _value_or;
+            set
+            {
+                _set_or = true;
+                _value_or = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsOrSet => _set_or;
+        public global::GqlDemo.Client.ComparableInt32OperationFilterInput? Id
+        {
+            get => _value_id;
+            set
+            {
+                _set_id = true;
+                _value_id = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsIdSet => _set_id;
+        public global::GqlDemo.Client.StringOperationFilterInput? CompanyName
+        {
+            get => _value_companyName;
+            set
+            {
+                _set_companyName = true;
+                _value_companyName = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsCompanyNameSet => _set_companyName;
+        public global::GqlDemo.Client.ComparableDecimalOperationFilterInput? Value
+        {
+            get => _value_value;
+            set
+            {
+                _set_value = true;
+                _value_value = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsValueSet => _set_value;
+        public global::GqlDemo.Client.IndustryFilterInput? Industry
+        {
+            get => _value_industry;
+            set
+            {
+                _set_industry = true;
+                _value_industry = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IShareFilterInputInfo.IsIndustrySet => _set_industry;
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ComparableInt32OperationFilterInputInputValueFormatter : global::StrawberryShake.Serialization.IInputObjectFormatter
+    {
+        private global::StrawberryShake.Serialization.IInputValueFormatter _intFormatter = default !;
+        public global::System.String TypeName => "ComparableInt32OperationFilterInput";
+        public void Initialize(global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _intFormatter = serializerResolver.GetInputValueFormatter("Int");
+        }
+
+        public global::System.Object? Format(global::System.Object? runtimeValue)
+        {
+            if (runtimeValue is null)
+            {
+                return null;
+            }
+
+            var input = runtimeValue as global::GqlDemo.Client.ComparableInt32OperationFilterInput;
+            var inputInfo = runtimeValue as global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo;
+            if (input is null || inputInfo is null)
+            {
+                throw new global::System.ArgumentException(nameof(runtimeValue));
+            }
+
+            var fields = new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>>();
+            if (inputInfo.IsEqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("eq", FormatEq(input.Eq)));
+            }
+
+            if (inputInfo.IsNeqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("neq", FormatNeq(input.Neq)));
+            }
+
+            if (inputInfo.IsInSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("in", FormatIn(input.In)));
+            }
+
+            if (inputInfo.IsNinSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nin", FormatNin(input.Nin)));
+            }
+
+            if (inputInfo.IsGtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("gt", FormatGt(input.Gt)));
+            }
+
+            if (inputInfo.IsNgtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("ngt", FormatNgt(input.Ngt)));
+            }
+
+            if (inputInfo.IsGteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("gte", FormatGte(input.Gte)));
+            }
+
+            if (inputInfo.IsNgteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("ngte", FormatNgte(input.Ngte)));
+            }
+
+            if (inputInfo.IsLtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("lt", FormatLt(input.Lt)));
+            }
+
+            if (inputInfo.IsNltSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nlt", FormatNlt(input.Nlt)));
+            }
+
+            if (inputInfo.IsLteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("lte", FormatLte(input.Lte)));
+            }
+
+            if (inputInfo.IsNlteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nlte", FormatNlte(input.Nlte)));
+            }
+
+            return fields;
+        }
+
+        private global::System.Object? FormatEq(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNeq(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatIn(global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    input_list.Add(_intFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatNin(global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    input_list.Add(_intFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatGt(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNgt(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatGte(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNgte(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatLt(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNlt(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatLte(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNlte(global::System.Int32? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _intFormatter.Format(input);
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ComparableInt32OperationFilterInput : global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo, global::System.IEquatable<ComparableInt32OperationFilterInput>
+    {
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((ComparableInt32OperationFilterInput)obj);
+        }
+
+        public virtual global::System.Boolean Equals(ComparableInt32OperationFilterInput? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Eq == other.Eq) && Neq == other.Neq && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(In, other.In) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Nin, other.Nin) && Gt == other.Gt && Ngt == other.Ngt && Gte == other.Gte && Ngte == other.Ngte && Lt == other.Lt && Nlt == other.Nlt && Lte == other.Lte && Nlte == other.Nlte;
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                if (Eq != null)
+                {
+                    hash ^= 397 * Eq.GetHashCode();
+                }
+
+                if (Neq != null)
+                {
+                    hash ^= 397 * Neq.GetHashCode();
+                }
+
+                if (In != null)
+                {
+                    foreach (var In_elm in In)
+                    {
+                        hash ^= 397 * In_elm.GetHashCode();
+                    }
+                }
+
+                if (Nin != null)
+                {
+                    foreach (var Nin_elm in Nin)
+                    {
+                        hash ^= 397 * Nin_elm.GetHashCode();
+                    }
+                }
+
+                if (Gt != null)
+                {
+                    hash ^= 397 * Gt.GetHashCode();
+                }
+
+                if (Ngt != null)
+                {
+                    hash ^= 397 * Ngt.GetHashCode();
+                }
+
+                if (Gte != null)
+                {
+                    hash ^= 397 * Gte.GetHashCode();
+                }
+
+                if (Ngte != null)
+                {
+                    hash ^= 397 * Ngte.GetHashCode();
+                }
+
+                if (Lt != null)
+                {
+                    hash ^= 397 * Lt.GetHashCode();
+                }
+
+                if (Nlt != null)
+                {
+                    hash ^= 397 * Nlt.GetHashCode();
+                }
+
+                if (Lte != null)
+                {
+                    hash ^= 397 * Lte.GetHashCode();
+                }
+
+                if (Nlte != null)
+                {
+                    hash ^= 397 * Nlte.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+
+        private global::System.Int32? _value_eq;
+        private global::System.Boolean _set_eq;
+        private global::System.Int32? _value_neq;
+        private global::System.Boolean _set_neq;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? _value_in;
+        private global::System.Boolean _set_in;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? _value_nin;
+        private global::System.Boolean _set_nin;
+        private global::System.Int32? _value_gt;
+        private global::System.Boolean _set_gt;
+        private global::System.Int32? _value_ngt;
+        private global::System.Boolean _set_ngt;
+        private global::System.Int32? _value_gte;
+        private global::System.Boolean _set_gte;
+        private global::System.Int32? _value_ngte;
+        private global::System.Boolean _set_ngte;
+        private global::System.Int32? _value_lt;
+        private global::System.Boolean _set_lt;
+        private global::System.Int32? _value_nlt;
+        private global::System.Boolean _set_nlt;
+        private global::System.Int32? _value_lte;
+        private global::System.Boolean _set_lte;
+        private global::System.Int32? _value_nlte;
+        private global::System.Boolean _set_nlte;
+        public global::System.Int32? Eq
+        {
+            get => _value_eq;
+            set
+            {
+                _set_eq = true;
+                _value_eq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsEqSet => _set_eq;
+        public global::System.Int32? Neq
+        {
+            get => _value_neq;
+            set
+            {
+                _set_neq = true;
+                _value_neq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNeqSet => _set_neq;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? In
+        {
+            get => _value_in;
+            set
+            {
+                _set_in = true;
+                _value_in = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsInSet => _set_in;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Int32>? Nin
+        {
+            get => _value_nin;
+            set
+            {
+                _set_nin = true;
+                _value_nin = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNinSet => _set_nin;
+        public global::System.Int32? Gt
+        {
+            get => _value_gt;
+            set
+            {
+                _set_gt = true;
+                _value_gt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsGtSet => _set_gt;
+        public global::System.Int32? Ngt
+        {
+            get => _value_ngt;
+            set
+            {
+                _set_ngt = true;
+                _value_ngt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNgtSet => _set_ngt;
+        public global::System.Int32? Gte
+        {
+            get => _value_gte;
+            set
+            {
+                _set_gte = true;
+                _value_gte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsGteSet => _set_gte;
+        public global::System.Int32? Ngte
+        {
+            get => _value_ngte;
+            set
+            {
+                _set_ngte = true;
+                _value_ngte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNgteSet => _set_ngte;
+        public global::System.Int32? Lt
+        {
+            get => _value_lt;
+            set
+            {
+                _set_lt = true;
+                _value_lt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsLtSet => _set_lt;
+        public global::System.Int32? Nlt
+        {
+            get => _value_nlt;
+            set
+            {
+                _set_nlt = true;
+                _value_nlt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNltSet => _set_nlt;
+        public global::System.Int32? Lte
+        {
+            get => _value_lte;
+            set
+            {
+                _set_lte = true;
+                _value_lte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsLteSet => _set_lte;
+        public global::System.Int32? Nlte
+        {
+            get => _value_nlte;
+            set
+            {
+                _set_nlte = true;
+                _value_nlte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableInt32OperationFilterInputInfo.IsNlteSet => _set_nlte;
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class StringOperationFilterInputInputValueFormatter : global::StrawberryShake.Serialization.IInputObjectFormatter
+    {
+        private global::StrawberryShake.Serialization.IInputValueFormatter _stringOperationFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _stringFormatter = default !;
+        public global::System.String TypeName => "StringOperationFilterInput";
+        public void Initialize(global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _stringOperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("StringOperationFilterInput");
+            _stringFormatter = serializerResolver.GetInputValueFormatter("String");
+        }
+
+        public global::System.Object? Format(global::System.Object? runtimeValue)
+        {
+            if (runtimeValue is null)
+            {
+                return null;
+            }
+
+            var input = runtimeValue as global::GqlDemo.Client.StringOperationFilterInput;
+            var inputInfo = runtimeValue as global::GqlDemo.Client.State.IStringOperationFilterInputInfo;
+            if (input is null || inputInfo is null)
+            {
+                throw new global::System.ArgumentException(nameof(runtimeValue));
+            }
+
+            var fields = new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>>();
+            if (inputInfo.IsAndSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("and", FormatAnd(input.And)));
+            }
+
+            if (inputInfo.IsOrSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("or", FormatOr(input.Or)));
+            }
+
+            if (inputInfo.IsEqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("eq", FormatEq(input.Eq)));
+            }
+
+            if (inputInfo.IsNeqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("neq", FormatNeq(input.Neq)));
+            }
+
+            if (inputInfo.IsContainsSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("contains", FormatContains(input.Contains)));
+            }
+
+            if (inputInfo.IsNcontainsSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("ncontains", FormatNcontains(input.Ncontains)));
+            }
+
+            if (inputInfo.IsInSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("in", FormatIn(input.In)));
+            }
+
+            if (inputInfo.IsNinSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nin", FormatNin(input.Nin)));
+            }
+
+            if (inputInfo.IsStartsWithSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("startsWith", FormatStartsWith(input.StartsWith)));
+            }
+
+            if (inputInfo.IsNstartsWithSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nstartsWith", FormatNstartsWith(input.NstartsWith)));
+            }
+
+            if (inputInfo.IsEndsWithSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("endsWith", FormatEndsWith(input.EndsWith)));
+            }
+
+            if (inputInfo.IsNendsWithSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nendsWith", FormatNendsWith(input.NendsWith)));
+            }
+
+            return fields;
+        }
+
+        private global::System.Object? FormatAnd(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_stringOperationFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatOr(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_stringOperationFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatEq(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNeq(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatContains(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNcontains(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatIn(global::System.Collections.Generic.IReadOnlyList<global::System.String?>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        input_list.Add(input_elm);
+                    }
+                    else
+                    {
+                        input_list.Add(_stringFormatter.Format(input_elm));
+                    }
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatNin(global::System.Collections.Generic.IReadOnlyList<global::System.String?>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        input_list.Add(input_elm);
+                    }
+                    else
+                    {
+                        input_list.Add(_stringFormatter.Format(input_elm));
+                    }
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatStartsWith(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNstartsWith(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatEndsWith(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNendsWith(global::System.String? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringFormatter.Format(input);
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class StringOperationFilterInput : global::GqlDemo.Client.State.IStringOperationFilterInputInfo, global::System.IEquatable<StringOperationFilterInput>
+    {
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((StringOperationFilterInput)obj);
+        }
+
+        public virtual global::System.Boolean Equals(StringOperationFilterInput? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(And, other.And)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Or, other.Or) && ((Eq is null && other.Eq is null) || Eq != null && Eq.Equals(other.Eq)) && ((Neq is null && other.Neq is null) || Neq != null && Neq.Equals(other.Neq)) && ((Contains is null && other.Contains is null) || Contains != null && Contains.Equals(other.Contains)) && ((Ncontains is null && other.Ncontains is null) || Ncontains != null && Ncontains.Equals(other.Ncontains)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(In, other.In) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Nin, other.Nin) && ((StartsWith is null && other.StartsWith is null) || StartsWith != null && StartsWith.Equals(other.StartsWith)) && ((NstartsWith is null && other.NstartsWith is null) || NstartsWith != null && NstartsWith.Equals(other.NstartsWith)) && ((EndsWith is null && other.EndsWith is null) || EndsWith != null && EndsWith.Equals(other.EndsWith)) && ((NendsWith is null && other.NendsWith is null) || NendsWith != null && NendsWith.Equals(other.NendsWith));
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                if (And != null)
+                {
+                    foreach (var And_elm in And)
+                    {
+                        hash ^= 397 * And_elm.GetHashCode();
+                    }
+                }
+
+                if (Or != null)
+                {
+                    foreach (var Or_elm in Or)
+                    {
+                        hash ^= 397 * Or_elm.GetHashCode();
+                    }
+                }
+
+                if (Eq != null)
+                {
+                    hash ^= 397 * Eq.GetHashCode();
+                }
+
+                if (Neq != null)
+                {
+                    hash ^= 397 * Neq.GetHashCode();
+                }
+
+                if (Contains != null)
+                {
+                    hash ^= 397 * Contains.GetHashCode();
+                }
+
+                if (Ncontains != null)
+                {
+                    hash ^= 397 * Ncontains.GetHashCode();
+                }
+
+                if (In != null)
+                {
+                    foreach (var In_elm in In)
+                    {
+                        if (In_elm != null)
+                        {
+                            hash ^= 397 * In_elm.GetHashCode();
+                        }
+                    }
+                }
+
+                if (Nin != null)
+                {
+                    foreach (var Nin_elm in Nin)
+                    {
+                        if (Nin_elm != null)
+                        {
+                            hash ^= 397 * Nin_elm.GetHashCode();
+                        }
+                    }
+                }
+
+                if (StartsWith != null)
+                {
+                    hash ^= 397 * StartsWith.GetHashCode();
+                }
+
+                if (NstartsWith != null)
+                {
+                    hash ^= 397 * NstartsWith.GetHashCode();
+                }
+
+                if (EndsWith != null)
+                {
+                    hash ^= 397 * EndsWith.GetHashCode();
+                }
+
+                if (NendsWith != null)
+                {
+                    hash ^= 397 * NendsWith.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? _value_and;
+        private global::System.Boolean _set_and;
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? _value_or;
+        private global::System.Boolean _set_or;
+        private global::System.String? _value_eq;
+        private global::System.Boolean _set_eq;
+        private global::System.String? _value_neq;
+        private global::System.Boolean _set_neq;
+        private global::System.String? _value_contains;
+        private global::System.Boolean _set_contains;
+        private global::System.String? _value_ncontains;
+        private global::System.Boolean _set_ncontains;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.String?>? _value_in;
+        private global::System.Boolean _set_in;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.String?>? _value_nin;
+        private global::System.Boolean _set_nin;
+        private global::System.String? _value_startsWith;
+        private global::System.Boolean _set_startsWith;
+        private global::System.String? _value_nstartsWith;
+        private global::System.Boolean _set_nstartsWith;
+        private global::System.String? _value_endsWith;
+        private global::System.Boolean _set_endsWith;
+        private global::System.String? _value_nendsWith;
+        private global::System.Boolean _set_nendsWith;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? And
+        {
+            get => _value_and;
+            set
+            {
+                _set_and = true;
+                _value_and = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsAndSet => _set_and;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.StringOperationFilterInput>? Or
+        {
+            get => _value_or;
+            set
+            {
+                _set_or = true;
+                _value_or = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsOrSet => _set_or;
+        public global::System.String? Eq
+        {
+            get => _value_eq;
+            set
+            {
+                _set_eq = true;
+                _value_eq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsEqSet => _set_eq;
+        public global::System.String? Neq
+        {
+            get => _value_neq;
+            set
+            {
+                _set_neq = true;
+                _value_neq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsNeqSet => _set_neq;
+        public global::System.String? Contains
+        {
+            get => _value_contains;
+            set
+            {
+                _set_contains = true;
+                _value_contains = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsContainsSet => _set_contains;
+        public global::System.String? Ncontains
+        {
+            get => _value_ncontains;
+            set
+            {
+                _set_ncontains = true;
+                _value_ncontains = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsNcontainsSet => _set_ncontains;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.String?>? In
+        {
+            get => _value_in;
+            set
+            {
+                _set_in = true;
+                _value_in = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsInSet => _set_in;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.String?>? Nin
+        {
+            get => _value_nin;
+            set
+            {
+                _set_nin = true;
+                _value_nin = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsNinSet => _set_nin;
+        public global::System.String? StartsWith
+        {
+            get => _value_startsWith;
+            set
+            {
+                _set_startsWith = true;
+                _value_startsWith = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsStartsWithSet => _set_startsWith;
+        public global::System.String? NstartsWith
+        {
+            get => _value_nstartsWith;
+            set
+            {
+                _set_nstartsWith = true;
+                _value_nstartsWith = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsNstartsWithSet => _set_nstartsWith;
+        public global::System.String? EndsWith
+        {
+            get => _value_endsWith;
+            set
+            {
+                _set_endsWith = true;
+                _value_endsWith = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsEndsWithSet => _set_endsWith;
+        public global::System.String? NendsWith
+        {
+            get => _value_nendsWith;
+            set
+            {
+                _set_nendsWith = true;
+                _value_nendsWith = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IStringOperationFilterInputInfo.IsNendsWithSet => _set_nendsWith;
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ComparableDecimalOperationFilterInputInputValueFormatter : global::StrawberryShake.Serialization.IInputObjectFormatter
+    {
+        private global::StrawberryShake.Serialization.IInputValueFormatter _decimalFormatter = default !;
+        public global::System.String TypeName => "ComparableDecimalOperationFilterInput";
+        public void Initialize(global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _decimalFormatter = serializerResolver.GetInputValueFormatter("Decimal");
+        }
+
+        public global::System.Object? Format(global::System.Object? runtimeValue)
+        {
+            if (runtimeValue is null)
+            {
+                return null;
+            }
+
+            var input = runtimeValue as global::GqlDemo.Client.ComparableDecimalOperationFilterInput;
+            var inputInfo = runtimeValue as global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo;
+            if (input is null || inputInfo is null)
+            {
+                throw new global::System.ArgumentException(nameof(runtimeValue));
+            }
+
+            var fields = new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>>();
+            if (inputInfo.IsEqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("eq", FormatEq(input.Eq)));
+            }
+
+            if (inputInfo.IsNeqSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("neq", FormatNeq(input.Neq)));
+            }
+
+            if (inputInfo.IsInSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("in", FormatIn(input.In)));
+            }
+
+            if (inputInfo.IsNinSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nin", FormatNin(input.Nin)));
+            }
+
+            if (inputInfo.IsGtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("gt", FormatGt(input.Gt)));
+            }
+
+            if (inputInfo.IsNgtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("ngt", FormatNgt(input.Ngt)));
+            }
+
+            if (inputInfo.IsGteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("gte", FormatGte(input.Gte)));
+            }
+
+            if (inputInfo.IsNgteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("ngte", FormatNgte(input.Ngte)));
+            }
+
+            if (inputInfo.IsLtSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("lt", FormatLt(input.Lt)));
+            }
+
+            if (inputInfo.IsNltSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nlt", FormatNlt(input.Nlt)));
+            }
+
+            if (inputInfo.IsLteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("lte", FormatLte(input.Lte)));
+            }
+
+            if (inputInfo.IsNlteSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("nlte", FormatNlte(input.Nlte)));
+            }
+
+            return fields;
+        }
+
+        private global::System.Object? FormatEq(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNeq(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatIn(global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    input_list.Add(_decimalFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatNin(global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    input_list.Add(_decimalFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatGt(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNgt(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatGte(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNgte(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatLt(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNlt(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatLte(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatNlte(global::System.Decimal? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _decimalFormatter.Format(input);
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class ComparableDecimalOperationFilterInput : global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo, global::System.IEquatable<ComparableDecimalOperationFilterInput>
+    {
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((ComparableDecimalOperationFilterInput)obj);
+        }
+
+        public virtual global::System.Boolean Equals(ComparableDecimalOperationFilterInput? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Eq == other.Eq) && Neq == other.Neq && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(In, other.In) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Nin, other.Nin) && Gt == other.Gt && Ngt == other.Ngt && Gte == other.Gte && Ngte == other.Ngte && Lt == other.Lt && Nlt == other.Nlt && Lte == other.Lte && Nlte == other.Nlte;
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                if (Eq != null)
+                {
+                    hash ^= 397 * Eq.GetHashCode();
+                }
+
+                if (Neq != null)
+                {
+                    hash ^= 397 * Neq.GetHashCode();
+                }
+
+                if (In != null)
+                {
+                    foreach (var In_elm in In)
+                    {
+                        hash ^= 397 * In_elm.GetHashCode();
+                    }
+                }
+
+                if (Nin != null)
+                {
+                    foreach (var Nin_elm in Nin)
+                    {
+                        hash ^= 397 * Nin_elm.GetHashCode();
+                    }
+                }
+
+                if (Gt != null)
+                {
+                    hash ^= 397 * Gt.GetHashCode();
+                }
+
+                if (Ngt != null)
+                {
+                    hash ^= 397 * Ngt.GetHashCode();
+                }
+
+                if (Gte != null)
+                {
+                    hash ^= 397 * Gte.GetHashCode();
+                }
+
+                if (Ngte != null)
+                {
+                    hash ^= 397 * Ngte.GetHashCode();
+                }
+
+                if (Lt != null)
+                {
+                    hash ^= 397 * Lt.GetHashCode();
+                }
+
+                if (Nlt != null)
+                {
+                    hash ^= 397 * Nlt.GetHashCode();
+                }
+
+                if (Lte != null)
+                {
+                    hash ^= 397 * Lte.GetHashCode();
+                }
+
+                if (Nlte != null)
+                {
+                    hash ^= 397 * Nlte.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+
+        private global::System.Decimal? _value_eq;
+        private global::System.Boolean _set_eq;
+        private global::System.Decimal? _value_neq;
+        private global::System.Boolean _set_neq;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? _value_in;
+        private global::System.Boolean _set_in;
+        private global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? _value_nin;
+        private global::System.Boolean _set_nin;
+        private global::System.Decimal? _value_gt;
+        private global::System.Boolean _set_gt;
+        private global::System.Decimal? _value_ngt;
+        private global::System.Boolean _set_ngt;
+        private global::System.Decimal? _value_gte;
+        private global::System.Boolean _set_gte;
+        private global::System.Decimal? _value_ngte;
+        private global::System.Boolean _set_ngte;
+        private global::System.Decimal? _value_lt;
+        private global::System.Boolean _set_lt;
+        private global::System.Decimal? _value_nlt;
+        private global::System.Boolean _set_nlt;
+        private global::System.Decimal? _value_lte;
+        private global::System.Boolean _set_lte;
+        private global::System.Decimal? _value_nlte;
+        private global::System.Boolean _set_nlte;
+        public global::System.Decimal? Eq
+        {
+            get => _value_eq;
+            set
+            {
+                _set_eq = true;
+                _value_eq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsEqSet => _set_eq;
+        public global::System.Decimal? Neq
+        {
+            get => _value_neq;
+            set
+            {
+                _set_neq = true;
+                _value_neq = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNeqSet => _set_neq;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? In
+        {
+            get => _value_in;
+            set
+            {
+                _set_in = true;
+                _value_in = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsInSet => _set_in;
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Decimal>? Nin
+        {
+            get => _value_nin;
+            set
+            {
+                _set_nin = true;
+                _value_nin = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNinSet => _set_nin;
+        public global::System.Decimal? Gt
+        {
+            get => _value_gt;
+            set
+            {
+                _set_gt = true;
+                _value_gt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsGtSet => _set_gt;
+        public global::System.Decimal? Ngt
+        {
+            get => _value_ngt;
+            set
+            {
+                _set_ngt = true;
+                _value_ngt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNgtSet => _set_ngt;
+        public global::System.Decimal? Gte
+        {
+            get => _value_gte;
+            set
+            {
+                _set_gte = true;
+                _value_gte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsGteSet => _set_gte;
+        public global::System.Decimal? Ngte
+        {
+            get => _value_ngte;
+            set
+            {
+                _set_ngte = true;
+                _value_ngte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNgteSet => _set_ngte;
+        public global::System.Decimal? Lt
+        {
+            get => _value_lt;
+            set
+            {
+                _set_lt = true;
+                _value_lt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsLtSet => _set_lt;
+        public global::System.Decimal? Nlt
+        {
+            get => _value_nlt;
+            set
+            {
+                _set_nlt = true;
+                _value_nlt = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNltSet => _set_nlt;
+        public global::System.Decimal? Lte
+        {
+            get => _value_lte;
+            set
+            {
+                _set_lte = true;
+                _value_lte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsLteSet => _set_lte;
+        public global::System.Decimal? Nlte
+        {
+            get => _value_nlte;
+            set
+            {
+                _set_nlte = true;
+                _value_nlte = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IComparableDecimalOperationFilterInputInfo.IsNlteSet => _set_nlte;
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class IndustryFilterInputInputValueFormatter : global::StrawberryShake.Serialization.IInputObjectFormatter
+    {
+        private global::StrawberryShake.Serialization.IInputValueFormatter _industryFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _comparableInt32OperationFilterInputFormatter = default !;
+        private global::StrawberryShake.Serialization.IInputValueFormatter _stringOperationFilterInputFormatter = default !;
+        public global::System.String TypeName => "IndustryFilterInput";
+        public void Initialize(global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _industryFilterInputFormatter = serializerResolver.GetInputValueFormatter("IndustryFilterInput");
+            _comparableInt32OperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("ComparableInt32OperationFilterInput");
+            _stringOperationFilterInputFormatter = serializerResolver.GetInputValueFormatter("StringOperationFilterInput");
+        }
+
+        public global::System.Object? Format(global::System.Object? runtimeValue)
+        {
+            if (runtimeValue is null)
+            {
+                return null;
+            }
+
+            var input = runtimeValue as global::GqlDemo.Client.IndustryFilterInput;
+            var inputInfo = runtimeValue as global::GqlDemo.Client.State.IIndustryFilterInputInfo;
+            if (input is null || inputInfo is null)
+            {
+                throw new global::System.ArgumentException(nameof(runtimeValue));
+            }
+
+            var fields = new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>>();
+            if (inputInfo.IsAndSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("and", FormatAnd(input.And)));
+            }
+
+            if (inputInfo.IsOrSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("or", FormatOr(input.Or)));
+            }
+
+            if (inputInfo.IsIdSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("id", FormatId(input.Id)));
+            }
+
+            if (inputInfo.IsNameSet)
+            {
+                fields.Add(new global::System.Collections.Generic.KeyValuePair<global::System.String, global::System.Object?>("name", FormatName(input.Name)));
+            }
+
+            return fields;
+        }
+
+        private global::System.Object? FormatAnd(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_industryFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatOr(global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                var input_list = new global::System.Collections.Generic.List<global::System.Object?>();
+                foreach (var input_elm in input)
+                {
+                    if (input_elm is null)
+                    {
+                        throw new global::System.ArgumentNullException(nameof(input_elm));
+                    }
+
+                    input_list.Add(_industryFilterInputFormatter.Format(input_elm));
+                }
+
+                return input_list;
+            }
+        }
+
+        private global::System.Object? FormatId(global::GqlDemo.Client.ComparableInt32OperationFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _comparableInt32OperationFilterInputFormatter.Format(input);
+            }
+        }
+
+        private global::System.Object? FormatName(global::GqlDemo.Client.StringOperationFilterInput? input)
+        {
+            if (input is null)
+            {
+                return input;
+            }
+            else
+            {
+                return _stringOperationFilterInputFormatter.Format(input);
+            }
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    public partial class IndustryFilterInput : global::GqlDemo.Client.State.IIndustryFilterInputInfo, global::System.IEquatable<IndustryFilterInput>
+    {
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((IndustryFilterInput)obj);
+        }
+
+        public virtual global::System.Boolean Equals(IndustryFilterInput? other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(And, other.And)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(Or, other.Or) && ((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id)) && ((Name is null && other.Name is null) || Name != null && Name.Equals(other.Name));
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                if (And != null)
+                {
+                    foreach (var And_elm in And)
+                    {
+                        hash ^= 397 * And_elm.GetHashCode();
+                    }
+                }
+
+                if (Or != null)
+                {
+                    foreach (var Or_elm in Or)
+                    {
+                        hash ^= 397 * Or_elm.GetHashCode();
+                    }
+                }
+
+                if (Id != null)
+                {
+                    hash ^= 397 * Id.GetHashCode();
+                }
+
+                if (Name != null)
+                {
+                    hash ^= 397 * Name.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? _value_and;
+        private global::System.Boolean _set_and;
+        private global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? _value_or;
+        private global::System.Boolean _set_or;
+        private global::GqlDemo.Client.ComparableInt32OperationFilterInput? _value_id;
+        private global::System.Boolean _set_id;
+        private global::GqlDemo.Client.StringOperationFilterInput? _value_name;
+        private global::System.Boolean _set_name;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? And
+        {
+            get => _value_and;
+            set
+            {
+                _set_and = true;
+                _value_and = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IIndustryFilterInputInfo.IsAndSet => _set_and;
+        public global::System.Collections.Generic.IReadOnlyList<global::GqlDemo.Client.IndustryFilterInput>? Or
+        {
+            get => _value_or;
+            set
+            {
+                _set_or = true;
+                _value_or = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IIndustryFilterInputInfo.IsOrSet => _set_or;
+        public global::GqlDemo.Client.ComparableInt32OperationFilterInput? Id
+        {
+            get => _value_id;
+            set
+            {
+                _set_id = true;
+                _value_id = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IIndustryFilterInputInfo.IsIdSet => _set_id;
+        public global::GqlDemo.Client.StringOperationFilterInput? Name
+        {
+            get => _value_name;
+            set
+            {
+                _set_name = true;
+                _value_name = value;
+            }
+        }
+
+        global::System.Boolean global::GqlDemo.Client.State.IIndustryFilterInputInfo.IsNameSet => _set_name;
+    }
+
     /// <summary>
     /// Represents the operation service of the GetShares GraphQL operation
     /// <code>
-    /// query GetShares($first: Int, $last: Int, $industryId: Int) {
-    ///   shares(first: $first, last: $last, industryId: $industryId) {
+    /// query GetShares($first: Int, $last: Int, $where: ShareFilterInput) {
+    ///   shares(first: $first, last: $last, where: $where) {
     ///     __typename
     ///     totalCount
     ///     nodes {
@@ -568,8 +2765,8 @@ namespace GqlDemo.Client
 
         public static GetSharesQueryDocument Instance { get; } = new GetSharesQueryDocument();
         public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Query;
-        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x53, 0x68, 0x61, 0x72, 0x65, 0x73, 0x28, 0x24, 0x66, 0x69, 0x72, 0x73, 0x74, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x2c, 0x20, 0x24, 0x6c, 0x61, 0x73, 0x74, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x2c, 0x20, 0x24, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x49, 0x64, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x29, 0x20, 0x7b, 0x20, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x28, 0x66, 0x69, 0x72, 0x73, 0x74, 0x3a, 0x20, 0x24, 0x66, 0x69, 0x72, 0x73, 0x74, 0x2c, 0x20, 0x6c, 0x61, 0x73, 0x74, 0x3a, 0x20, 0x24, 0x6c, 0x61, 0x73, 0x74, 0x2c, 0x20, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x49, 0x64, 0x3a, 0x20, 0x24, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x49, 0x64, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x20, 0x6e, 0x6f, 0x64, 0x65, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x63, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x20, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d};
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "bf1d1dfa4f9a8bd72e3f0c82ae09ab56");
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x53, 0x68, 0x61, 0x72, 0x65, 0x73, 0x28, 0x24, 0x66, 0x69, 0x72, 0x73, 0x74, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x2c, 0x20, 0x24, 0x6c, 0x61, 0x73, 0x74, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x2c, 0x20, 0x24, 0x77, 0x68, 0x65, 0x72, 0x65, 0x3a, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x46, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x29, 0x20, 0x7b, 0x20, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x28, 0x66, 0x69, 0x72, 0x73, 0x74, 0x3a, 0x20, 0x24, 0x66, 0x69, 0x72, 0x73, 0x74, 0x2c, 0x20, 0x6c, 0x61, 0x73, 0x74, 0x3a, 0x20, 0x24, 0x6c, 0x61, 0x73, 0x74, 0x2c, 0x20, 0x77, 0x68, 0x65, 0x72, 0x65, 0x3a, 0x20, 0x24, 0x77, 0x68, 0x65, 0x72, 0x65, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x20, 0x6e, 0x6f, 0x64, 0x65, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x53, 0x68, 0x61, 0x72, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x63, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x20, 0x69, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x6f, 0x6e, 0x20, 0x49, 0x6e, 0x64, 0x75, 0x73, 0x74, 0x72, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d};
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "6d7593ea47f2dbf753059281d8e84ec9");
         public override global::System.String ToString()
         {
 #if NETSTANDARD2_0
@@ -583,8 +2780,8 @@ namespace GqlDemo.Client
     /// <summary>
     /// Represents the operation service of the GetShares GraphQL operation
     /// <code>
-    /// query GetShares($first: Int, $last: Int, $industryId: Int) {
-    ///   shares(first: $first, last: $last, industryId: $industryId) {
+    /// query GetShares($first: Int, $last: Int, $where: ShareFilterInput) {
+    ///   shares(first: $first, last: $last, where: $where) {
     ///     __typename
     ///     totalCount
     ///     nodes {
@@ -621,31 +2818,33 @@ namespace GqlDemo.Client
     {
         private readonly global::StrawberryShake.IOperationExecutor<IGetSharesResult> _operationExecutor;
         private readonly global::StrawberryShake.Serialization.IInputValueFormatter _intFormatter;
+        private readonly global::StrawberryShake.Serialization.IInputValueFormatter _shareFilterInputFormatter;
         public GetSharesQuery(global::StrawberryShake.IOperationExecutor<IGetSharesResult> operationExecutor, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
         {
             _operationExecutor = operationExecutor ?? throw new global::System.ArgumentNullException(nameof(operationExecutor));
             _intFormatter = serializerResolver.GetInputValueFormatter("Int");
+            _shareFilterInputFormatter = serializerResolver.GetInputValueFormatter("ShareFilterInput");
         }
 
         global::System.Type global::StrawberryShake.IOperationRequestFactory.ResultType => typeof(IGetSharesResult);
-        public async global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetSharesResult>> ExecuteAsync(global::System.Int32? first, global::System.Int32? last, global::System.Int32? industryId, global::System.Threading.CancellationToken cancellationToken = default)
+        public async global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetSharesResult>> ExecuteAsync(global::System.Int32? first, global::System.Int32? last, global::GqlDemo.Client.ShareFilterInput? @where, global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var request = CreateRequest(first, last, industryId);
+            var request = CreateRequest(first, last, @where);
             return await _operationExecutor.ExecuteAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
-        public global::System.IObservable<global::StrawberryShake.IOperationResult<IGetSharesResult>> Watch(global::System.Int32? first, global::System.Int32? last, global::System.Int32? industryId, global::StrawberryShake.ExecutionStrategy? strategy = null)
+        public global::System.IObservable<global::StrawberryShake.IOperationResult<IGetSharesResult>> Watch(global::System.Int32? first, global::System.Int32? last, global::GqlDemo.Client.ShareFilterInput? @where, global::StrawberryShake.ExecutionStrategy? strategy = null)
         {
-            var request = CreateRequest(first, last, industryId);
+            var request = CreateRequest(first, last, @where);
             return _operationExecutor.Watch(request, strategy);
         }
 
-        private global::StrawberryShake.OperationRequest CreateRequest(global::System.Int32? first, global::System.Int32? last, global::System.Int32? industryId)
+        private global::StrawberryShake.OperationRequest CreateRequest(global::System.Int32? first, global::System.Int32? last, global::GqlDemo.Client.ShareFilterInput? @where)
         {
             var variables = new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>();
             variables.Add("first", FormatFirst(first));
             variables.Add("last", FormatLast(last));
-            variables.Add("industryId", FormatIndustryId(industryId));
+            variables.Add("where", FormatWhere(@where));
             return CreateRequest(variables);
         }
 
@@ -678,7 +2877,7 @@ namespace GqlDemo.Client
             }
         }
 
-        private global::System.Object? FormatIndustryId(global::System.Int32? value)
+        private global::System.Object? FormatWhere(global::GqlDemo.Client.ShareFilterInput? value)
         {
             if (value is null)
             {
@@ -686,7 +2885,7 @@ namespace GqlDemo.Client
             }
             else
             {
-                return _intFormatter.Format(value);
+                return _shareFilterInputFormatter.Format(value);
             }
         }
 
@@ -699,8 +2898,8 @@ namespace GqlDemo.Client
     /// <summary>
     /// Represents the operation service of the GetShares GraphQL operation
     /// <code>
-    /// query GetShares($first: Int, $last: Int, $industryId: Int) {
-    ///   shares(first: $first, last: $last, industryId: $industryId) {
+    /// query GetShares($first: Int, $last: Int, $where: ShareFilterInput) {
+    ///   shares(first: $first, last: $last, where: $where) {
     ///     __typename
     ///     totalCount
     ///     nodes {
@@ -735,8 +2934,8 @@ namespace GqlDemo.Client
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
     public interface IGetSharesQuery : global::StrawberryShake.IOperationRequestFactory
     {
-        global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetSharesResult>> ExecuteAsync(global::System.Int32? first, global::System.Int32? last, global::System.Int32? industryId, global::System.Threading.CancellationToken cancellationToken = default);
-        global::System.IObservable<global::StrawberryShake.IOperationResult<IGetSharesResult>> Watch(global::System.Int32? first, global::System.Int32? last, global::System.Int32? industryId, global::StrawberryShake.ExecutionStrategy? strategy = null);
+        global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetSharesResult>> ExecuteAsync(global::System.Int32? first, global::System.Int32? last, global::GqlDemo.Client.ShareFilterInput? @where, global::System.Threading.CancellationToken cancellationToken = default);
+        global::System.IObservable<global::StrawberryShake.IOperationResult<IGetSharesResult>> Watch(global::System.Int32? first, global::System.Int32? last, global::GqlDemo.Client.ShareFilterInput? @where, global::StrawberryShake.ExecutionStrategy? strategy = null);
     }
 
     /// <summary>
@@ -1216,6 +3415,118 @@ namespace GqlDemo.Client.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    internal interface IShareFilterInputInfo
+    {
+        global::System.Boolean IsAndSet { get; }
+
+        global::System.Boolean IsOrSet { get; }
+
+        global::System.Boolean IsIdSet { get; }
+
+        global::System.Boolean IsCompanyNameSet { get; }
+
+        global::System.Boolean IsValueSet { get; }
+
+        global::System.Boolean IsIndustrySet { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    internal interface IComparableInt32OperationFilterInputInfo
+    {
+        global::System.Boolean IsEqSet { get; }
+
+        global::System.Boolean IsNeqSet { get; }
+
+        global::System.Boolean IsInSet { get; }
+
+        global::System.Boolean IsNinSet { get; }
+
+        global::System.Boolean IsGtSet { get; }
+
+        global::System.Boolean IsNgtSet { get; }
+
+        global::System.Boolean IsGteSet { get; }
+
+        global::System.Boolean IsNgteSet { get; }
+
+        global::System.Boolean IsLtSet { get; }
+
+        global::System.Boolean IsNltSet { get; }
+
+        global::System.Boolean IsLteSet { get; }
+
+        global::System.Boolean IsNlteSet { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    internal interface IStringOperationFilterInputInfo
+    {
+        global::System.Boolean IsAndSet { get; }
+
+        global::System.Boolean IsOrSet { get; }
+
+        global::System.Boolean IsEqSet { get; }
+
+        global::System.Boolean IsNeqSet { get; }
+
+        global::System.Boolean IsContainsSet { get; }
+
+        global::System.Boolean IsNcontainsSet { get; }
+
+        global::System.Boolean IsInSet { get; }
+
+        global::System.Boolean IsNinSet { get; }
+
+        global::System.Boolean IsStartsWithSet { get; }
+
+        global::System.Boolean IsNstartsWithSet { get; }
+
+        global::System.Boolean IsEndsWithSet { get; }
+
+        global::System.Boolean IsNendsWithSet { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    internal interface IComparableDecimalOperationFilterInputInfo
+    {
+        global::System.Boolean IsEqSet { get; }
+
+        global::System.Boolean IsNeqSet { get; }
+
+        global::System.Boolean IsInSet { get; }
+
+        global::System.Boolean IsNinSet { get; }
+
+        global::System.Boolean IsGtSet { get; }
+
+        global::System.Boolean IsNgtSet { get; }
+
+        global::System.Boolean IsGteSet { get; }
+
+        global::System.Boolean IsNgteSet { get; }
+
+        global::System.Boolean IsLtSet { get; }
+
+        global::System.Boolean IsNltSet { get; }
+
+        global::System.Boolean IsLteSet { get; }
+
+        global::System.Boolean IsNlteSet { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
+    internal interface IIndustryFilterInputInfo
+    {
+        global::System.Boolean IsAndSet { get; }
+
+        global::System.Boolean IsOrSet { get; }
+
+        global::System.Boolean IsIdSet { get; }
+
+        global::System.Boolean IsNameSet { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.0.1.0")]
     public partial class GetSharesBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::GqlDemo.Client.IGetSharesResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
@@ -1661,6 +3972,11 @@ namespace Microsoft.Extensions.DependencyInjection
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.ByteArraySerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.TimeSpanSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.JsonSerializer>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::GqlDemo.Client.ShareFilterInputInputValueFormatter>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::GqlDemo.Client.ComparableInt32OperationFilterInputInputValueFormatter>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::GqlDemo.Client.StringOperationFilterInputInputValueFormatter>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::GqlDemo.Client.ComparableDecimalOperationFilterInputInputValueFormatter>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::GqlDemo.Client.IndustryFilterInputInputValueFormatter>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializerResolver>(services, sp => new global::StrawberryShake.Serialization.SerializerResolver(global::System.Linq.Enumerable.Concat(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.Serialization.ISerializer>>(parentServices), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.Serialization.ISerializer>>(sp))));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetSharesResult>, global::GqlDemo.Client.State.GetSharesResultFactory>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::GqlDemo.Client.IGetSharesResult>>(sp));

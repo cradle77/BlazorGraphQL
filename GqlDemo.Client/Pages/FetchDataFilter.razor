@@ -48,7 +48,7 @@
 </table>
 
 @code {
-    private int? _industryId;
+    private ShareFilterInput _filter;
     private IIndustry[] _industries;
 
     public Virtualize<IShare> _virtualize;
@@ -64,7 +64,16 @@
     {
         var selectedValue = int.Parse(e.Value.ToString());
 
-        _industryId = selectedValue == 0 ? (int?)null : selectedValue;
+        _filter = selectedValue != 0 ? new ShareFilterInput()
+        { 
+            Industry = new IndustryFilterInput()
+            {
+                Id = new ComparableInt32OperationFilterInput()
+                { 
+                    Eq = selectedValue
+                }
+            }
+        } : null;
 
         await _virtualize.RefreshDataAsync();
 
@@ -73,7 +82,7 @@
 
     private async ValueTask<ItemsProviderResult<IShare>> GetSharesAsync(ItemsProviderRequest request)
     {
-        var query = await this.SharesClient.GetShares.ExecuteAsync(first: request.Count + request.StartIndex, last: request.Count, industryId:_industryId);
+        var query = await this.SharesClient.GetShares.ExecuteAsync(first: request.Count + request.StartIndex, last: request.Count, where: _filter);
 
         var shares = query.Data.Shares.Nodes.ToArray();
 
