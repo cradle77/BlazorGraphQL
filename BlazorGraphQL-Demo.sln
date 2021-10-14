@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleQueries", "SampleQueries", "{C43F013C-BB97-42CA-B0AE-36BE88B6B7CC}"
 	ProjectSection(SolutionItems) = preProject
 		Commands.txt = Commands.txt
+		Directory.Build.props = Directory.Build.props
 		global.json = global.json
 		SampleQueries.txt = SampleQueries.txt
 	EndProjectSection
