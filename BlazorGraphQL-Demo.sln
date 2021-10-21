@@ -12,12 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleQueries", "SampleQuer
 		Commands.txt = Commands.txt
 		Directory.Build.props = Directory.Build.props
 		global.json = global.json
+		readme.md = readme.md
 		SampleQueries.txt = SampleQueries.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GqlDemo.InvestorsServer", "GqlDemo.InvestorsServer\GqlDemo.InvestorsServer.csproj", "{E89BCCFD-0D49-4658-98BB-9E0D8F60B5F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GqlDemo.Gateway", "GqlDemo.Gateway\GqlDemo.Gateway.csproj", "{8C51DDDE-96E5-43A2-AE9C-467882545FCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GqlDemo.Gateway", "GqlDemo.Gateway\GqlDemo.Gateway.csproj", "{8C51DDDE-96E5-43A2-AE9C-467882545FCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
