@@ -1,12 +1,20 @@
 ﻿using GqlDemo.InvestorsServer.Data;
+using GqlDemo.InvestorsServer.Security;
 using HotChocolate;
+using HotChocolate.AspNetCore.Authorization;
 using System.Linq;
 
 namespace GqlDemo.InvestorsServer.Queries
 {
     public class InvestorsQuery
     {
+        /* 
+         $token = az account get-access-token --resource api://advancedtestdemo/bankapi | ConvertFrom-Json
+         $token.AccessToken | Set-Clipboard
+         */
         [GraphQLName("investors")]
+        //[ColumnLevelAuthorize]
+        [Authorize]
         public IQueryable<Investor> GetAllIndustries()
         {
             return new[] 
