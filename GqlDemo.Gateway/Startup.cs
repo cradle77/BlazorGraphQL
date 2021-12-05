@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
 
 namespace GqlDemo.Gateway
@@ -28,20 +29,11 @@ namespace GqlDemo.Gateway
 
             services.AddHttpClient("shares", c => c.BaseAddress = new Uri("https://localhost:5001/graphql/"));
 
-            services.AddHttpClient("investors", (sp, c) => 
-            {
-                HttpContext context = sp.GetRequiredService<IHttpContextAccessor>().HttpContext;
+            services
+                .AddHttpClient("investors", c => c.BaseAddress = new Uri("https://localhost:5003/graphql/"))
+                .AddHttpMessageHandler<ForwardTokenHandler>();
 
-                if (context.Request.Headers.ContainsKey("Authorization"))
-                {
-                    c.DefaultRequestHeaders.Authorization =
-                        AuthenticationHeaderValue.Parse(
-                            context.Request.Headers["Authorization"]
-                                .ToString());
-                }
-
-                c.BaseAddress = new Uri("https://localhost:5003/graphql/");
-            });
+            services.AddTransient<ForwardTokenHandler>();
 
             services.AddGraphQLServer()
                 .AddRemoteSchema("shares")
