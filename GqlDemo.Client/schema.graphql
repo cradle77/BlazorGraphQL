@@ -10,9 +10,9 @@ type SharesQuery {
 input ShareFilterInput {
   and: [ShareFilterInput!]
   or: [ShareFilterInput!]
-  id: ComparableInt32OperationFilterInput
+  id: IntOperationFilterInput
   companyName: StringOperationFilterInput
-  value: ComparableDecimalOperationFilterInput
+  value: DecimalOperationFilterInput
   industry: IndustryFilterInput
 }
 
@@ -31,14 +31,15 @@ type SharesConnection {
   edges: [SharesEdge!]
   "A flattened list of the nodes."
   nodes: [Share]
+  "Identifies the total count of items in the connection."
   totalCount: Int!
 }
 
-input ComparableInt32OperationFilterInput {
+input IntOperationFilterInput {
   eq: Int
   neq: Int
-  in: [Int!]
-  nin: [Int!]
+  in: [Int]
+  nin: [Int]
   gt: Int
   ngt: Int
   gte: Int
@@ -64,11 +65,11 @@ input StringOperationFilterInput {
   nendsWith: String
 }
 
-input ComparableDecimalOperationFilterInput {
+input DecimalOperationFilterInput {
   eq: Decimal
   neq: Decimal
-  in: [Decimal!]
-  nin: [Decimal!]
+  in: [Decimal]
+  nin: [Decimal]
   gt: Decimal
   ngt: Decimal
   gte: Decimal
@@ -82,7 +83,7 @@ input ComparableDecimalOperationFilterInput {
 input IndustryFilterInput {
   and: [IndustryFilterInput!]
   or: [IndustryFilterInput!]
-  id: ComparableInt32OperationFilterInput
+  id: IntOperationFilterInput
   name: StringOperationFilterInput
 }
 
@@ -123,10 +124,10 @@ type SharesEdge {
   node: Share
 }
 
+"The built-in `Decimal` scalar type."
+scalar Decimal
+
 type Industry {
   id: Int!
   name: String
 }
-
-"The built-in `Decimal` scalar type."
-scalar Decimal
