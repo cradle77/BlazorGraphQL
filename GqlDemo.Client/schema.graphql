@@ -1,6 +1,5 @@
 ﻿schema {
   query: SharesQuery
-  mutation: ShareMutation
 }
 
 type SharesQuery {
@@ -8,16 +7,12 @@ type SharesQuery {
   shares(industryId: Int "Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: ShareFilterInput order: [ShareSortInput!]): SharesConnection
 }
 
-type ShareMutation {
-  changeValue(input: ChangeValueInput): ChangeValuePayload
-}
-
 input ShareFilterInput {
   and: [ShareFilterInput!]
   or: [ShareFilterInput!]
-  id: ComparableInt32OperationFilterInput
+  id: IntOperationFilterInput
   companyName: StringOperationFilterInput
-  value: ComparableDecimalOperationFilterInput
+  value: DecimalOperationFilterInput
   industry: IndustryFilterInput
 }
 
@@ -36,14 +31,15 @@ type SharesConnection {
   edges: [SharesEdge!]
   "A flattened list of the nodes."
   nodes: [Share]
+  "Identifies the total count of items in the connection."
   totalCount: Int!
 }
 
-input ComparableInt32OperationFilterInput {
+input IntOperationFilterInput {
   eq: Int
   neq: Int
-  in: [Int!]
-  nin: [Int!]
+  in: [Int]
+  nin: [Int]
   gt: Int
   ngt: Int
   gte: Int
@@ -69,11 +65,11 @@ input StringOperationFilterInput {
   nendsWith: String
 }
 
-input ComparableDecimalOperationFilterInput {
+input DecimalOperationFilterInput {
   eq: Decimal
   neq: Decimal
-  in: [Decimal!]
-  nin: [Decimal!]
+  in: [Decimal]
+  nin: [Decimal]
   gt: Decimal
   ngt: Decimal
   gte: Decimal
@@ -87,7 +83,7 @@ input ComparableDecimalOperationFilterInput {
 input IndustryFilterInput {
   and: [IndustryFilterInput!]
   or: [IndustryFilterInput!]
-  id: ComparableInt32OperationFilterInput
+  id: IntOperationFilterInput
   name: StringOperationFilterInput
 }
 
@@ -128,19 +124,10 @@ type SharesEdge {
   node: Share
 }
 
-type ChangeValuePayload {
-  share: Share
-}
+"The built-in `Decimal` scalar type."
+scalar Decimal
 
 type Industry {
   id: Int!
   name: String
 }
-
-input ChangeValueInput {
-  id: Int!
-  percentage: Int!
-}
-
-"The built-in `Decimal` scalar type."
-scalar Decimal
