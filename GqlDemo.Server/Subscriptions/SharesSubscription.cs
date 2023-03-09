@@ -25,8 +25,9 @@ namespace GqlDemo.Server.Subscriptions
 
         [Subscribe]
         [UseDbContext(typeof(MyContext))]
+        [Topic("{industry}")]
         public Task<Share> OnShareValueChangedByIndustryAsync(
-            [Topic] string industry,
+            string industry,
             [EventMessage] int shareId,
             [ScopedService] MyContext dbcontext,
             CancellationToken cancellationToken)
