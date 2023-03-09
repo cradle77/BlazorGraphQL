@@ -5,15 +5,6 @@
     "strawberryShake": {
       "name": "SharesClient",
       "url": "https://localhost:5001/graphql",
-      "dependencyInjection": true,
-      "strictSchemaValidation": true,
-      "hashAlgorithm": "md5",
-      "useSingleFile": true,
-      "requestStrategy": "Default",
-      "outputDirectoryName": "Generated",
-      "noStore": false,
-      "emitGeneratedCode": true,
-      "razorComponents": false,
       "namespace": "GqlDemo.Client",
       "records": {
         "inputs": false,
