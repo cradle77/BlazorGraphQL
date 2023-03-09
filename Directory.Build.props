@@ -1,5 +1,5 @@
 ﻿<Project>
   <PropertyGroup>
-    <HcVersion>12.0.1</HcVersion>
+	  <HcVersion>13.0.5</HcVersion>
   </PropertyGroup>
 </Project>
