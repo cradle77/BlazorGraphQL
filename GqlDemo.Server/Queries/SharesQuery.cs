@@ -19,13 +19,6 @@ namespace GqlDemo.Server.Queries
             return dbcontext.Industries;
         }
 
-        //[GraphQLName("industryById")]
-        //[UseDbContext(typeof(MyContext))]
-        //public Industry GetIndustry([ScopedService] MyContext dbcontext, int id)
-        //{
-        //    return dbcontext.Industries.Single(x => x.Id == id);
-        //}
-
         [GraphQLName("industryById")]
         [UseDbContext(typeof(MyContext))]
         public async Task<Industry> GetIndustry([ScopedService] MyContext dbcontext, int id,
