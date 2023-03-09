@@ -2,6 +2,7 @@
 using GqlDemo.InvestorsServer.Security;
 using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
+using HotChocolate.Authorization;
 using System.Linq;
 
 namespace GqlDemo.InvestorsServer.Queries
