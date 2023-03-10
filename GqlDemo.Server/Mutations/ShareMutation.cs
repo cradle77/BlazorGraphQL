@@ -9,7 +9,7 @@ namespace GqlDemo.Server.Mutations
     public class ShareMutation
     {
         [UseDbContext(typeof(MyContext))]
-        public async Task<ChangeValuePayload> ChangeValueAsync(ChangeValueInput input, [ScopedService] MyContext dbcontext)
+        public async Task<ChangeValuePayload> ChangeValueAsync(ChangeValueInput input, MyContext dbcontext)
         {
             var share = await dbcontext.Shares
                 .Include(x => x.Industry)

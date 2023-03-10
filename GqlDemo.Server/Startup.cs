@@ -31,6 +31,7 @@ namespace GqlDemo.Server
                 .AddFiltering()
                 .AddSorting()
                 .AddProjections()
+                .AddMutationType<ShareMutation>()
                 .RegisterDbContext<MyContext>(DbContextKind.Pooled);
 
             services.AddPooledDbContextFactory<MyContext>(options =>
