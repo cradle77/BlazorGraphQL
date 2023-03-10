@@ -1,6 +1,7 @@
 using GqlDemo.Server.Data;
 using GqlDemo.Server.Mutations;
 using GqlDemo.Server.Queries;
+using HotChocolate.Data;
 using GqlDemo.Server.Subscriptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,8 @@ namespace GqlDemo.Server
                 .AddQueryType<SharesQuery>()
                 .AddFiltering()
                 .AddSorting()
+                .AddProjections()
+                .RegisterDbContext<MyContext>(DbContextKind.Pooled)
                 .AddMutationType<ShareMutation>()
                 .AddInMemorySubscriptions()
                 .AddSubscriptionType<SharesSubscription>();
