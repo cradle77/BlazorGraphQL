@@ -1,6 +1,7 @@
 using GqlDemo.Server.Data;
 using GqlDemo.Server.Mutations;
 using GqlDemo.Server.Queries;
+using HotChocolate.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +30,8 @@ namespace GqlDemo.Server
                 .AddQueryType<SharesQuery>()
                 .AddFiltering()
                 .AddSorting()
-                .AddMutationType<ShareMutation>();
+                .AddProjections()
+                .RegisterDbContext<MyContext>(DbContextKind.Pooled);
 
             services.AddPooledDbContextFactory<MyContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MyContext")));
