@@ -1,5 +1,6 @@
 using GqlDemo.Server.Data;
 using GqlDemo.Server.Queries;
+using HotChocolate.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +28,9 @@ namespace GqlDemo.Server
             services.AddGraphQLServer()
                 .AddQueryType<SharesQuery>()
                 .AddFiltering()
-                .AddSorting();
+                .AddSorting()
+                .AddProjections()
+                .RegisterDbContext<MyContext>(DbContextKind.Pooled);
 
             services.AddPooledDbContextFactory<MyContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MyContext")));
