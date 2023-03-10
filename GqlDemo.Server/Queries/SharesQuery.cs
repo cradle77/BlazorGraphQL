@@ -18,7 +18,7 @@ namespace GqlDemo.Server.Queries
 
         [GraphQLName("industryById")]
         [UseDbContext(typeof(MyContext))]
-        public Industry GetIndustry([ScopedService] MyContext dbcontext, int id)
+        public Industry GetIndustry(MyContext dbcontext, int id)
         {
             return dbcontext.Industries.Single(x => x.Id == id);
         }
