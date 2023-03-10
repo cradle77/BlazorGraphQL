@@ -15,7 +15,7 @@ namespace GqlDemo.Server.Subscriptions
         [UseDbContext(typeof(MyContext))]
         public Task<Share> OnShareValueChangedAsync(
             [EventMessage] int shareId,
-            [ScopedService] MyContext dbcontext,
+            MyContext dbcontext,
             CancellationToken cancellationToken)
         {
             return dbcontext.Shares

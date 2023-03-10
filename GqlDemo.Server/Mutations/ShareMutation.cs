@@ -12,7 +12,7 @@ namespace GqlDemo.Server.Mutations
     {
         [UseDbContext(typeof(MyContext))]
         public async Task<ChangeValuePayload> ChangeValueAsync(ChangeValueInput input, 
-            [ScopedService] MyContext dbcontext,
+            MyContext dbcontext,
             [Service] ITopicEventSender eventSender)
         {
             var share = await dbcontext.Shares
