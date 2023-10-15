@@ -10,14 +10,12 @@ namespace GqlDemo.Server.Queries
     public class SharesQuery
     {
         [GraphQLName("industries")]
-        [UseDbContext(typeof(MyContext))]
         public IQueryable<Industry> GetAllIndustries(MyContext dbcontext)
         {
             return dbcontext.Industries;
         }
 
         [GraphQLName("shares")]
-        [UseDbContext(typeof(MyContext))]
         [UsePaging(IncludeTotalCount = true, MaxPageSize = 100), UseProjection, UseFiltering, UseSorting]
         public IQueryable<Share> GetAllShares(MyContext dbcontext, int? industryId)
         {
