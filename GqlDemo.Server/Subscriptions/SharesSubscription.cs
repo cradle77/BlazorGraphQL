@@ -12,7 +12,6 @@ namespace GqlDemo.Server.Subscriptions
     {
         [Subscribe]
         [Topic]
-        [UseDbContext(typeof(MyContext))]
         public Task<Share> OnShareValueChangedAsync(
             [EventMessage] int shareId,
             MyContext dbcontext,
@@ -24,7 +23,6 @@ namespace GqlDemo.Server.Subscriptions
         }
 
         [Subscribe]
-        [UseDbContext(typeof(MyContext))]
         [Topic("{industry}")]
         public Task<Share> OnShareValueChangedByIndustryAsync(
             string industry,
