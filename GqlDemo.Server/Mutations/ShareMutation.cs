@@ -10,6 +10,12 @@ namespace GqlDemo.Server.Mutations
     {
         public async Task<ChangeValuePayload> ChangeValueAsync(ChangeValueInput input, MyContext dbcontext)
         {
+            if (input.Percentage == 0)
+                throw new GraphQLException(ErrorBuilder.New()
+                    .SetMessage("Percentage cannot be 0")
+                    .SetCode("INVALID_CHANGE_VALUE")
+                    .Build());
+
             var share = await dbcontext.Shares
                 .Include(x => x.Industry)
                 .SingleAsync(x => x.Id == input.Id);
