@@ -10,9 +10,9 @@ namespace GqlDemo.Server.Mutations
     {
         public async Task<ChangeValuePayload> ChangeValueAsync(ChangeValueInput input, MyContext dbcontext)
         {
-            if (input.Percentage == 0)
+            if (input.Percentage > 30)
                 throw new GraphQLException(ErrorBuilder.New()
-                    .SetMessage("Percentage cannot be 0")
+                    .SetMessage("Percentage cannot be too high")
                     .SetCode("INVALID_CHANGE_VALUE")
                     .Build());
 
